@@ -1,0 +1,111 @@
+.main-header-container{
+    width: 1621px;
+    height: 66px;
+    margin-top: 17px;
+    margin-left: 150px;
+    margin-right: 149px;
+    margin-bottom: 27px;
+    display: flex;
+}
+
+#logo-image{
+    height: 66px;
+}
+
+#logo-text{
+    width: 103px;
+    height: 26px;
+    margin-top: 22px;
+    margin-bottom: 18px;
+    margin-left: -38px;
+    font-family: 'FiraGO';
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 26.4px;
+    letter-spacing: 0.07em;
+    text-align: left;
+    color: #FF2C52;
+}
+
+.main-header-text-container{
+    margin-top: 24px;
+    margin-left: 149px;
+    margin-bottom: 20px;
+    width: 867px;
+    height: 22px;
+    font-family: 'FiraGO';
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 21.6px;
+}
+
+.header-text{
+    margin-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 13px;
+    font-family: 'FiraGO';
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 21.6px;
+    text-align: left;
+    color: #053354;
+}
+
+.header-text:hover{
+    font-weight: 500;
+}
+
+.authorize-register-button{
+    margin-left: 17px;
+    margin-right: 29px;
+    margin-top: 14px;
+    margin-bottom: 34px;
+    width: auto;
+    height: 18px;
+    padding-left: 25px;
+    padding-right: 23px;
+    padding-top: 11px;
+    padding-bottom: 15px;
+    border-radius: 25px;
+    background: #F0FAFF;
+}
+
+.authorize-button{
+    font-family: 'FiraGO';
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    text-align: left;
+    color: #053354;
+}
+
+.authorize-button :hover{
+    color: #18A4E1;
+}
+
+.register-button{
+    font-family: FiraGO;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    text-align: left;
+    color: #053354;
+}
+
+.language-button{
+    margin-top: 14px;
+    width: auto;
+    height: 18px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    padding-left: 24px;
+    padding-right: 22px;
+    border-radius: 25px;
+    background: #F0FAFF;
+    font-family: 'FiraGO';
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    text-align: left;
+
+}
