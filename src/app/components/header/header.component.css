@@ -1,11 +1,23 @@
+.header-container{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
 .main-header-container{
     width: 1621px;
     height: 66px;
     margin-top: 17px;
-    margin-left: 150px;
-    margin-right: 149px;
+    margin-left: 130px;
+    margin-right: 130px;
     margin-bottom: 27px;
     display: flex;
+}
+
+.logo-container{
+    display: flex;
+    margin-right: 20px;
 }
 
 #logo-image{
@@ -29,7 +41,8 @@
 
 .main-header-text-container{
     margin-top: 24px;
-    margin-left: 149px;
+    margin-left: 100px;
+    margin-right: 12px;
     margin-bottom: 20px;
     width: 867px;
     height: 22px;
@@ -53,6 +66,13 @@
 
 .header-text:hover{
     font-weight: 500;
+}
+
+.main-header-text-line{
+    width: 844px;
+    margin-top: 20px;
+    border: 1px solid #F3F7FA
+    
 }
 
 .authorize-register-button{
@@ -84,7 +104,7 @@
 }
 
 .register-button{
-    font-family: FiraGO;
+    font-family: 'FiraGO';
     font-size: 16px;
     font-weight: 400;
     line-height: 19.2px;
@@ -107,5 +127,175 @@
     font-weight: 400;
     line-height: 19.2px;
     text-align: left;
+}
 
+.search-header-container{
+    width: 1920px;
+    height: 120px;
+    margin-top: 27px;
+    background: #ECF2F8;
+    display: flex;
+}
+
+.call-container{
+    display: flex;
+    padding-left: 150px;
+    padding-top: 37px;
+    padding-bottom: 43px;
+}
+
+.call-icon{
+    width: 40px;
+    height: 40px;
+    background: #FFFFFF;
+    display: flex;
+    border-radius: 20px;
+}
+
+.phone-icon{
+    width: 18px;
+    height: 18px;
+    padding-left: 11px;
+    padding-top: 10px;
+    padding-right: 9px;
+    padding-bottom: 10px;
+}
+
+.call-text{
+    width: auto;
+    height: 22px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    font-family: 'FiraGO';
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 21.6px;
+    letter-spacing: 0.07em;
+}
+
+.location-container{
+    display: flex;
+    padding-top: 37px;
+    padding-bottom: 43px;
+    margin-left: 40px;
+}
+
+.location-icon{
+    width: 40px;
+    height: 40px;
+    background: #FFFFFF;
+    display: flex;
+    border-radius: 20px;
+}
+
+.pin-icon{
+    width: 18px;
+    height: 18px;
+    padding-top: 12px;
+    padding-bottom: 10px;
+    padding-left: 11px;
+    padding-right: 11px;
+}
+
+.location-text{
+    width: auto;
+    height: 22px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    font-family: FiraGO;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 21.6px;
+}
+
+.input-container{
+    margin-left: 97px;
+    margin-right: 150px;
+    display: flex;
+    align-items: center;
+}
+
+.search-by-name{
+    width: 410px;
+    height: 50px;
+    border-radius: 50px;
+    background: #FFFFFF;
+    border: 1px solid #18A4E180;
+    font-family: 'FiraGO';
+    padding-left: 30px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.8px;
+}
+
+.search-by-name::placeholder{
+    width: 170px;
+    height: 17px;
+    padding-top: 16px;
+    padding-bottom: 17px;
+    font-family: 'FiraGO';
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.8px;
+    color: #0533544D;
+}
+
+.search-by-name:focus{
+    outline: none;
+    border: 2px solid #18A4E1;
+}
+
+.search-by-speciality{
+    width: 410px;
+    height: 50px;
+    margin-left: 20px;
+    border-radius: 50px;
+    background: #FFFFFF;
+    border: 1px solid #18A4E180;
+    font-family: 'FiraGO';
+    padding-left: 30px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.8px;
+}
+
+.search-by-speciality::placeholder{
+    width: 170px;
+    height: 17px;
+    padding-top: 16px;
+    padding-bottom: 17px;
+    font-family: 'FiraGO';
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.8px;
+    color: #0533544D;
+}
+
+.search-by-speciality:focus{
+    outline: none;
+    border: 2px solid #18A4E1;
+}
+
+.search-button{
+    width: 50px;
+    height: 50px;
+    margin-left: 20px;
+    background: #053354;
+    display: flex;
+    border-radius: 25px;
+}
+
+.search-icon{
+    width: 24px;
+    height: 24px;
+    padding-left: 14px;
+    padding-right: 12px;
+    padding-top: 13px;
+    padding-bottom: 13px;
 }
