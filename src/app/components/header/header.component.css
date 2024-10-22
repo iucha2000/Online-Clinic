@@ -17,10 +17,12 @@
 
 .logo-container{
     display: flex;
+    padding-left: 20px;
     margin-right: 20px;
 }
 
 #logo-image{
+    width: 90px;
     height: 66px;
 }
 
@@ -29,7 +31,7 @@
     height: 26px;
     margin-top: 22px;
     margin-bottom: 18px;
-    margin-left: -38px;
+    margin-left: -24px;
     font-family: 'FiraGO';
     font-size: 22px;
     font-weight: 500;
@@ -222,7 +224,7 @@
 }
 
 .search-by-name{
-    width: 410px;
+    width: 418px;
     height: 50px;
     border-radius: 50px;
     background: #FFFFFF;
@@ -252,7 +254,7 @@
 }
 
 .search-by-speciality{
-    width: 410px;
+    width: 418px;
     height: 50px;
     margin-left: 20px;
     border-radius: 50px;
