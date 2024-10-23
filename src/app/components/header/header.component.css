@@ -57,22 +57,25 @@
 .header-text{
     margin-right: 30px;
     padding-top: 10px;
-    padding-bottom: 13px;
+    padding-bottom: 16px;
     font-family: 'FiraGO';
     font-size: 18px;
     font-weight: 400;
     line-height: 21.6px;
     text-align: left;
     color: #053354;
+    cursor: pointer;
+    border-bottom: 1px solid #F3F7FA
 }
 
 .header-text:hover{
     font-weight: 500;
+    border-bottom: 1px solid #18A4E1;
 }
 
 .main-header-text-line{
     width: 844px;
-    margin-top: 20px;
+    margin-top: 15px;
     border: 1px solid #F3F7FA
     
 }
@@ -99,9 +102,10 @@
     line-height: 19.2px;
     text-align: left;
     color: #053354;
+    cursor: pointer;
 }
 
-.authorize-button :hover{
+.authorize-button:hover{
     color: #18A4E1;
 }
 
@@ -112,6 +116,11 @@
     line-height: 19.2px;
     text-align: left;
     color: #053354;
+    cursor: pointer;
+}
+
+.register-button:hover{
+    color: #18A4E1;
 }
 
 .language-button{
@@ -129,6 +138,11 @@
     font-weight: 400;
     line-height: 19.2px;
     text-align: left;
+    cursor: pointer;
+}
+
+.language-button:hover{
+    color: #18A4E1;
 }
 
 .search-header-container{

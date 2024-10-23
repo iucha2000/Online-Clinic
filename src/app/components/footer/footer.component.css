@@ -6,7 +6,7 @@
 
 .main-footer-container{
     width: 1920px;
-    height: 270px;
+    height: 280px;
     background: #053354;
     display: flex;
 }
@@ -89,11 +89,34 @@
     
 }
 
-.info-body{
+.info-body1{
     padding-top: 20px;
     display: flex;
     flex-direction: column;
-    margin-right: 200px;
-    gap: 6px; 
-    /* TODO fix the padding */
+    margin-right: 180px;
+    gap: 8px;
+}
+
+.info-body2{
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 272px;
+    gap: 8px;
+}
+
+.info-body3{
+    padding-top: 20px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 110px;
+    gap: 8px;
+}
+
+.info-body4{
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
