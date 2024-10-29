@@ -1,9 +1,9 @@
-export class User
+export class Patient
 {
     firstName!: string
     lastName!: string
-    personalNumber!: string
     email!: string
     password!: string
+    personal_Id!: string
     role!: number
 }

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { User } from '../../models/user';
+import { Patient } from '../../models/patient';
+import { EmailService } from '../../services/email/email.service';
+import { PatientService } from '../../services/patient/patient.service';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +12,7 @@ import { User } from '../../models/user';
 export class RegisterComponent {
 
   showPassword = false
-  user: User = {firstName: '', lastName: '', personalNumber: '', email: '', password: '', role: 1}
+  user: Patient = {firstName: '', lastName: '', personal_Id: '', email: '', password: '', role: 1}
 
   registerForm = new FormGroup({
     firstNameField: new FormControl('', Validators.required),
@@ -21,14 +23,34 @@ export class RegisterComponent {
     passwordField: new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+={}|:";\'<>,.?/`~ -]).*$')])
   })
 
+  constructor(private emailService: EmailService, private patientService: PatientService){}
+
+  sendEmail(){
+    console.log(`sending email to ${this.registerForm.value.emailField} ...`)
+    //TODO think of a possible validation if email is real or not (or if its null)
+    this.emailService.sendCodeByEmail(this.registerForm.value.emailField ?? '').subscribe()
+  }
+
   onSubmit(){
     if(this.registerForm.valid)
     {
       this.user.firstName = this.registerForm.value.firstNameField ?? '';
       this.user.lastName = this.registerForm.value.lastNameField ?? '';
-      this.user.personalNumber = this.registerForm.value.personalNumberField ?? '';
+      this.user.personal_Id = this.registerForm.value.personalNumberField ?? '';
       this.user.email = this.registerForm.value.emailField ?? '';
       this.user.password = this.registerForm.value.passwordField ?? '';
+
+      this.emailService.verifyCode(this.registerForm.value.emailField ?? '', parseInt(this.registerForm.value.activationCodeField ?? '', 10))
+      .subscribe(data => {
+        if(data == true){
+          console.log("Adding user to database ...")
+          //TODO show alert if user already exists (has existing email or personal_Id)
+          this.patientService.addPatient(this.user).subscribe()
+        }
+        else{
+          alert("აქტივაციის კოდი არასწორია, ან ვადაგასულია")
+        }
+      })
     }
     else {
       if(this.registerForm.get("firstNameField")?.hasError('required')){
@@ -44,13 +66,11 @@ export class RegisterComponent {
         alert("გთხოვთ, მიუთითოთ ვალიდური ელ-ფოსტა")
       }
       else if(this.registerForm.get("activationCodeField")?.invalid){
-        //TODO check if it is correct in database
-        alert("აქტივაციის კოდი არასწორია, ან ვადაგასულია")
+        alert("აქტივაციის კოდის შევსება სავალდებულოა!")
       }
       else if(this.registerForm.get("passwordField")?.invalid){
         alert("გთხოვთ, მიუთითოთ ვალიდური პაროლი, ის უნდა შეიცავდეს მინიმუმ: \nერთ დიდ ასოს \nერთ პატარა ასოს \nერთ ციფრს \nერთ სიმბოლოს")
       }
     }
-    console.log(this.user)
   }
 }

@@ -119,13 +119,21 @@
     height: 17px;
 }
 
+.send-email-icon:hover{
+    cursor: pointer;
+}
+
 .show-password-container{
     position: absolute;
     margin-top: 40px;
     margin-left: 460px;
 }
 
-.send-password-icon{
-    width: 16px;
-    height: 16px;
+.show-password-icon{
+    width: 24px;
+    height: 24px;
+}
+
+.show-password-icon:hover{
+    cursor: pointer;
 }
