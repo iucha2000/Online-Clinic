@@ -1,24 +1,26 @@
-body{
-    margin: 0px;
+@font-face {
+  font-family: "FiraGO";
+  src: url("./assets/fonts/FiraGO-Regular.woff2");
+  font-weight: 400;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'FiraGO';
-    src: url('./assets/fonts/FiraGO-Regular.woff2'); 
-    font-weight: 400;
-    font-style: normal;
+  font-family: "FiraGO";
+  src: url("./assets/fonts/FiraGO-Medium.woff2");
+  font-weight: 500;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'FiraGO';
-    src: url('./assets/fonts/FiraGO-Medium.woff2'); 
-    font-weight: 500;
-    font-style: normal;
+  font-family: "FiraGO";
+  src: url("./assets/fonts/FiraGO-Bold.woff2");
+  font-weight: 700;
+  font-style: normal;
 }
 
-@font-face {
-    font-family: 'FiraGO';
-    src: url('./assets/fonts/FiraGO-Bold.woff2');
-    font-weight: 700; 
-    font-style: normal;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }

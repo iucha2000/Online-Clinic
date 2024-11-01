@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Patient } from '../../models/patient';
 import { EmailService } from '../../services/email/email.service';
 import { PatientService } from '../../services/patient/patient.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +24,7 @@ export class RegisterComponent {
     passwordField: new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+={}|:";\'<>,.?/`~ -]).*$')])
   })
 
-  constructor(private emailService: EmailService, private patientService: PatientService){}
+  constructor(private emailService: EmailService, private patientService: PatientService, private router: Router){}
 
   sendEmail(){
     console.log(`sending email to ${this.registerForm.value.emailField} ...`)
@@ -46,6 +47,7 @@ export class RegisterComponent {
           console.log("Adding user to database ...")
           //TODO show alert if user already exists (has existing email or personal_Id)
           this.patientService.addPatient(this.user).subscribe()
+          this.router.navigate(['/home']);
         }
         else{
           alert("აქტივაციის კოდი არასწორია, ან ვადაგასულია")

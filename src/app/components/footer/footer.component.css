@@ -5,13 +5,13 @@
 }
 
 .main-footer-container{
-    width: 1920px;
+    width: 100%;
     height: 280px;
     background: #053354;
     display: flex;
 }
 .sub-footer-container{
-    width: 1920px;
+    width: 100%;
     height: 25px;
     background: #ECF2F8;
     display: flex;
@@ -59,7 +59,7 @@
 .info-container{
     display: block;
     padding-top: 55px;
-    margin-left: 248px;
+    /* margin-left: 248px; */
 }
 
 .info-headings{
@@ -71,14 +71,15 @@
     line-height: 19.2px;
     letter-spacing: 0.07em;
     color: #FFFFFF;
-    border-bottom: 1px solid #ECF2F84D
 }
 
 .info-heading{
-    margin-right: 220px;
+    margin-left: 220px;
 }
 
 .info-bodies{
+    margin-left: 220px;
+    width: 1138px;
     font-family: 'FiraGO';
     font-size: 16px;
     font-weight: 400;
@@ -86,7 +87,7 @@
     letter-spacing: 0.07em;
     display: flex;
     color: #FFFFFF;
-    
+    border-top: 1px solid #ECF2F84D
 }
 
 .info-body1{

@@ -6,7 +6,6 @@
 }
 
 .main-header-container{
-    width: 1621px;
     height: 66px;
     margin-top: 17px;
     margin-left: 130px;
@@ -146,7 +145,7 @@
 }
 
 .search-header-container{
-    width: 1920px;
+    width: 100%;
     height: 120px;
     margin-top: 27px;
     background: #ECF2F8;
@@ -315,3 +314,4 @@
     padding-top: 13px;
     padding-bottom: 13px;
 }
+

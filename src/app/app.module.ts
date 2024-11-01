@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -11,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { MainInterceptor } from './interceptors/main.interceptor';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -18,18 +18,19 @@ import { MainInterceptor } from './interceptors/main.interceptor';
     HeaderComponent,
     HomeComponent,
     FooterComponent,
-    RegisterComponent
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     provideClientHydration(),
     CookieService,
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
-    {provide: HTTP_INTERCEPTORS, useClass: MainInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: MainInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]
 })
