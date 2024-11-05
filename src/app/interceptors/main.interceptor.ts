@@ -1,4 +1,4 @@
-import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from "@angular/common/http";
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
@@ -12,7 +12,7 @@ export class MainInterceptor implements HttpInterceptor{
 
     intercept(req: HttpRequest<any>, next: HttpHandler){
 
-        let token: string | null = this.cookieService.get('token');
+        let token: string | null = this.cookieService.get('accessToken');
         let request;
 
         if(token != null){
@@ -44,7 +44,7 @@ export class MainInterceptor implements HttpInterceptor{
                 // else {
                 //     alert(res.error?.message || 'An unknown error occurred');
                 // }
-                return throwError(() => new Error(res.error?.message || 'Server error'));
+                return throwError(() => new HttpErrorResponse({status: res.status, statusText: res.statusText, url: res.url}));
             })
         );
     }

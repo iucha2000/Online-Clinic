@@ -1,6 +1,6 @@
 <div class="header-container">
   <div class="main-header-container">
-    <div class="logo-container">
+    <div class="logo-container" routerLink="/home">
       <img src="/assets/images/logo-header.png" id="logo-image">
       <p id="logo-text">კლინიკა</p>
     </div>
@@ -15,9 +15,23 @@
       <div class="main-header-text-line"></div>
     </div>
     <div class="authorize-register-button">
-      <span class="authorize-button" (click)="toggleModal()">ავტორიზაცია</span>
-      <span> / </span>
-      <span routerLink="/register" class="register-button">რეგისტრაცია</span>
+      <div *ngIf = "!isLoggedIn">
+        <span class="authorize-button" (click)="ToggleLoginForm()">ავტორიზაცია</span>
+        <span> / </span>
+        <span routerLink="/register" class="register-button">რეგისტრაცია</span>
+      </div>
+      <div *ngIf = "isLoggedIn">
+        <div class="user-tab" (click)="ToggleOptions()">
+          <div class="user-tab-head">
+            <img src="/assets/images/user-icon.png" id="user-icon">
+            <span class="user-name">მომხმარებელი</span>
+          </div>
+          <div class="user-tab-options" *ngIf="optionsOpen">
+            <span class = "user-tab-option">პროფილი</span>
+            <span class = "user-tab-option" (click)="LogOut()">გამოსვლა</span>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="language-button">ENG</div>
   </div>
@@ -46,5 +60,5 @@
   </div>
 </div>
 @if (isOpen) {
-  <app-login (toggle)="toggleModal()"/>
+  <app-login (toggle)="ToggleLoginForm()"/>
 }

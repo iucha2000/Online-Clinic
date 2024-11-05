@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoginComponent } from '../login/login.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-header',
@@ -9,8 +9,24 @@ import { LoginComponent } from '../login/login.component';
 export class HeaderComponent {
 
   isOpen = false;
+  isLoggedIn = false;
+  optionsOpen = false;
 
-  toggleModal(){
+  constructor(private cookieService: CookieService){}
+
+  //TODO make options more pretty
+  //TODO add user name dynamic initialization
+
+  ToggleLoginForm(){
     this.isOpen = !this.isOpen;
+  }
+
+  ToggleOptions(){
+    this.optionsOpen = !this.optionsOpen;
+  }
+
+  LogOut(){
+    this.isLoggedIn = false;
+    this.cookieService.delete("accessToken");
   }
 }

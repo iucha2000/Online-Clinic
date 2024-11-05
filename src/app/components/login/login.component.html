@@ -1,10 +1,18 @@
-<div class="overlay" (click)="toggleModal()"></div>
+<div class="overlay" (click)="ToggleLoginForm()"></div>
 <div class="login-container">
-    <h1>Modal Title</h1>
-    <div >
-        <p>This is a pop-up modal content.</p>
-    </div>
-    <div>
-        <button (click)="toggleModal()">Close</button>
-    </div>
+    <h1>ავტორიზაცია</h1>
+    <form class="login-form" [formGroup] = "loginForm" (ngSubmit) = "onSubmit()">
+        <div class="field-container">
+            <input id="email" class="field-input" type="text" formControlName="emailField" placeholder="ელ-ფოსტა / ტელეფონის ნომერი"/>
+        </div>
+        <div class="field-container">
+            <input id="password" class="field-input" type="password" formControlName="passwordField" placeholder="პაროლი"/>
+        </div>
+        <div class="reset-password-text" (click)="InitPasswordReset()">
+            პაროლის აღდგენა
+        </div>
+        <button class="login-submit-button" type="submit">
+            შესვლა
+        </button>
+    </form>
 </div>

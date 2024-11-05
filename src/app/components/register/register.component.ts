@@ -27,9 +27,8 @@ export class RegisterComponent {
   constructor(private emailService: EmailService, private patientService: PatientService, private router: Router){}
 
   sendEmail(){
-    console.log(`sending email to ${this.registerForm.value.emailField} ...`)
     //TODO think of a possible validation if email is real or not (or if its null)
-    this.emailService.sendCodeByEmail(this.registerForm.value.emailField ?? '').subscribe()
+    this.emailService.sendCodeByEmail(this.registerForm.value.emailField ?? '').subscribe(() => alert(`Email with confirmation code sent to ${this.registerForm.value.emailField}`))
   }
 
   onSubmit(){
@@ -44,9 +43,8 @@ export class RegisterComponent {
       this.emailService.verifyCode(this.registerForm.value.emailField ?? '', parseInt(this.registerForm.value.activationCodeField ?? '', 10))
       .subscribe(data => {
         if(data == true){
-          console.log("Adding user to database ...")
           //TODO show alert if user already exists (has existing email or personal_Id)
-          this.patientService.addPatient(this.user).subscribe()
+          this.patientService.addPatient(this.user).subscribe(() => alert("Registration successful"))
           this.router.navigate(['/home']);
         }
         else{
