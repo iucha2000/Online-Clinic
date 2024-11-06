@@ -16,7 +16,22 @@
         <img src="/assets/images/location-photo.png" class = "thumbnail-background">
     </div>
     <div class = "home-body">
-        <!-- TODO add all other components -->
+        <div class = "category-container">
+            <div class = "category-container-header">
+                კატეგორიები
+            </div>
+            <div class = "category-container-body">
+                <div class = "category-entry" *ngFor="let category of categories">
+                    <div class="category-count">({{50}})</div>
+                    <div class="category-name">{{category}}</div>
+                    <img src="/assets/images/arrow-icon.png" id = "arrow-icon-right">
+                </div>
+            </div>
+            <div class = "category-container-footer" (click)="ViewFullCategories()">
+                <div class = "footer-text-container">სრულად ნახვა</div>
+                <img src="/assets/images/arrow-icon.png" id = "arrow-icon-down">
+            </div>
+        </div>
     </div> 
 </div>
 

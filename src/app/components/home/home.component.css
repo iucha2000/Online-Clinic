@@ -84,5 +84,110 @@
 }
 
 .home-body{
-    height: 1500px;
+    height: auto;
+}
+
+.category-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+    height: 800px;
+    justify-content:flex-start;
+    border-radius: 10px;
+    margin-top: 73px;
+    margin-left: 150px;
+    margin-bottom: 145px;
+    box-shadow: 0px 4px 50px 0px #0533540D;
+}
+
+.category-container-header{
+    display: flex;
+    height: 65px;
+    width: 250px;
+    border-bottom: 1px solid #ECF2F8;
+    justify-content: center;
+    align-items: center;
+    font-family: 'FiraGO';
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 21.6px;
+    text-align: left;
+    color: #053354;
+}
+
+.category-container-body{
+    height: 673px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    font-family: 'FiraGO';
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    text-align: left;
+    color: #053354;
+}
+
+.category-entry{
+    height: 40px;
+    width: 350px;
+    display: flex;
+    align-items: center;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    cursor: pointer;
+}
+
+.category-entry:hover{
+    background: #ECF2F880;
+}
+
+.category-entry:hover .category-count{
+    color: #18A4E1;
+}
+
+.category-entry:hover #arrow-icon-right{
+    opacity: 1;
+}
+
+.category-count{
+    margin-left: 50px;
+    margin-right: 25px;
+    width: 40px;
+}
+
+.category-name{
+    text-align: left;
+}
+
+#arrow-icon-right{
+    margin-left: auto;
+    margin-right: 40px;
+    opacity: 0;
+    transform: rotate(-90deg);
+}
+
+.category-container-footer{
+    display: flex;
+    height: 65px;
+    width: 250px;
+    border-top: 1px solid #ECF2F8;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.footer-text-container{
+    font-family: 'FiraGO';
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.8px;
+    text-align: left;
+    color: #18A4E1;
+}
+
+#arrow-icon-down{
+    padding-left: 8px;
+    padding-bottom: 10px;
 }
