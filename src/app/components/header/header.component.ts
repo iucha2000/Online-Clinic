@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { Patient } from '../../models/patient';
+import { Doctor } from '../../models/doctor';
+import { PatientService } from '../../services/patient/patient.service';
+import { TokenService } from '../../services/authentication/token.service';
+import { DoctorService } from '../../services/doctor/doctor.service';
 
 @Component({
   selector: 'app-header',
@@ -9,24 +14,49 @@ import { CookieService } from 'ngx-cookie-service';
 export class HeaderComponent {
 
   isOpen = false;
-  isLoggedIn = false;
-  optionsOpen = false;
+  isLoggedIn = (localStorage.getItem("loginStatus") === "true");
 
-  constructor(private cookieService: CookieService){}
+  account: Patient | Doctor | null =  null
+  username?: string | null = null;
 
-  //TODO make options more pretty
-  //TODO add user name dynamic initialization
+  constructor(private cookieService: CookieService, private patientService: PatientService, private doctorService: DoctorService, private tokenService: TokenService){}
 
-  ToggleLoginForm(){
-    this.isOpen = !this.isOpen;
+  InitLoginAccount(){
+    if(this.tokenService.getRole() == "Patient")
+    {
+      this.patientService.getPatientData(this.tokenService.getUserId())
+      .subscribe(data => 
+      { 
+        this.account = data
+        this.username = `${this.account?.firstName} ${this.account?.lastName}`
+      }) 
+    }
+    else if(this.tokenService.getRole() == "Doctor")
+    {
+      this.doctorService.getDoctorData(this.tokenService.getUserId())
+      .subscribe(data =>
+      {
+        this.account = data
+        this.username = `${this.account?.firstName} ${this.account?.lastName}`
+      })
+    }
+    else{
+      //TODO init admin rights etc
+      this.username = "ადმინისტრატორი";
+    }
   }
 
-  ToggleOptions(){
-    this.optionsOpen = !this.optionsOpen;
+  ngOnInit(){
+    if(this.isLoggedIn){this.InitLoginAccount()}
   }
 
   LogOut(){
-    this.isLoggedIn = false;
     this.cookieService.delete("accessToken");
+    this.isLoggedIn = false;
+    localStorage.removeItem("loginStatus")
+  }
+
+  ToggleLoginForm(){
+    this.isOpen = !this.isOpen;
   }
 }

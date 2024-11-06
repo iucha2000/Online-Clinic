@@ -27,28 +27,33 @@ export class LoginComponent {
     {
       this.login.email = this.loginForm.value.emailField ?? '';
       this.login.password =  this.loginForm.value.passwordField ?? '';
-
-      this.authenticationService.authenticateUser(this.login)
-      .subscribe({
-        next: (res) => {
-          this.cookieService.set('accessToken',res.accessToken)
-          this.ToggleLoginForm()
-          this.headerComponent.isLoggedIn = true;
-          //TODO add profile & logout buttons
-        },
-        error: (error: HttpErrorResponse) => {
-          if(error.status === 404){
-            alert("Invalid credentials")
-          }
-          else{
-            alert("Unexpected error occured")
-          }
-        }
-      });
+      this.LogIn();
     }
     else{
       alert("ელ-ფოსტის და პაროლის შევსება სავალდებულოა")
     }
+  }
+
+  LogIn(){
+    this.authenticationService.authenticateUser(this.login)
+    .subscribe({
+      next: (res) => {
+        this.ToggleLoginForm()
+
+        this.cookieService.set("accessToken",res.accessToken)
+        this.headerComponent.isLoggedIn = true;
+        localStorage.setItem("loginStatus", this.headerComponent.isLoggedIn.toString());
+        this.headerComponent.InitLoginAccount();
+      },
+      error: (error: HttpErrorResponse) => {
+        if(error.status === 404){
+          alert("Invalid credentials")
+        }
+        else{
+          alert("Unexpected error occured")
+        }
+      }
+    });
   }
 
   ToggleLoginForm() {

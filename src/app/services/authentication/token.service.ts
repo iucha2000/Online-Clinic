@@ -14,7 +14,7 @@ export class TokenService {
     return JSON.parse(window.atob(token.split('.')[1]));
   }
 
-  getUserId(): string 
+  getUserId(): number 
   {
     return this.decodeToken().Id;
   }

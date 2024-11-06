@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class RegisterComponent {
 
   showPassword = false
-  user: Patient = {firstName: '', lastName: '', personal_Id: '', email: '', password: '', role: 1}
+  user: Patient = {id: 0, firstName: '', lastName: '', personal_Id: '', email: '', password: '', role: 1}
 
   registerForm = new FormGroup({
     firstNameField: new FormControl('', Validators.required),

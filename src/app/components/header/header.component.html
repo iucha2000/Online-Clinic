@@ -21,15 +21,10 @@
         <span routerLink="/register" class="register-button">რეგისტრაცია</span>
       </div>
       <div *ngIf = "isLoggedIn">
-        <div class="user-tab" (click)="ToggleOptions()">
-          <div class="user-tab-head">
-            <img src="/assets/images/user-icon.png" id="user-icon">
-            <span class="user-name">მომხმარებელი</span>
-          </div>
-          <div class="user-tab-options" *ngIf="optionsOpen">
-            <span class = "user-tab-option">პროფილი</span>
-            <span class = "user-tab-option" (click)="LogOut()">გამოსვლა</span>
-          </div>
+        <div class="user-tab">
+          <img src="/assets/images/user-icon.png" id="user-icon">
+          <span class="user-name">{{username}}</span>
+          <img src="/assets/images/logout-icon.png" id="logout-icon" (click)="LogOut()">
         </div>
       </div>
     </div>
