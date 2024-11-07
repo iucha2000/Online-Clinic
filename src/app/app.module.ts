@@ -11,6 +11,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { MainInterceptor } from './interceptors/main.interceptor';
 import { LoginComponent } from './components/login/login.component';
+import { DoctorCardComponent } from './components/doctor-card/doctor-card.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { LoginComponent } from './components/login/login.component';
     HomeComponent,
     FooterComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    DoctorCardComponent
   ],
   imports: [
     BrowserModule,

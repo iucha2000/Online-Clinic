@@ -17,4 +17,8 @@ export class DoctorService {
   getDoctorData(id: number) : Observable<Doctor>{
     return this.httpClient.get<Doctor>(`http://localhost:5161/api/Doctors/Get-Doctor-By-Id/${id}`)
   }
+
+  getAllDoctorsData() : Observable<Doctor[]>{
+    return this.httpClient.get<Doctor[]>(`http://localhost:5161/api/Doctors/Get-All-Doctors`)
+  }
 }

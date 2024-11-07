@@ -1,5 +1,6 @@
 .home-container{
     position: relative;
+    background-color: #ECF2F880;
 }
 
 .thumbnail-container{
@@ -85,6 +86,7 @@
 
 .home-body{
     height: auto;
+    display: flex;
 }
 
 .category-container{
@@ -92,7 +94,7 @@
     flex-direction: column;
     align-items: center;
     width: 350px;
-    height: 800px;
+    height: 804px;
     justify-content:flex-start;
     border-radius: 10px;
     margin-top: 73px;
@@ -118,7 +120,7 @@
 
 .category-container-body{
     height: 673px;
-    overflow-y: auto;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     font-family: 'FiraGO';
@@ -129,6 +131,22 @@
     color: #053354;
 }
 
+.category-container-body.categoryExpanded {
+    overflow-y: auto;
+}
+
+.category-container-body.categoryExpanded::-webkit-scrollbar {
+    width: 1px; 
+}
+
+.category-container-body.categoryExpanded::-webkit-scrollbar-track {
+    background-color: #ECF2F880;
+}
+
+.category-container-body.categoryExpanded::-webkit-scrollbar-thumb {
+    border: 1px solid #18A4E1;
+}
+
 .category-entry{
     height: 40px;
     width: 350px;
@@ -137,6 +155,7 @@
     margin-top: 2px;
     margin-bottom: 2px;
     cursor: pointer;
+    flex-shrink: 0;
 }
 
 .category-entry:hover{
@@ -190,4 +209,69 @@
 #arrow-icon-down{
     padding-left: 8px;
     padding-bottom: 10px;
+}
+
+#arrow-icon-up{
+    padding-right: 8px;
+    padding-bottom: 6px;
+    transform: rotate(180deg);
+}
+
+.doctors-list-container{
+    width: 1220px;
+    height: 840px;
+    margin-left: 60px;
+    margin-right: 150px;
+    margin-top: 73px;
+}
+
+.doctors-list-body{
+    width: 1220px;
+    height: 810px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    scroll-snap-type: y mandatory;
+    overflow: hidden;
+}
+
+.doctors-list-footer{
+    width: 1220px;
+    height: 40px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin-right: auto;
+    cursor: pointer;
+}
+
+.doctors-list-footer-text{
+    width: auto;
+    height: 17px;
+    margin-right: 5px;
+    align-items: center;
+    justify-content: center;
+    font-family: 'FiraGO';
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.8px;
+    text-align: center;
+    color: #053354;
+    border-bottom: 1px solid #18A4E1;
+}
+
+.doctors-list-body.doctorsExpanded {
+    overflow-y: auto;
+}
+
+.doctors-list-body.doctorsExpanded::-webkit-scrollbar {
+    width: 1px; 
+}
+
+.doctors-list-body.doctorsExpanded::-webkit-scrollbar-track {
+    background-color: #ECF2F880;
+}
+
+.doctors-list-body.doctorsExpanded::-webkit-scrollbar-thumb {
+    border: 1px solid #18A4E1;
 }

@@ -20,7 +20,7 @@
             <div class = "category-container-header">
                 კატეგორიები
             </div>
-            <div class = "category-container-body">
+            <div class = "category-container-body" #categoryContainer [ngClass]="{'categoryExpanded': categoryIsExpanded}">
                 <div class = "category-entry" *ngFor="let category of categories">
                     <div class="category-count">({{50}})</div>
                     <div class="category-name">{{category}}</div>
@@ -28,8 +28,16 @@
                 </div>
             </div>
             <div class = "category-container-footer" (click)="ViewFullCategories()">
-                <div class = "footer-text-container">სრულად ნახვა</div>
-                <img src="/assets/images/arrow-icon.png" id = "arrow-icon-down">
+                <div class = "footer-text-container">{{ categoryIsExpanded ? 'დამალვა' : 'სრულად ნახვა' }}</div>
+                <img src="/assets/images/arrow-icon.png" [id]="categoryIsExpanded ? 'arrow-icon-up' : 'arrow-icon-down'">
+            </div>
+        </div>
+        <div class = "doctors-list-container">
+            <div class = "doctors-list-body" #doctorsContainer [ngClass]="{'doctorsExpanded': doctorsListIsExpanded}">
+                <app-doctor-card *ngFor="let doctor of doctors" [doctor]="doctor"></app-doctor-card>
+            </div>
+            <div class = "doctors-list-footer" (click)="ViewFullDoctors()">
+                <div class="doctors-list-footer-text">{{ doctorsListIsExpanded ? 'დამალვა' : 'სრულად ნახვა' }}</div>
             </div>
         </div>
     </div> 
