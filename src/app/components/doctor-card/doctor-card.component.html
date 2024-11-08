@@ -10,7 +10,8 @@
     </div>
     <div class="doctor-card-body">
         <div class="doctor-card-photo">
-            <!-- TODO dynamically add doctor photo -->
+            <img *ngIf="imageUrl" [src]="imageUrl" class="doctor-card-image"/>
+            <img *ngIf="!imageUrl" src="/assets/images/default-profile-image.png" class="doctor-card-image"/>
         </div>
         <div class="doctor-card-name">
             {{doctor?.firstName}} {{doctor?.lastName}}
