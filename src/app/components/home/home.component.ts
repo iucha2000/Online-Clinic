@@ -2,6 +2,7 @@ import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { Category } from '../../data/Category';
 import { DoctorService } from '../../services/doctor/doctor.service';
 import { Doctor } from '../../models/doctor';
+import { CategoryInfo } from '../../models/categoryInfo';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { Doctor } from '../../models/doctor';
 })
 export class HomeComponent {
 
-  categories: Category[] = Object.values(Category).filter(value => isNaN(Number(value))) as Category[];
+  categoryInfos: CategoryInfo[] | null = null;
   doctors: Doctor[] | null = null;
 
   @ViewChild('categoryContainer') categoryContainer!: ElementRef;
@@ -26,6 +27,10 @@ export class HomeComponent {
     this.doctorService.getAllDoctorsData().subscribe(data => {
       this.doctors = data
     })
+
+    this.doctorService.getDoctorCategoryCount().subscribe(data => {
+      this.categoryInfos = data
+    })
   }
 
   ViewFullCategories(){
@@ -33,7 +38,6 @@ export class HomeComponent {
       this.categoryContainer.nativeElement.scrollTop = 0;
     }
     this.categoryIsExpanded = !this.categoryIsExpanded;
-    //TODO fix dynamic padding between count and name
   }
 
   ViewFullDoctors(){

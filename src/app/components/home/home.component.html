@@ -21,9 +21,9 @@
                 კატეგორიები
             </div>
             <div class = "category-container-body" #categoryContainer [ngClass]="{'categoryExpanded': categoryIsExpanded}">
-                <div class = "category-entry" *ngFor="let category of categories">
-                    <div class="category-count">({{50}})</div>
-                    <div class="category-name">{{category}}</div>
+                <div class = "category-entry" *ngFor="let category of categoryInfos">
+                    <div class="category-count">({{category.count}})</div>
+                    <div class="category-name">{{category.name}}</div>
                     <img src="/assets/images/arrow-icon.png" id = "arrow-icon-right">
                 </div>
             </div>
