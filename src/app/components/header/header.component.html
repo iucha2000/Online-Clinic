@@ -22,7 +22,8 @@
       </div>
       <div *ngIf = "isLoggedIn">
         <div class="user-tab">
-          <img src="/assets/images/user-icon.png" id="user-icon">
+          <img *ngIf="imageUrl" [src]="imageUrl" id="user-icon">
+          <img *ngIf="!imageUrl" src="/assets/images/default-profile-image.png" id="user-icon">
           <span class="user-name">{{username}}</span>
           <img src="/assets/images/logout-icon.png" id="logout-icon" (click)="LogOut()">
         </div>

@@ -334,9 +334,9 @@
     margin-top: -4px;
     margin-left: -18px;
     margin-right: 12px;
-    background-color: black;
     align-items: center;
     cursor: pointer;
+    object-fit: cover;
 }
 
 .user-name{

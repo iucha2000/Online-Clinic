@@ -5,6 +5,8 @@ import { Doctor } from '../../models/doctor';
 import { PatientService } from '../../services/patient/patient.service';
 import { TokenService } from '../../services/authentication/token.service';
 import { DoctorService } from '../../services/doctor/doctor.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { FileService } from '../../services/doctor/file.service';
 
 @Component({
   selector: 'app-header',
@@ -18,8 +20,9 @@ export class HeaderComponent {
 
   account: Patient | Doctor | null =  null
   username?: string | null = null;
+  imageUrl: SafeUrl | null = null;
 
-  constructor(private cookieService: CookieService, private patientService: PatientService, private doctorService: DoctorService, private tokenService: TokenService){}
+  constructor(private cookieService: CookieService, private patientService: PatientService, private doctorService: DoctorService, private tokenService: TokenService, private fileService: FileService, private sanitizer: DomSanitizer){}
 
   InitLoginAccount(){
     if(this.tokenService.getRole() == "Patient")
@@ -29,6 +32,7 @@ export class HeaderComponent {
       { 
         this.account = data
         this.username = `${this.account?.firstName} ${this.account?.lastName}`
+        this.GetUserImage(this.account.id)
       }) 
     }
     else if(this.tokenService.getRole() == "Doctor")
@@ -38,6 +42,7 @@ export class HeaderComponent {
       {
         this.account = data
         this.username = `${this.account?.firstName} ${this.account?.lastName}`
+        this.GetUserImage(this.account.id)
       })
     }
     else{
@@ -53,10 +58,21 @@ export class HeaderComponent {
   LogOut(){
     this.cookieService.delete("accessToken");
     this.isLoggedIn = false;
-    localStorage.removeItem("loginStatus")
+    localStorage.removeItem("loginStatus");
+    this.imageUrl = null;
   }
 
   ToggleLoginForm(){
     this.isOpen = !this.isOpen;
+  }
+
+  GetUserImage(accountId: number){
+    //TODO add image fetching for patient
+    this.fileService.getDoctorImage(accountId).subscribe(
+      (blob) => {
+        const objectUrl = URL.createObjectURL(blob);
+        this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(objectUrl);
+      }
+    );
   }
 }
