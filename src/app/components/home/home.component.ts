@@ -61,6 +61,7 @@ export class HomeComponent {
       this.filterActive = true;
       this.filteredDoctors = this.doctors?.filter(doctor => doctor.category == category.id) ?? this.doctors;
     }
+    this.SortByPinned()
   }
 
   SortByPinned() {
