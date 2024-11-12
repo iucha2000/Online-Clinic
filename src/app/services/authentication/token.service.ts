@@ -11,16 +11,23 @@ export class TokenService {
   private decodeToken() : any
   {
     let token = this.cookieService.get('accessToken');
-    return JSON.parse(window.atob(token.split('.')[1]));
+    if(token == ''){
+      return null;
+    }
+    else{
+      return JSON.parse(window.atob(token.split('.')[1]));
+    }
   }
 
-  getUserId(): number 
+  getUserId(): number
   {
-    return this.decodeToken().Id;
+    const decodedToken = this.decodeToken();
+    return decodedToken ? decodedToken.Id : 0;
   }
 
   getRole(): string
   {
-    return this.decodeToken().Role;
+    const decodedToken = this.decodeToken();
+    return decodedToken ? decodedToken.Role : null;
   }
 }

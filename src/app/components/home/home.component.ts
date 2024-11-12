@@ -65,6 +65,7 @@ export class HomeComponent {
   }
 
   SortByPinned() {
+    //TODO add pinned preferences for every user
     const pinnedDoctors = this.filteredDoctors!.filter(doctor => doctor.isPinned);
     const unpinnedDoctors = this.filteredDoctors!.filter(doctor => !doctor.isPinned);
 
