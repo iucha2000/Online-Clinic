@@ -6,7 +6,10 @@
                 125,999
             </div>
         </div>
-        <img src="/assets/images/pin-icon-doctor.png" id="pin-icon-doctor">
+        <div class="doctor-pin-container" (click)="TogglePin()">
+            <img *ngIf="doctor?.isPinned" src="/assets/images/pin-icon-doctor-active.png" id="pin-icon-doctor">
+            <img *ngIf="!doctor?.isPinned" src="/assets/images/pin-icon-doctor-inactive.png" id="pin-icon-doctor">
+        </div>
     </div>
     <div class="doctor-card-body">
         <div class="doctor-card-photo">

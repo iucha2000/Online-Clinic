@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Doctor } from '../../models/doctor';
 import { Category } from '../../data/Category';
 import { FileService } from '../../services/doctor/file.service';
@@ -13,6 +13,7 @@ export class DoctorCardComponent {
 
   @Input() doctor: Doctor | null = null;
   imageUrl: SafeUrl | null = null;
+  @Output() pinToggled: EventEmitter<void> = new EventEmitter();
 
   constructor(private fileService: FileService, private sanitizer: DomSanitizer){}
 
@@ -35,5 +36,10 @@ export class DoctorCardComponent {
         this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(objectUrl);
       }
     );
+  }
+
+  TogglePin(){
+    this.doctor!.isPinned = !this.doctor!.isPinned
+    this.pinToggled.emit();
   }
 }

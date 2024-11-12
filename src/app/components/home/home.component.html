@@ -21,7 +21,7 @@
                 კატეგორიები
             </div>
             <div class = "category-container-body" #categoryContainer [ngClass]="{'categoryExpanded': categoryIsExpanded}">
-                <div class = "category-entry" *ngFor="let category of categoryInfos">
+                <div class = "category-entry" *ngFor="let category of categoryInfos" (click)="FilterByCategory(category)">
                     <div class="category-count">({{category.count}})</div>
                     <div class="category-name">{{category.name}}</div>
                     <img src="/assets/images/arrow-icon.png" id = "arrow-icon-right">
@@ -34,7 +34,7 @@
         </div>
         <div class = "doctors-list-container">
             <div class = "doctors-list-body" #doctorsContainer [ngClass]="{'doctorsExpanded': doctorsListIsExpanded}">
-                <app-doctor-card *ngFor="let doctor of doctors" [doctor]="doctor"></app-doctor-card>
+                <app-doctor-card *ngFor="let doctor of filteredDoctors" [doctor]="doctor" (pinToggled)="SortByPinned()"></app-doctor-card>
             </div>
             <div class = "doctors-list-footer" (click)="ViewFullDoctors()">
                 <div class="doctors-list-footer-text">{{ doctorsListIsExpanded ? 'დამალვა' : 'სრულად ნახვა' }}</div>

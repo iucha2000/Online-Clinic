@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Patient } from '../../models/patient';
 import { Doctor } from '../../models/doctor';
@@ -14,6 +14,8 @@ import { FileService } from '../../services/doctor/file.service';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+
+  //TODO add search box dropdown for doctors
 
   isOpen = false;
   isLoggedIn = (localStorage.getItem("loginStatus") === "true");

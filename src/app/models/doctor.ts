@@ -9,4 +9,5 @@ export class Doctor
     role!: number
     category!: number
     rating!: number
+    isPinned!: boolean
 }
