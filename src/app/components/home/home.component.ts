@@ -2,7 +2,7 @@ import { Component, ElementRef,ViewChild } from '@angular/core';
 import { DoctorService } from '../../services/doctor/doctor.service';
 import { Doctor } from '../../models/doctor';
 import { CategoryInfo } from '../../models/categoryInfo';
-import { Subscription } from 'rxjs';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
 
 
 @Component({
@@ -23,12 +23,16 @@ export class HomeComponent {
   doctorsListIsExpanded = false;
   filterActive = false;
 
-  constructor(private doctorService: DoctorService){}
+  constructor(private doctorService: DoctorService, private authService: AuthenticationService){}
 
   ngOnInit(){
     this.doctorService.getAllDoctorsData().subscribe(data => {
       this.doctors = data
-      this.filteredDoctors = this.doctors
+
+      const userPreferences = this.authService.loadUserPreferences();
+      this.filteredDoctors = userPreferences ? [...userPreferences] : [...this.doctors];
+
+      this.SortByPinned();
     })
 
     this.doctorService.getDoctorCategoryCount().subscribe(data => {
@@ -65,13 +69,14 @@ export class HomeComponent {
   }
 
   SortByPinned() {
-    //TODO add pinned preferences for every user
     const pinnedDoctors = this.filteredDoctors!.filter(doctor => doctor.isPinned);
     const unpinnedDoctors = this.filteredDoctors!.filter(doctor => !doctor.isPinned);
 
     const unpinnedDoctorsInOriginalOrder = unpinnedDoctors.sort((a, b) => {
-      return this.doctors!.indexOf(a) - this.doctors!.indexOf(b);
+      return this.doctors!.findIndex(doctor => doctor.id === a.id) - this.doctors!.findIndex(doctor => doctor.id === b.id);
     });
+    
     this.filteredDoctors = [...pinnedDoctors, ...unpinnedDoctorsInOriginalOrder];
+    this.authService.saveUserPreferences(this.filteredDoctors);
   }
 }
