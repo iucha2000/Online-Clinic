@@ -1,8 +1,10 @@
-import { Component, ElementRef,ViewChild } from '@angular/core';
+import { Component, ElementRef,OnDestroy,OnInit,ViewChild } from '@angular/core';
 import { DoctorService } from '../../services/doctor/doctor.service';
 import { Doctor } from '../../models/doctor';
 import { CategoryInfo } from '../../models/categoryInfo';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { Subscription } from 'rxjs';
+import { ComponentCommunicatorService } from '../../services/component-communicator.service';
 
 
 @Component({
@@ -10,8 +12,10 @@ import { AuthenticationService } from '../../services/authentication/authenticat
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit, OnDestroy{
 
+  private loginSubscription!: Subscription;
+  
   categoryInfos: CategoryInfo[] | null = null;
   currentCategory: CategoryInfo | null = null;
   doctors: Doctor[] | null = null;
@@ -23,9 +27,23 @@ export class HomeComponent {
   doctorsListIsExpanded = false;
   filterActive = false;
 
-  constructor(private doctorService: DoctorService, private authService: AuthenticationService){}
+  constructor(private doctorService: DoctorService, private authService: AuthenticationService, private componentCommunicator: ComponentCommunicatorService){}
 
   ngOnInit(){
+    this.InitializeComponent();
+
+    this.loginSubscription = this.componentCommunicator.userLoggedIn$.subscribe(() => {
+      this.InitializeComponent();
+    });
+  }
+
+  ngOnDestroy(){
+    if (this.loginSubscription) {
+      this.loginSubscription.unsubscribe();
+    }
+  }
+
+  InitializeComponent(){
     this.doctorService.getAllDoctorsData().subscribe(data => {
       this.doctors = data
 
@@ -55,6 +73,7 @@ export class HomeComponent {
   }
 
   FilterByCategory(category: CategoryInfo){
+    //TODO fix pins resetting after category applied after refresh
     if(this.currentCategory == category){
       this.currentCategory = null;
       this.filterActive = false;
@@ -75,7 +94,7 @@ export class HomeComponent {
     const unpinnedDoctorsInOriginalOrder = unpinnedDoctors.sort((a, b) => {
       return this.doctors!.findIndex(doctor => doctor.id === a.id) - this.doctors!.findIndex(doctor => doctor.id === b.id);
     });
-    
+
     this.filteredDoctors = [...pinnedDoctors, ...unpinnedDoctorsInOriginalOrder];
     this.authService.saveUserPreferences(this.filteredDoctors);
   }

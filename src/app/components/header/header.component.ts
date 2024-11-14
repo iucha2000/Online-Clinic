@@ -7,6 +7,7 @@ import { TokenService } from '../../services/authentication/token.service';
 import { DoctorService } from '../../services/doctor/doctor.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { FileService } from '../../services/doctor/file.service';
+import { ComponentCommunicatorService } from '../../services/component-communicator.service';
 
 @Component({
   selector: 'app-header',
@@ -24,7 +25,7 @@ export class HeaderComponent {
   username?: string | null = null;
   imageUrl: SafeUrl | null = null;
 
-  constructor(private cookieService: CookieService, private patientService: PatientService, private doctorService: DoctorService, private tokenService: TokenService, private fileService: FileService, private sanitizer: DomSanitizer){}
+  constructor(private cookieService: CookieService, private patientService: PatientService, private doctorService: DoctorService, private tokenService: TokenService, private fileService: FileService, private sanitizer: DomSanitizer, private componentCommunicator: ComponentCommunicatorService){}
 
   InitLoginAccount(){
     if(this.tokenService.getRole() == "Patient")
@@ -35,6 +36,7 @@ export class HeaderComponent {
         this.account = data
         this.username = `${this.account?.firstName} ${this.account?.lastName}`
         this.GetUserImage(this.account.id)
+        this.componentCommunicator.SwitchUserContext()
       }) 
     }
     else if(this.tokenService.getRole() == "Doctor")
@@ -45,11 +47,13 @@ export class HeaderComponent {
         this.account = data
         this.username = `${this.account?.firstName} ${this.account?.lastName}`
         this.GetUserImage(this.account.id)
+        this.componentCommunicator.SwitchUserContext()
       })
     }
     else{
       //TODO init admin rights etc
       this.username = "ადმინისტრატორი";
+      this.componentCommunicator.SwitchUserContext()
     }
   }
 
@@ -62,6 +66,7 @@ export class HeaderComponent {
     this.isLoggedIn = false;
     localStorage.removeItem("loginStatus");
     this.imageUrl = null;
+    this.componentCommunicator.SwitchUserContext()
   }
 
   ToggleLoginForm(){
