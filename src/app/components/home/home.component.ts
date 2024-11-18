@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit, OnDestroy{
   currentCategory: CategoryInfo | null = null;
   doctors: Doctor[] | null = null;
   filteredDoctors: Doctor[] | null = null;
+  userPreferences: Doctor[] | null = null;
 
   @ViewChild('categoryContainer') categoryContainer!: ElementRef;
   @ViewChild('doctorsContainer') doctotsContainer!: ElementRef;
@@ -47,8 +48,8 @@ export class HomeComponent implements OnInit, OnDestroy{
     this.doctorService.getAllDoctorsData().subscribe(data => {
       this.doctors = data
 
-      const userPreferences = this.authService.loadUserPreferences();
-      this.filteredDoctors = userPreferences ? [...userPreferences] : [...this.doctors];
+      this.userPreferences = this.authService.loadUserPreferences();
+      this.filteredDoctors = this.userPreferences ? [...this.userPreferences] : [...this.doctors];
 
       this.SortByPinned();
     })
@@ -73,16 +74,16 @@ export class HomeComponent implements OnInit, OnDestroy{
   }
 
   FilterByCategory(category: CategoryInfo){
-    //TODO fix pins resetting after category applied after refresh
+    this.filteredDoctors = this.userPreferences ? [...this.userPreferences] : [...this.doctors!];
+
     if(this.currentCategory == category){
       this.currentCategory = null;
       this.filterActive = false;
-      this.filteredDoctors = this.doctors;
     }
     else{
       this.currentCategory = category;
       this.filterActive = true;
-      this.filteredDoctors = this.doctors?.filter(doctor => doctor.category == category.id) ?? this.doctors;
+      this.filteredDoctors = this.filteredDoctors.filter(doctor => doctor.category === category.id)
     }
     this.SortByPinned()
   }
