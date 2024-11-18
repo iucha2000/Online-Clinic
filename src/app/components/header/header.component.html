@@ -45,8 +45,22 @@
       <div class="location-text">იაკობ ნიკოლაძე №10</div>
     </div>
     <div class="input-container">
-      <input class="search-by-name" placeholder="მოძებნე ექიმი სახელით" />
-      <input class="search-by-speciality" placeholder="მოძებნე სპეციალობით" />
+      <div class="search-by-name-container">
+        <input class="search-by-name" placeholder="მოძებნე ექიმი სახელით" [(ngModel)]="nameSearchQuery" (input)="onNameSearchChange()"/>
+        <ul *ngIf="filteredNameDoctors.length > 0" class="search-results">
+          <li *ngFor="let doctor of filteredNameDoctors" (click)="onSelectDoctor(doctor)">
+            {{ doctor.name }}
+          </li>
+        </ul>
+      </div>
+      <div class="search-by-speciality-container">
+        <input class="search-by-speciality" placeholder="მოძებნე სპეციალობით" [(ngModel)]="specialitySearchQuery" (input)="onSpecialitySearchChange()"/>
+        <ul *ngIf="filteredSpecialityDoctors.length > 0" class="search-results">
+          <li *ngFor="let doctor of filteredSpecialityDoctors" (click)="onSelectDoctor(doctor)">
+            {{ doctor.name }}
+          </li>
+        </ul>
+      </div>
       <div class="search-button">
         <div class="search-icon">
           <img src="/assets/images/search-icon.svg">    

@@ -237,6 +237,11 @@
     align-items: center;
 }
 
+.search-by-name-container{
+    width: 452px;
+    height: 54px;
+}
+
 .search-by-name{
     width: 418px;
     height: 50px;
@@ -264,13 +269,18 @@
 
 .search-by-name:focus{
     outline: none;
-    border: 2px solid #18A4E1;
+    border: 1px solid #18A4E1;
+}
+
+.search-by-speciality-container{
+    width: 452px;
+    height: 54px;
+    margin-left: 20px;
 }
 
 .search-by-speciality{
     width: 418px;
     height: 50px;
-    margin-left: 20px;
     border-radius: 50px;
     background: #FFFFFF;
     border: 1px solid #18A4E180;
@@ -295,7 +305,7 @@
 
 .search-by-speciality:focus{
     outline: none;
-    border: 2px solid #18A4E1;
+    border: 1px solid #18A4E1;
 }
 
 .search-button{
@@ -354,6 +364,47 @@
     padding-top: 1px;
     padding-left: 10px;
     cursor: pointer;
+}
+
+.search-results {
+    position: absolute;
+    width: 450px;
+    padding-left: 0;
+    /* margin-top: -24px;
+    padding-top: 30px; */
+    border: 1px solid #18A4E1;
+    /* border-top: none; */
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    background-color: white;
+    list-style-type: none;
+    max-height: 300px;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    z-index: 10;
+}
+  
+.search-results li {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.search-results li:hover {
+    background-color: #f0f0f0;
+}
+
+.search-results::-webkit-scrollbar {
+    width: 1px; 
+}
+
+.search-results::-webkit-scrollbar-track {
+    background-color: #ECF2F880;
+}
+
+.search-results::-webkit-scrollbar-thumb {
+    border: none
 }
 
 
