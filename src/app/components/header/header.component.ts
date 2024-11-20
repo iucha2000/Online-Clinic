@@ -8,6 +8,7 @@ import { DoctorService } from '../../services/doctor/doctor.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { FileService } from '../../services/doctor/file.service';
 import { ComponentCommunicatorService } from '../../services/component-communicator.service';
+import { Category } from '../../data/Category';
 
 @Component({
   selector: 'app-header',
@@ -25,24 +26,10 @@ export class HeaderComponent {
 
   nameSearchQuery: string = '';
   specialitySearchQuery: string = '';
-  filteredNameDoctors: any[] = [];
-  filteredSpecialityDoctors : any[] = [];
+  filteredNameDoctors: Doctor[] = [];
+  filteredSpecialityDoctors : Doctor[] = [];
 
-  //TODO init getting real doctor list
-  //TODO create doctor view component to display data
-  doctors: any[] = [
-    { id: 1, name: 'Doctor A', category: 'Cardiology' },
-    { id: 2, name: 'Doctor B', category: 'Neurology' },
-    { id: 3, name: 'Doctor C', category: 'General' },
-    { id: 4, name: 'Doctor D', category: 'Pediatrics' },
-    { id: 5, name: 'Doctor E', category: 'Neurology' },
-    { id: 6, name: 'Doctor F', category: 'General' },
-    { id: 7, name: 'Doctor G', category: 'General' },
-    { id: 8, name: 'Doctor H', category: 'Neurology' },
-    { id: 9, name: 'Doctor I', category: 'Pediatrics' },
-    { id: 10, name: 'Doctor J', category: 'Cardiology' },
-    { id: 11, name: 'Doctor K', category: 'Pediatrics' }
-  ];
+  doctors: Doctor[] | null = null;
 
   constructor(private cookieService: CookieService, private patientService: PatientService, private doctorService: DoctorService, private tokenService: TokenService, private fileService: FileService, private sanitizer: DomSanitizer, private componentCommunicator: ComponentCommunicatorService){}
 
@@ -78,6 +65,10 @@ export class HeaderComponent {
 
   ngOnInit(){
     if(this.isLoggedIn){this.InitLoginAccount()}
+
+    this.doctorService.getAllDoctorsData().subscribe(data => {
+      this.doctors = data;
+    });
   }
 
   onNameSearchChange(): void {
@@ -85,8 +76,9 @@ export class HeaderComponent {
       this.specialitySearchQuery = '';
       this.filteredSpecialityDoctors = [];
 
-      this.filteredNameDoctors = this.doctors.filter(doctor =>
-        doctor.name.toLowerCase().includes(this.nameSearchQuery.toLowerCase()))
+      this.filteredNameDoctors = this.doctors!.filter(doctor =>
+        doctor.firstName.toLowerCase().includes(this.nameSearchQuery.toLowerCase())
+      )
     }
     else {
       this.filteredNameDoctors = [];
@@ -98,8 +90,8 @@ export class HeaderComponent {
       this.nameSearchQuery = '';
       this.filteredNameDoctors = [];
 
-      this.filteredSpecialityDoctors = this.doctors.filter(doctor =>
-        doctor.category.toLowerCase().includes(this.specialitySearchQuery.toLowerCase()))
+      this.filteredSpecialityDoctors = this.doctors!.filter(doctor =>
+        Category[doctor.category].toLowerCase().includes(this.specialitySearchQuery.toLowerCase()))
     }
     else {
       this.filteredSpecialityDoctors = [];

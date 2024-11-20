@@ -1,0 +1,58 @@
+.search-doctor-view-container{
+    display: flex;
+    height: 50px;
+    align-items: center;
+}
+
+.doctor-image-container{
+    display: flex;
+    width: 50px;
+    height: 50px;
+    justify-content: center;
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+.doctor-image{
+    height: 100%;
+    width: 100%;
+    border-radius: inherit;
+    object-fit: cover;
+}
+
+.doctor-fullname-container{
+    width: 150px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'FiraGO';
+    font-size: 14px;
+    font-weight: 400;
+    text-align: left;
+}
+
+.doctor-speciality-container{
+    width: 150px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'FiraGO';
+    font-size: 14px;
+    font-weight: 400;
+    text-align: left;
+}
+
+.doctor-rating-container{
+    width: 100px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.star-image{
+    width: 15px;
+    height: 15px;
+}

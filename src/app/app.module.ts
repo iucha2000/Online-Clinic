@@ -12,6 +12,7 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi
 import { MainInterceptor } from './interceptors/main.interceptor';
 import { LoginComponent } from './components/login/login.component';
 import { DoctorCardComponent } from './components/doctor-card/doctor-card.component';
+import { SearchDoctorViewComponent } from './components/search-doctor-view/search-doctor-view.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { DoctorCardComponent } from './components/doctor-card/doctor-card.compon
     FooterComponent,
     RegisterComponent,
     LoginComponent,
-    DoctorCardComponent
+    DoctorCardComponent,
+    SearchDoctorViewComponent
   ],
   imports: [
     BrowserModule,

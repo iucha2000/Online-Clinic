@@ -1,0 +1,15 @@
+<div class = "search-doctor-view-container">
+    <div class = "doctor-image-container">
+        <img *ngIf="imageUrl" [src]="imageUrl" class="doctor-image"/>
+        <img *ngIf="!imageUrl" src="/assets/images/default-profile-image.png" class="doctor-image"/>
+    </div>
+    <div class = "doctor-fullname-container">
+        {{doctor?.firstName}} {{doctor?.lastName}}
+    </div>
+    <div class = "doctor-speciality-container">
+        {{getDoctorCategory(doctor?.category)}}
+    </div>
+    <div class = "doctor-rating-container">
+        <img *ngFor="let _ of getDoctorRatingArray(doctor?.rating)" src="/assets/images/star-icon.png" class="star-image">
+    </div>
+</div>
