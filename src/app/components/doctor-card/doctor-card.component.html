@@ -20,13 +20,13 @@
             {{doctor?.firstName}} {{doctor?.lastName}}
         </div>
         <div class="doctor-card-category">
-            {{getDoctorCategory(doctor?.category)}}
+            {{category}}
         </div>
         <div class="doctor-card-rating">
-            <img *ngFor="let _ of getDoctorRatingArray(doctor?.rating)" src="/assets/images/star-icon.png">
+            <img *ngFor="let _ of rating" src="/assets/images/star-icon.png">
         </div>
     </div>
-    <button class="doctor-card-reserve-button">
+    <button class="doctor-card-reserve-button" (click)="onSelectReservation(doctor!)">
         <div class="reserve-button-text">მიღებაზე ჩაწერა</div>
         <img src="/assets/images/arrow-icon-dark.svg" id="reserve-button-arrow">
     </button>

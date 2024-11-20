@@ -9,6 +9,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { FileService } from '../../services/doctor/file.service';
 import { ComponentCommunicatorService } from '../../services/component-communicator.service';
 import { Category } from '../../data/Category';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -31,7 +32,7 @@ export class HeaderComponent {
 
   doctors: Doctor[] | null = null;
 
-  constructor(private cookieService: CookieService, private patientService: PatientService, private doctorService: DoctorService, private tokenService: TokenService, private fileService: FileService, private sanitizer: DomSanitizer, private componentCommunicator: ComponentCommunicatorService){}
+  constructor(private cookieService: CookieService, private patientService: PatientService, private doctorService: DoctorService, private tokenService: TokenService, private fileService: FileService, private sanitizer: DomSanitizer, private componentCommunicator: ComponentCommunicatorService, private router: Router){}
 
   InitLoginAccount(){
     if(this.tokenService.getRole() == "Patient")
@@ -98,8 +99,11 @@ export class HeaderComponent {
     }
   }
 
-  onSelectDoctor(doctor: any): void {
+  onSelectDoctor(doctor: Doctor): void {
     console.log('Selected Doctor:', doctor);
+    this.specialitySearchQuery = this.nameSearchQuery = '';
+    this.filteredSpecialityDoctors = this.filteredNameDoctors = [];
+    this.router.navigate([`/reservation/${doctor.id}`]);
   }
 
   LogOut(){

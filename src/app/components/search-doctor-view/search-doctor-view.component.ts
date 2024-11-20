@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Doctor } from '../../models/doctor';
-import { Category } from '../../data/Category';
-import { FileService } from '../../services/doctor/file.service';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { SafeUrl } from '@angular/platform-browser';
+import { DoctorService } from '../../services/doctor/doctor.service';
 
 @Component({
   selector: 'app-search-doctor-view',
@@ -11,28 +10,15 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 })
 export class SearchDoctorViewComponent {
   @Input() doctor: Doctor | null = null
+  category: string | undefined
+  rating: Array<number> | undefined
   imageUrl: SafeUrl | null = null;
 
-  constructor(private fileService: FileService, private sanitizer: DomSanitizer){}
+  constructor(private doctorService: DoctorService){}
 
   ngOnInit(){
-    this.getDoctorImage(this.doctor?.id);
-  }
-
-  getDoctorCategory(category: number | undefined){
-    return this.doctor?.category ? Category[this.doctor.category] : '';
-  }
-
-  getDoctorRatingArray(rating: number | undefined){
-    return new Array(rating);
-  }
-
-  getDoctorImage(doctorId: number | undefined){
-    this.fileService.getDoctorImage(doctorId).subscribe(
-      (blob) => {
-        const objectUrl = URL.createObjectURL(blob);
-        this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(objectUrl);
-      }
-    );
+    this.category = this.doctorService.getDoctorCategory(this.doctor!)
+    this.rating = this.doctorService.getDoctorRating(this.doctor!)
+    this.doctorService.getDoctorImage(this.doctor!).subscribe(safeUrl => this.imageUrl = safeUrl)
   }
 }

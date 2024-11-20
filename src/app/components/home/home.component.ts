@@ -5,6 +5,7 @@ import { CategoryInfo } from '../../models/categoryInfo';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { Subscription } from 'rxjs';
 import { ComponentCommunicatorService } from '../../services/component-communicator.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy{
   doctorsListIsExpanded = false;
   filterActive = false;
 
-  constructor(private doctorService: DoctorService, private authService: AuthenticationService, private componentCommunicator: ComponentCommunicatorService){}
+  constructor(private doctorService: DoctorService, private authService: AuthenticationService, private componentCommunicator: ComponentCommunicatorService, private router: Router){}
 
   ngOnInit(){
     this.InitializeComponent();

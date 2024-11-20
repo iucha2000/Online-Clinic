@@ -7,9 +7,9 @@
         {{doctor?.firstName}} {{doctor?.lastName}}
     </div>
     <div class = "doctor-speciality-container">
-        {{getDoctorCategory(doctor?.category)}}
+        {{category}}
     </div>
     <div class = "doctor-rating-container">
-        <img *ngFor="let _ of getDoctorRatingArray(doctor?.rating)" src="/assets/images/star-icon.png" class="star-image">
+        <img *ngFor="let _ of rating" src="/assets/images/star-icon.png" class="star-image">
     </div>
 </div>

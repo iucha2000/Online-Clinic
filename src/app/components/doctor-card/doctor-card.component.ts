@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Doctor } from '../../models/doctor';
-import { Category } from '../../data/Category';
-import { FileService } from '../../services/doctor/file.service';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { SafeUrl } from '@angular/platform-browser';
+import { DoctorService } from '../../services/doctor/doctor.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-doctor-card',
@@ -13,33 +13,24 @@ export class DoctorCardComponent {
 
   @Input() doctor: Doctor | null = null;
   imageUrl: SafeUrl | null = null;
+  category: string | undefined
+  rating: Array<number> | undefined
   @Output() pinToggled: EventEmitter<void> = new EventEmitter();
 
-  constructor(private fileService: FileService, private sanitizer: DomSanitizer){}
+  constructor(private doctorService: DoctorService, private router: Router){}
 
   ngOnInit(){
-    this.getDoctorImage(this.doctor?.id);
-  }
-
-  getDoctorCategory(category: number | undefined){
-    return this.doctor?.category ? Category[this.doctor.category] : '';
-  }
-
-  getDoctorRatingArray(rating: number | undefined){
-    return new Array(rating);
-  }
-
-  getDoctorImage(doctorId: number | undefined){
-    this.fileService.getDoctorImage(doctorId).subscribe(
-      (blob) => {
-        const objectUrl = URL.createObjectURL(blob);
-        this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(objectUrl);
-      }
-    );
+    this.category = this.doctorService.getDoctorCategory(this.doctor!)
+    this.rating = this.doctorService.getDoctorRating(this.doctor!)
+    this.doctorService.getDoctorImage(this.doctor!).subscribe(safeUrl => this.imageUrl = safeUrl)
   }
 
   TogglePin(){
     this.doctor!.isPinned = !this.doctor!.isPinned
     this.pinToggled.emit();
+  }
+
+  onSelectReservation(doctor: Doctor): void {
+    this.router.navigate([`/reservation/${doctor.id}`]);
   }
 }

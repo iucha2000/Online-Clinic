@@ -48,7 +48,7 @@
       <div class="search-by-name-container">
         <input class="search-by-name" placeholder="მოძებნე ექიმი სახელით" [(ngModel)]="nameSearchQuery" (input)="onNameSearchChange()"/>
         <ul *ngIf="filteredNameDoctors.length > 0" class="search-results">
-          <li *ngFor="let doctor of filteredNameDoctors" (click)="onSelectDoctor(doctor)" class="abc">
+          <li *ngFor="let doctor of filteredNameDoctors" (click)="onSelectDoctor(doctor!)" class="abc">
             <app-search-doctor-view [doctor]="doctor"></app-search-doctor-view>
           </li>
         </ul>
@@ -56,7 +56,7 @@
       <div class="search-by-speciality-container">
         <input class="search-by-speciality" placeholder="მოძებნე სპეციალობით" [(ngModel)]="specialitySearchQuery" (input)="onSpecialitySearchChange()"/>
         <ul *ngIf="filteredSpecialityDoctors.length > 0" class="search-results">
-          <li *ngFor="let doctor of filteredSpecialityDoctors" (click)="onSelectDoctor(doctor)" class="abc">
+          <li *ngFor="let doctor of filteredSpecialityDoctors" (click)="onSelectDoctor(doctor!)" class="abc">
             <app-search-doctor-view [doctor]="doctor"></app-search-doctor-view>
           </li>
         </ul>

@@ -13,6 +13,7 @@ import { MainInterceptor } from './interceptors/main.interceptor';
 import { LoginComponent } from './components/login/login.component';
 import { DoctorCardComponent } from './components/doctor-card/doctor-card.component';
 import { SearchDoctorViewComponent } from './components/search-doctor-view/search-doctor-view.component';
+import { ReservationComponent } from './components/reservation/reservation.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { SearchDoctorViewComponent } from './components/search-doctor-view/searc
     RegisterComponent,
     LoginComponent,
     DoctorCardComponent,
-    SearchDoctorViewComponent
+    SearchDoctorViewComponent,
+    ReservationComponent
   ],
   imports: [
     BrowserModule,
