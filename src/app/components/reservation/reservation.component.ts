@@ -14,13 +14,8 @@ export class ReservationComponent {
   imageUrl: SafeUrl | null = null;
   category: string | undefined
   rating: Array<number> | undefined
-
-  //TODO add cv parsing and dynamic key-value initialization from server request
-  entries: { key: string; value: any }[] = [
-    { key: '2017 - დღემდე', value: 'ჩვენი კლინიკის გენერალური დირექტორი' },
-    { key: '2002 - დღემდე', value: 'ჩვენი კომპიუტერული ტომოგრაფიის განყოფილების ხელმძღვანელი' },
-    { key: '1995 - დღემდე', value: 'კარდიოლოგი / არითმოლოგი'}
-  ];
+  experienceData: { [key: string]: string } = {};
+  entries: { key: string, value: string }[] = [];
 
   constructor(private route: ActivatedRoute, private doctorService: DoctorService){}
 
@@ -31,6 +26,10 @@ export class ReservationComponent {
       this.category = this.doctorService.getDoctorCategory(this.doctor!)
       this.rating = this.doctorService.getDoctorRating(this.doctor!)
       this.doctorService.getDoctorImage(this.doctor!).subscribe(safeUrl => this.imageUrl = safeUrl)
+      this.doctorService.getDoctorExperience(this.doctor!).subscribe(data => {
+        this.experienceData = data
+        this.entries = Object.entries(this.experienceData).map(([key, value]) => ({ key, value }))
+      })
     }) 
   }
 }

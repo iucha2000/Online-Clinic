@@ -46,4 +46,8 @@ export class DoctorService {
       })
     );
   }
+
+  getDoctorExperience(doctor: Doctor):Observable<any>{
+    return this.fileService.getDoctorCvParsed(doctor.id)
+  }
 }

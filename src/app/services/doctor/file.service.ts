@@ -12,4 +12,8 @@ export class FileService {
   getDoctorImage(doctorId: number | undefined) : Observable<Blob>{
     return this.httpClient.get(`http://localhost:5161/api/Doctors/Get-Image/${doctorId}`, {responseType: 'blob' })
   }
+
+  getDoctorCvParsed(doctorId: number | undefined) : Observable<any>{
+    return this.httpClient.get(`http://localhost:5161/api/Doctors/Parse-CV/${doctorId}`, {})
+  }
 }
