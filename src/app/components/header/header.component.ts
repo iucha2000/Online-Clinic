@@ -19,10 +19,10 @@ import { UserRole } from '../../data/UserRole';
 })
 export class HeaderComponent {
 
-  isOpen = false;
+  loginFormOpen = false;
   isLoggedIn = (localStorage.getItem("loginStatus") === "true");
 
-  account: Patient | Doctor | null =  null
+  account: Patient | Doctor | null =  null;
   username?: string | null = null;
   imageUrl: SafeUrl | null = null;
 
@@ -124,7 +124,7 @@ export class HeaderComponent {
   }
 
   ToggleLoginForm(){
-    this.isOpen = !this.isOpen;
+    this.loginFormOpen = !this.loginFormOpen;
   }
 
   GetUserImage(accountId: number){

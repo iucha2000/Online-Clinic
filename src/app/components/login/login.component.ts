@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component, EventEmitter, Output} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Login } from '../../models/login';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
@@ -12,6 +12,8 @@ import { HeaderComponent } from '../header/header.component';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+
+  @Output() toggle = new EventEmitter<void>();
 
   login: Login = {email: '', password: ''}
 
@@ -38,7 +40,7 @@ export class LoginComponent {
     this.authenticationService.authenticateUser(this.login)
     .subscribe({
       next: (res) => {
-        this.ToggleLoginForm()
+        this.ToggleForm()
 
         this.cookieService.set("accessToken",res.accessToken)
         this.headerComponent.isLoggedIn = true;
@@ -56,8 +58,8 @@ export class LoginComponent {
     });
   }
 
-  ToggleLoginForm() {
-    this.headerComponent.ToggleLoginForm()
+  ToggleForm() {
+    this.toggle.emit()
   }
 
   ResetPassword(){

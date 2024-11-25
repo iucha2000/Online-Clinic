@@ -13,6 +13,8 @@ import { UserRole } from '../../data/UserRole';
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent {
+  
+  changePasswordOpen = false
   userId: number = 0
   userRole: string = ''
   doctor: Doctor | null = null
@@ -40,10 +42,12 @@ export class ProfileComponent {
         this.doctorService.getDoctorImage(this.doctor!).subscribe(safeUrl => this.imageUrl = safeUrl)
       })
     }
+    else{
+      //TODO init admin profile page
+    }
   }
 
-  ChangePassword(){
-    //TODO init change password functionality
-    console.log("Changing password...")
+  ToggleChangePassword(){
+    this.changePasswordOpen = !this.changePasswordOpen
   }
 }

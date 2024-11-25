@@ -17,6 +17,7 @@
     <div class="authorize-register-button">
       <div *ngIf = "!isLoggedIn">
         <span class="authorize-button" (click)="ToggleLoginForm()">ავტორიზაცია</span>
+        <app-login *ngIf="loginFormOpen" (toggle)="ToggleLoginForm()"/>
         <span> / </span>
         <span routerLink="/register" class="register-button">რეგისტრაცია</span>
       </div>
@@ -69,6 +70,3 @@
     </div>
   </div>
 </div>
-@if (isOpen) {
-  <app-login (toggle)="ToggleLoginForm()"/>
-}
