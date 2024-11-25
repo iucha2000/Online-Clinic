@@ -14,6 +14,7 @@ import { LoginComponent } from './components/login/login.component';
 import { DoctorCardComponent } from './components/doctor-card/doctor-card.component';
 import { SearchDoctorViewComponent } from './components/search-doctor-view/search-doctor-view.component';
 import { ReservationComponent } from './components/reservation/reservation.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ReservationComponent } from './components/reservation/reservation.compo
     LoginComponent,
     DoctorCardComponent,
     SearchDoctorViewComponent,
-    ReservationComponent
+    ReservationComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

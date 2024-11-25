@@ -60,7 +60,7 @@ export class LoginComponent {
     this.headerComponent.ToggleLoginForm()
   }
 
-  InitPasswordReset(){
+  ResetPassword(){
     //TODO implement password reset via link/email
     console.log("Resetting password...")
   }

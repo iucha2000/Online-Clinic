@@ -10,6 +10,7 @@ import { FileService } from '../../services/doctor/file.service';
 import { ComponentCommunicatorService } from '../../services/component-communicator.service';
 import { Category } from '../../data/Category';
 import { Router } from '@angular/router';
+import { UserRole } from '../../data/UserRole';
 
 @Component({
   selector: 'app-header',
@@ -35,7 +36,7 @@ export class HeaderComponent {
   constructor(private cookieService: CookieService, private patientService: PatientService, private doctorService: DoctorService, private tokenService: TokenService, private fileService: FileService, private sanitizer: DomSanitizer, private componentCommunicator: ComponentCommunicatorService, private router: Router){}
 
   InitLoginAccount(){
-    if(this.tokenService.getRole() == "Patient")
+    if(this.tokenService.getRole() == UserRole.Patient)
     {
       this.patientService.getPatientData(this.tokenService.getUserId())
       .subscribe(data => 
@@ -46,7 +47,7 @@ export class HeaderComponent {
         this.componentCommunicator.SwitchUserContext()
       }) 
     }
-    else if(this.tokenService.getRole() == "Doctor")
+    else if(this.tokenService.getRole() == UserRole.Doctor)
     {
       this.doctorService.getDoctorData(this.tokenService.getUserId())
       .subscribe(data =>
@@ -106,12 +107,20 @@ export class HeaderComponent {
     this.router.navigate([`/reservation/${doctor.id}`]);
   }
 
+  GoToProfile(){
+    this.router.navigate(["/profile"])
+  }
+
   LogOut(){
     this.cookieService.delete("accessToken");
     this.isLoggedIn = false;
     localStorage.removeItem("loginStatus");
     this.imageUrl = null;
     this.componentCommunicator.SwitchUserContext()
+
+    if(this.router.url != '/home'){
+      this.router.navigate(['/home']);
+    }
   }
 
   ToggleLoginForm(){
