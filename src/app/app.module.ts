@@ -15,6 +15,7 @@ import { DoctorCardComponent } from './components/doctor-card/doctor-card.compon
 import { SearchDoctorViewComponent } from './components/search-doctor-view/search-doctor-view.component';
 import { ReservationComponent } from './components/reservation/reservation.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     DoctorCardComponent,
     SearchDoctorViewComponent,
     ReservationComponent,
-    ProfileComponent
+    ProfileComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,
