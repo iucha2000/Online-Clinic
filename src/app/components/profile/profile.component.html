@@ -41,7 +41,7 @@
             </div>
             <div class="field-body">
                 <span class="change-password-field" (click)="ToggleChangePassword()">პაროლის შეცვლა</span>
-                <app-change-password *ngIf="changePasswordOpen" (toggle)="ToggleChangePassword()"></app-change-password>
+                <app-change-password *ngIf="changePasswordOpen" [user]="doctor ?? patient" (toggle)="ToggleChangePassword()"></app-change-password>
             </div>
             <div *ngIf="doctor" class="field-body">
                 <span class="field-name">დაჯავშნილია:</span>

@@ -1,5 +1,10 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TokenService } from '../../services/authentication/token.service';
+import { Login } from '../../models/login';
+import { Doctor } from '../../models/doctor';
+import { Patient } from '../../models/patient';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-change-password',
@@ -8,7 +13,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class ChangePasswordComponent {
 
+  @Input() user: Doctor | Patient | null = null;
   @Output() toggle = new EventEmitter<void>();
+
+  newPassword: string = '';
 
   changePasswordForm = new FormGroup({
     oldPasswordField: new FormControl('', Validators.required),
@@ -16,12 +24,28 @@ export class ChangePasswordComponent {
     repeatedNewPasswordField: new FormControl('', Validators.required)
   })
 
-  constructor(){}
+  constructor(private authenticationService: AuthenticationService){}
 
   onSubmit(){
     if(this.changePasswordForm.valid){
-      //TODO check old password, verify new passwords, init change in database
+
+      //TODO add validations to check old password, compare new
+      //TODO add body request instead of query params
       //TODO add hide/show password button
+
+      // if(this.changePasswordForm.value.oldPasswordField == this.user?.password && 
+      //   this.changePasswordForm.value.newPasswordField == this.changePasswordForm.value.repeatedNewPasswordField){
+
+      // }
+
+      this.authenticationService.changeUserPassword(this.user?.email!, this.changePasswordForm.value.newPasswordField!).subscribe({
+        next: (res) => {
+          alert("პაროლი წარმატებით შეიცვალა")
+        },
+        error: (error) => {
+          alert("დაფიქსირდა გაუთვალისწინებელი შეცდომა")
+        }
+      });
     }
     else{
       alert("გთხოვთ, შეავსოთ ყველა ველი")

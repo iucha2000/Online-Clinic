@@ -17,8 +17,11 @@ export class AuthenticationService {
     return this.httpClient.post<Token>("http://localhost:5161/api/Authentication/Login",login);
   }
 
+  changeUserPassword(email: string, password: string) : Observable<any>{
+    return this.httpClient.post<any>(`http://localhost:5161/api/Authentication/Change-Password?email=${email}&newPassword=${password}`, {})
+  }
+
   saveUserPreferences(userPreferences: Doctor[] | null){
-    //TODO save other possible preferences
     const userId = this.tokenService.getUserId()
     const key = userId === 0 ? "guest" : userId.toString();
     
@@ -32,7 +35,6 @@ export class AuthenticationService {
   }
 
   loadUserPreferences() : Doctor[] | null {
-    //TODO load other possible preferences
     const userId = this.tokenService.getUserId()
     const key = userId === 0 ? "guest" : userId.toString();
 
