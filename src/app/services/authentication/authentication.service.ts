@@ -18,6 +18,10 @@ export class AuthenticationService {
     return this.httpClient.post<Token>("http://localhost:5161/api/Authentication/Login",login);
   }
 
+  resetUserPassword(email: string){
+    return this.httpClient.post<any>(`http://localhost:5161/api/Authentication/Reset-Password?email=${email}`,{})
+  }
+
   changeUserPassword(changePasswordModel: ChangePasswordModel) : Observable<any>{
     return this.httpClient.post<any>("http://localhost:5161/api/Authentication/Change-Password", changePasswordModel)
   }

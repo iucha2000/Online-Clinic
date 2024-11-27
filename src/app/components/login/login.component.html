@@ -1,18 +1,44 @@
 <div class="overlay" (click)="ToggleForm()"></div>
 <div class="login-container">
-    <h1>ავტორიზაცია</h1>
-    <form class="login-form" [formGroup] = "loginForm" (ngSubmit) = "onSubmit()">
-        <div class="field-container">
-            <input id="email" class="field-input" type="text" formControlName="emailField" placeholder="ელ-ფოსტა / ტელეფონის ნომერი"/>
+    <div *ngIf="!resetPasswordMode">
+        <h1>ავტორიზაცია</h1>
+        <form class="login-form" [formGroup] = "loginForm" (ngSubmit) = "onSubmit()">
+            <div class="field-container">
+                <input id="email" class="field-input" type="text" formControlName="emailField" placeholder="ელ-ფოსტა / ტელეფონის ნომერი"/>
+            </div>
+            <div class="field-container">
+                <input id="password" class="field-input" type="password" formControlName="passwordField" placeholder="პაროლი"/>
+            </div>
+            <div class="reset-password-text" (click)="ResetPassword()">
+                პაროლის აღდგენა
+            </div>
+            <button class="login-submit-button" type="submit">
+                შესვლა
+            </button>
+        </form>
+    </div>
+    <div *ngIf="resetPasswordMode" class="reset-password-screen">
+        <h1>პაროლის აღდგენა</h1>
+        <div *ngIf="!isEmailSent">
+            <div class="email-field-container">
+                <label class="email-label">შეიყვანეთ ელ-ფოსტა, რომლითაც ხართ დარეგისტრირებული</label>
+                <input [(ngModel)]="userEmail" id="email" class="field-input" type="text" placeholder="ელ-ფოსტა"/>
+            </div>
+            <div class="button-container">
+                <button class="reset-password-submit-button" (click)="CheckEmail()">
+                    დადასტურება
+                </button>
+                <button class="reset-password-cancel-button" (click)="resetPasswordMode = false">
+                    გაუქმება
+                </button>
+            </div>
         </div>
-        <div class="field-container">
-            <input id="password" class="field-input" type="password" formControlName="passwordField" placeholder="პაროლი"/>
+        <div *ngIf="isEmailSent" class="email-sent-screen">
+            <label class="email-sent-text">ახალი პაროლი გამოგზავნილია მეილზე: <span class="user-email">{{userEmail}}</span></label>
+            <label class="change-password-text">რეკომენდირებულია პაროლის შეცვლა შემდეგი დალოგინებისას</label>
+            <button class="close-form-button" (click)="ToggleForm()">
+                დახურვა
+            </button>
         </div>
-        <div class="reset-password-text" (click)="ResetPassword()">
-            პაროლის აღდგენა
-        </div>
-        <button class="login-submit-button" type="submit">
-            შესვლა
-        </button>
-    </form>
+    </div>
 </div>

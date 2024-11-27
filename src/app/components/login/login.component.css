@@ -26,7 +26,7 @@
 }
 
 h1{
-    width: 177px;
+    width: auto;
     height: 31px;
     margin-left: 50px;
     font-family: 'FiraGO';
@@ -97,5 +97,95 @@ h1{
     color: #FFFFFF;
     background: #053354;
     margin-left: 50px;
+    margin-top: 30px;
+}
+
+.email-field-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.email-label{
+    margin-left: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: 'FiraGO';
+    font-size: 16px;
+    line-height: 19.2px;
+    color: #053354;
+}
+
+.button-container{
+    width: auto;
+    height: auto;
+    display: flex;
+}
+
+.reset-password-submit-button{
+    width: 150px;
+    height: 30px;
+    border-radius: 50px;
+    border: none;
+    font-family: 'FiraGO';
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 19.2px;
+    color: #FFFFFF;
+    background: #053354;
+    margin-left: 50px;
+    margin-top: 30px;
+}
+
+.reset-password-cancel-button{
+    width: 150px;
+    height: 30px;
+    border-radius: 50px;
+    border: none;
+    font-family: 'FiraGO';
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 19.2px;
+    color: #FFFFFF;
+    background: #053354;
+    margin-left: 23px;
+    margin-top: 30px;
+}
+
+.email-sent-screen{
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+    font-family: 'FiraGO';
+    font-size: 16px;
+    line-height: 19.2px;
+    color: #053354;
+}
+
+.email-sent-text{
+    width: 350px;
+    margin-top: 20px;
+}
+
+.user-email{
+    font-weight: bold;
+    color: #18A4E1;
+}
+
+.change-password-text{
+    width: 350px;
+    margin-top: 30px;
+}
+
+.close-form-button{
+    width: 150px;
+    height: 30px;
+    border-radius: 50px;
+    border: none;
+    font-family: 'FiraGO';
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 19.2px;
+    color: #FFFFFF;
+    background: #053354;
     margin-top: 30px;
 }

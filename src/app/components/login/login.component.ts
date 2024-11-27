@@ -13,6 +13,10 @@ import { HeaderComponent } from '../header/header.component';
 })
 export class LoginComponent {
 
+  resetPasswordMode = false
+  isEmailSent = false
+  userEmail = ''
+
   @Output() toggle = new EventEmitter<void>();
 
   login: Login = {email: '', password: ''}
@@ -49,10 +53,10 @@ export class LoginComponent {
       },
       error: (error: HttpErrorResponse) => {
         if(error.status === 404){
-          alert("Invalid credentials")
+          alert("მონაცემები არასწორია")
         }
         else{
-          alert("Unexpected error occured")
+          alert("დაფიქსირდა გაუთვალისწინებელი შეცდომა")
         }
       }
     });
@@ -63,7 +67,22 @@ export class LoginComponent {
   }
 
   ResetPassword(){
-    //TODO implement password reset via link/email
-    console.log("Resetting password...")
+    this.resetPasswordMode = true
+  }
+
+  CheckEmail(){
+    this.authenticationService.resetUserPassword(this.userEmail).subscribe({
+      next: (res) => {
+        this.isEmailSent = true
+      },
+      error: (error: HttpErrorResponse) => {
+        if(error.status === 404){
+          alert("მითითებული მეილი რეგისტრირებული არ არის")
+        }
+        else{
+          alert("დაფიქსირდა გაუთვალისწინებელი შეცდომა")
+        }
+      }
+    })
   }
 }
