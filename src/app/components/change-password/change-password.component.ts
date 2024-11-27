@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TokenService } from '../../services/authentication/token.service';
-import { Login } from '../../models/login';
 import { Doctor } from '../../models/doctor';
 import { Patient } from '../../models/patient';
 import { AuthenticationService } from '../../services/authentication/authentication.service';

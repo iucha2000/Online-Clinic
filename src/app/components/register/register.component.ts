@@ -28,7 +28,7 @@ export class RegisterComponent {
 
   sendEmail(){
     //TODO think of a possible validation if email is real or not (or if its null)
-    this.emailService.sendCodeByEmail(this.registerForm.value.emailField ?? '').subscribe(() => alert(`Email with confirmation code sent to ${this.registerForm.value.emailField}`))
+    this.emailService.sendCodeByEmail(this.registerForm.value.emailField ?? '').subscribe(() => alert(`აქტივაციის კოდი გაგზავნილია მეილზე: ${this.registerForm.value.emailField}`))
   }
 
   onSubmit(){
@@ -44,7 +44,7 @@ export class RegisterComponent {
       .subscribe(data => {
         if(data == true){
           //TODO show alert if user already exists (has existing email or personal_Id)
-          this.patientService.addPatient(this.user).subscribe(() => alert("Registration successful"))
+          this.patientService.addPatient(this.user).subscribe(() => alert("რეგისტრაცია წარმატებით დასრულდა"))
           this.router.navigate(['/home']);
         }
         else{

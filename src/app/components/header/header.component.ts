@@ -63,6 +63,10 @@ export class HeaderComponent {
       this.username = "ადმინისტრატორი";
       this.componentCommunicator.SwitchUserContext()
     }
+
+    if(this.router.url != '/home'){
+      this.router.navigate(['/home']);
+    }
   }
 
   ngOnInit(){
@@ -104,7 +108,9 @@ export class HeaderComponent {
     console.log('Selected Doctor:', doctor);
     this.specialitySearchQuery = this.nameSearchQuery = '';
     this.filteredSpecialityDoctors = this.filteredNameDoctors = [];
-    this.router.navigate([`/reservation/${doctor.id}`]);
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([`/reservation/${doctor.id}`]);
+    });
   }
 
   GoToProfile(){
@@ -128,7 +134,6 @@ export class HeaderComponent {
   }
 
   GetUserImage(accountId: number){
-    //TODO add image fetching for patient
     this.fileService.getDoctorImage(accountId).subscribe(
       (blob) => {
         const objectUrl = URL.createObjectURL(blob);
