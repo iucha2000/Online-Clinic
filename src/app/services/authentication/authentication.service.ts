@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Token } from '../../models/token';
 import { Doctor } from '../../models/doctor';
 import { TokenService } from './token.service';
+import { ChangePasswordModel } from '../../models/changePassword';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,8 @@ export class AuthenticationService {
     return this.httpClient.post<Token>("http://localhost:5161/api/Authentication/Login",login);
   }
 
-  changeUserPassword(email: string, password: string) : Observable<any>{
-    return this.httpClient.post<any>(`http://localhost:5161/api/Authentication/Change-Password?email=${email}&newPassword=${password}`, {})
+  changeUserPassword(changePasswordModel: ChangePasswordModel) : Observable<any>{
+    return this.httpClient.post<any>("http://localhost:5161/api/Authentication/Change-Password", changePasswordModel)
   }
 
   saveUserPreferences(userPreferences: Doctor[] | null){

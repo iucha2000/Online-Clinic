@@ -5,6 +5,7 @@ import { Login } from '../../models/login';
 import { Doctor } from '../../models/doctor';
 import { Patient } from '../../models/patient';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { ChangePasswordModel } from '../../models/changePassword';
 
 @Component({
   selector: 'app-change-password',
@@ -13,14 +14,16 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 })
 export class ChangePasswordComponent {
 
+  showPassword = false
+  
   @Input() user: Doctor | Patient | null = null;
   @Output() toggle = new EventEmitter<void>();
 
-  newPassword: string = '';
+  changePasswordModel: ChangePasswordModel = {email: '', password: ''}
 
   changePasswordForm = new FormGroup({
     oldPasswordField: new FormControl('', Validators.required),
-    newPasswordField: new FormControl('', Validators.required),
+    newPasswordField: new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+={}|:";\'<>,.?/`~ -]).*$')]),
     repeatedNewPasswordField: new FormControl('', Validators.required)
   })
 
@@ -29,23 +32,30 @@ export class ChangePasswordComponent {
   onSubmit(){
     if(this.changePasswordForm.valid){
 
-      //TODO add validations to check old password, compare new
-      //TODO add body request instead of query params
-      //TODO add hide/show password button
+      this.changePasswordModel.email = this.user?.email!
+      this.changePasswordModel.password =  this.changePasswordForm.value.newPasswordField!
 
-      // if(this.changePasswordForm.value.oldPasswordField == this.user?.password && 
-      //   this.changePasswordForm.value.newPasswordField == this.changePasswordForm.value.repeatedNewPasswordField){
-
-      // }
-
-      this.authenticationService.changeUserPassword(this.user?.email!, this.changePasswordForm.value.newPasswordField!).subscribe({
-        next: (res) => {
-          alert("პაროლი წარმატებით შეიცვალა")
-        },
-        error: (error) => {
-          alert("დაფიქსირდა გაუთვალისწინებელი შეცდომა")
-        }
-      });
+      if(this.changePasswordForm.value.oldPasswordField != this.user?.password){
+        alert("ძველი პაროლი არასწორია, გთხოვთ სცადოთ თავიდან")
+      }
+      else if(this.changePasswordModel.password != this.changePasswordForm.value.repeatedNewPasswordField){
+        alert("პაროლები ერთმანეთს არ ემთხვევა, გთხოვთ სცადოთ თავიდან")
+      }
+      else{
+        this.authenticationService.changeUserPassword(this.changePasswordModel).subscribe({
+          next: (res) => {
+            alert("პაროლი წარმატებით შეიცვალა")
+            this.user!.password = this.changePasswordModel.password
+            this.ToggleForm()
+          },
+          error: (error) => {
+            alert("დაფიქსირდა გაუთვალისწინებელი შეცდომა")
+          }
+        });
+      }
+    }
+    else if(this.changePasswordForm.get("newPasswordField")?.invalid){
+      alert("გთხოვთ, მიუთითოთ ვალიდური პაროლი, ის უნდა შეიცავდეს მინიმუმ: \nერთ დიდ ასოს \nერთ პატარა ასოს \nერთ ციფრს \nერთ სიმბოლოს")
     }
     else{
       alert("გთხოვთ, შეავსოთ ყველა ველი")
