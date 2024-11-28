@@ -1,59 +1,64 @@
 <div class="profile-container">
-    <div class="profile-info-container">
-        <div *ngIf="doctor" class="doctor-basic-info">
-            <div class="profile-info-photo">
-                <img *ngIf="imageUrl" [src]="imageUrl" class="profile-info-image"/>
-                <img *ngIf="!imageUrl" src="/assets/images/default-profile-image.png" class="profile-info-image"/>
+    <div *ngIf="!adminLogin" class="user-profile-container">
+        <div class="profile-info-container">
+            <div *ngIf="doctor" class="doctor-basic-info">
+                <div class="profile-info-photo">
+                    <img *ngIf="imageUrl" [src]="imageUrl" class="profile-info-image"/>
+                    <img *ngIf="!imageUrl" src="/assets/images/default-profile-image.png" class="profile-info-image"/>
+                </div>
+                <div class="profile-info-text">
+                    <div class="profile-info-name">
+                        {{doctor.firstName}} {{doctor.lastName}}
+                    </div>
+                    <div class="doctor-info-profession">
+                        ექიმი
+                    </div>
+                    <div class="doctor-info-category">
+                        {{category}}
+                    </div>
+                    <div class="doctor-info-rating">
+                        <img *ngFor="let _ of rating" src="/assets/images/star-icon.png">
+                    </div>
+                </div>
             </div>
-            <div class="profile-info-text">
-                <div class="profile-info-name">
-                    {{doctor.firstName}} {{doctor.lastName}}
+            <div *ngIf="patient" class="patient-basic-info">
+                <div class="profile-info-photo">
+                    <img src="/assets/images/default-profile-image.png" class="profile-info-image"/>
                 </div>
-                <div class="doctor-info-profession">
-                    ექიმი
+                <div class="profile-info-text">
+                    <div class="profile-info-name">
+                        {{patient.firstName}} {{patient.lastName}}
+                    </div>
                 </div>
-                <div class="doctor-info-category">
-                    {{category}}
+            </div>
+            <div class="profile-info-body">
+                <div class="field-body">
+                    <span class="field-name">პირადი ნომერი:</span>
+                    <span class="field-value">{{doctor?.personal_Id ?? patient?.personal_Id}}</span>
                 </div>
-                <div class="doctor-info-rating">
-                    <img *ngFor="let _ of rating" src="/assets/images/star-icon.png">
+                <div class="field-body">
+                    <span class="field-name">Email:</span>
+                    <span class="field-value">{{doctor?.email ?? patient?.email}}</span>
+                </div>
+                <div class="field-body">
+                    <span class="change-password-field" (click)="ToggleChangePassword()">პაროლის შეცვლა</span>
+                    <app-change-password *ngIf="changePasswordOpen" [user]="doctor ?? patient" (toggle)="ToggleChangePassword()"></app-change-password>
+                </div>
+                <div *ngIf="doctor" class="field-body">
+                    <span class="field-name">დაჯავშნილია:</span>
+                    <span class="field-value">({{20}})</span>
+                </div>
+                <div *ngIf="patient" class="field-body">
+                    <span class="field-name">ჩემი ჯავშანი:</span>
+                    <span class="field-value">({{1}})</span>
                 </div>
             </div>
         </div>
-        <div *ngIf="patient" class="patient-basic-info">
-            <div class="profile-info-photo">
-                <img src="/assets/images/default-profile-image.png" class="profile-info-image"/>
-            </div>
-            <div class="profile-info-text">
-                <div class="profile-info-name">
-                    {{patient.firstName}} {{patient.lastName}}
-                </div>
-            </div>
-        </div>
-        <div class="profile-info-body">
-            <div class="field-body">
-                <span class="field-name">პირადი ნომერი:</span>
-                <span class="field-value">{{doctor?.personal_Id ?? patient?.personal_Id}}</span>
-            </div>
-            <div class="field-body">
-                <span class="field-name">Email:</span>
-                <span class="field-value">{{doctor?.email ?? patient?.email}}</span>
-            </div>
-            <div class="field-body">
-                <span class="change-password-field" (click)="ToggleChangePassword()">პაროლის შეცვლა</span>
-                <app-change-password *ngIf="changePasswordOpen" [user]="doctor ?? patient" (toggle)="ToggleChangePassword()"></app-change-password>
-            </div>
-            <div *ngIf="doctor" class="field-body">
-                <span class="field-name">დაჯავშნილია:</span>
-                <span class="field-value">({{20}})</span>
-            </div>
-            <div *ngIf="patient" class="field-body">
-                <span class="field-name">ჩემი ჯავშანი:</span>
-                <span class="field-value">({{1}})</span>
-            </div>
+        <div class="calendar-container">
+            <!-- TODO initialize calendar component and functionality -->
         </div>
     </div>
-    <div class="calendar-container">
-        <!-- TODO initialize calendar component and functionality -->
+    <div *ngIf="adminLogin" class="admin-profile-container">
+        <app-admin-profile></app-admin-profile>
     </div>
 </div>

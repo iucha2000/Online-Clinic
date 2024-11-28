@@ -16,6 +16,7 @@ import { SearchDoctorViewComponent } from './components/search-doctor-view/searc
 import { ReservationComponent } from './components/reservation/reservation.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
     SearchDoctorViewComponent,
     ReservationComponent,
     ProfileComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    AdminProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -59,13 +59,8 @@ export class HeaderComponent {
       })
     }
     else{
-      //TODO init admin rights etc
       this.username = "ადმინისტრატორი";
       this.componentCommunicator.SwitchUserContext()
-    }
-
-    if(this.router.url != '/home'){
-      this.router.navigate(['/home']);
     }
   }
 

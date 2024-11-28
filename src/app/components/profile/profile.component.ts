@@ -15,6 +15,8 @@ import { UserRole } from '../../data/UserRole';
 export class ProfileComponent {
   
   changePasswordOpen = false
+  adminLogin = false
+
   userId: number = 0
   userRole: string = ''
   doctor: Doctor | null = null
@@ -43,7 +45,7 @@ export class ProfileComponent {
       })
     }
     else{
-      //TODO init admin profile page
+      this.adminLogin = true
     }
   }
 
