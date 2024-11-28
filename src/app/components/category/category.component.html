@@ -1,0 +1,25 @@
+<div class="category-container">
+    <h1>კატეგორიები</h1>
+    <div class="category-container-body">
+        <table class="doctors-table">
+            <thead class="doctors-table-head">
+              <tr>
+                <th>სახელი</th>
+                <th>კატეგორია</th>
+                <th>ფოტოსურათი</th>
+                <th>რეიტინგი</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let person of people">
+                <td>{{ person.name }}</td>
+                <td>{{ person.age }}</td>
+                <td>{{ person.city }}</td>
+                <td>{{ person.photo }}</td>
+                <td>{{ person.rating }}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</div>

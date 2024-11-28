@@ -17,6 +17,7 @@ import { ReservationComponent } from './components/reservation/reservation.compo
 import { ProfileComponent } from './components/profile/profile.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
+import { CategoryComponent } from './components/category/category.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { AdminProfileComponent } from './components/admin-profile/admin-profile.
     ReservationComponent,
     ProfileComponent,
     ChangePasswordComponent,
-    AdminProfileComponent
+    AdminProfileComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,
