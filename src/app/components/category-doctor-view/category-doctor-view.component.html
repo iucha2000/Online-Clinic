@@ -1,0 +1,27 @@
+<div class="category-entry-container">
+    <div class = "data-container" id="name">
+        {{doctor?.firstName}} {{doctor?.lastName}}
+    </div>
+    <div class = "data-container" id="category">
+        {{category}}
+    </div>
+    <div class="data-container" id="image">
+        <div class = "entry-image-container">
+            <img *ngIf="imageUrl" [src]="imageUrl" class="doctor-image"/>
+            <img *ngIf="!imageUrl" src="/assets/images/default-profile-image.png" class="doctor-image"/>
+        </div>
+    </div>
+    <div class="data-container" id="rating"> 
+        <div class = "entry-rating-container">
+            <img *ngFor="let _ of rating" src="/assets/images/star-icon.png" class="star-image">
+        </div>
+    </div>
+    <div class="buttons-container">
+        <div class="edit-doctor-button-container">
+            <img src="/assets/images/edit-doctor.svg" class="edit-doctor-image"/>
+        </div>
+        <div class="delete-doctor-button-container">
+            <img src="/assets/images/delete-doctor.svg" class="delete-doctor-image"/>
+        </div>
+    </div>
+</div>

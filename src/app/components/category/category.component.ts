@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Doctor } from '../../models/doctor';
+import { DoctorService } from '../../services/doctor/doctor.service';
 
 @Component({
   selector: 'app-category',
@@ -7,26 +9,16 @@ import { Component } from '@angular/core';
 })
 export class CategoryComponent {
 
-  //TODO implement getting doctors dinamically
-  //TODO try to fix the scrollbar
   //TODO fix header authorize/register/username spacing
+  //TODO implement delete doctor functionality
 
-  people = [
-    { name: 'John', age: 25, city: 'New York', photo: 'photo.png', rating: '* * * * *' },
-    { name: 'Jane', age: 30, city: 'London', photo: 'photo.png', rating: '* * *'  },
-    { name: 'Smith', age: 35, city: 'Sydney', photo: 'photo.png', rating: '* * * *'  },
-    { name: 'Mary', age: 27, city: 'Chicago', photo: 'photo.png', rating: '* *'  },
-    { name: 'John', age: 25, city: 'New York', photo: 'photo.png', rating: '* * * * *' },
-    { name: 'Jane', age: 30, city: 'London', photo: 'photo.png', rating: '* * *'  },
-    { name: 'Smith', age: 35, city: 'Sydney', photo: 'photo.png', rating: '* * * *'  },
-    { name: 'Mary', age: 27, city: 'Chicago', photo: 'photo.png', rating: '* *'  },
-    { name: 'John', age: 25, city: 'New York', photo: 'photo.png', rating: '* * * * *' },
-    { name: 'Jane', age: 30, city: 'London', photo: 'photo.png', rating: '* * *'  },
-    { name: 'Smith', age: 35, city: 'Sydney', photo: 'photo.png', rating: '* * * *'  },
-    { name: 'Mary', age: 27, city: 'Chicago', photo: 'photo.png', rating: '* *'  },
-    { name: 'John', age: 25, city: 'New York', photo: 'photo.png', rating: '* * * * *' },
-    { name: 'Jane', age: 30, city: 'London', photo: 'photo.png', rating: '* * *'  },
-    { name: 'Smith', age: 35, city: 'Sydney', photo: 'photo.png', rating: '* * * *'  },
-    { name: 'Mary', age: 27, city: 'Chicago', photo: 'photo.png', rating: '* *'  }
-  ];
+  doctors: Doctor[] | null = null;
+
+  constructor(private doctorService: DoctorService){}
+
+  ngOnInit(){
+    this.doctorService.getAllDoctorsData().subscribe(data => {
+      this.doctors = data
+    })
+  }
 }

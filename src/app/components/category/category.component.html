@@ -1,25 +1,27 @@
 <div class="category-container">
     <h1>კატეგორიები</h1>
     <div class="category-container-body">
-        <table class="doctors-table">
-            <thead class="doctors-table-head">
-              <tr>
-                <th>სახელი</th>
-                <th>კატეგორია</th>
-                <th>ფოტოსურათი</th>
-                <th>რეიტინგი</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let person of people">
-                <td>{{ person.name }}</td>
-                <td>{{ person.age }}</td>
-                <td>{{ person.city }}</td>
-                <td>{{ person.photo }}</td>
-                <td>{{ person.rating }}</td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="category-container-header">
+        <div class="category-header" id="name">
+          სახელი
+        </div>
+        <div class="category-header" id="category">
+          კატეგორია
+        </div>
+        <div class="category-header" id="image">
+          ფოტოსურათი
+        </div>
+        <div class="category-header" id="rating">
+          რეიტინგი
+        </div>
+        <div class="category-header" id="buttons">
+          
+        </div>
+      </div>
+      <div class="category-container-entries">
+        <div *ngFor="let doctor of doctors" class="category-container-entry">
+          <app-category-doctor-view [doctor]="doctor"></app-category-doctor-view>
+        </div>
+      </div>
     </div>
 </div>

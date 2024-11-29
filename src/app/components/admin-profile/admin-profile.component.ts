@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './admin-profile.component.css'
 })
 export class AdminProfileComponent {
-
+  //TODO init doctor panel if clicked on doctor
 }
