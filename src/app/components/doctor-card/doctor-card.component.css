@@ -76,8 +76,9 @@
 }
 
 .doctor-card-name{
-    width: 139px;
+    width: auto;
     height: 22px;
+    white-space: nowrap;
     display: flex;
     justify-content: center;
     margin-top: 15px;

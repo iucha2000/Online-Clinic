@@ -18,6 +18,10 @@ export class DoctorService {
     return this.httpClient.post<any>(`http://localhost:5161/api/Doctors/Add-Doctor`, doctor);
   }
 
+  deleteDoctor(id: number){
+    return this.httpClient.delete<any>(`http://localhost:5161/api/Doctors/Delete-Doctor/${id}`)
+  }
+
   getDoctorData(id: number) : Observable<Doctor>{
     return this.httpClient.get<Doctor>(`http://localhost:5161/api/Doctors/Get-Doctor-By-Id/${id}`)
   }

@@ -29,9 +29,81 @@
                 </div>
             </div>
         </div>
-        <div class="admin-body-container">
+        <div *ngIf="doctorSelected" class="admin-body-container">
             <div class="doctor-panel-container">
-
+                <div class="doctor-info-container">
+                    <div class="doctor-basic-info">
+                        <div class="profile-info-photo">
+                            <img *ngIf="imageUrl" [src]="imageUrl" class="profile-info-image"/>
+                            <img *ngIf="!imageUrl" src="/assets/images/default-profile-image.png" class="profile-info-image"/>
+                        </div>
+                        <div class="profile-info-text">
+                            <div class="profile-info-name">
+                                {{doctor!.firstName}} {{doctor!.lastName}}
+                            </div>
+                            <div class="doctor-info-profession">
+                                ექიმი
+                            </div>
+                            <div class="doctor-info-category">
+                                {{category}}
+                            </div>
+                            <div class="doctor-info-rating">
+                                <img *ngFor="let _ of rating" src="/assets/images/star-icon.png">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="doctor-detailed-info">
+                        <div class="field-body">
+                            <div class="edit-button-container">
+                                <img src="/assets/images/edit-doctor-inactive.svg" class="edit-button"/>
+                            </div>
+                            <div class="field-text">
+                                <span class="field-name">პირადი ნომერი:</span>
+                                <span class="field-value">{{doctor?.personal_Id}}</span>
+                            </div>
+                        </div>
+                        <div class="field-body">
+                            <div class="edit-button-container">
+                                <img src="/assets/images/edit-doctor-inactive.svg" class="edit-button"/>
+                            </div>
+                            <div class="field-text">
+                                <span class="field-name">Email:</span>
+                                <span class="field-value">{{doctor?.email}}</span>
+                            </div>
+                        </div>
+                        <div class="field-body">
+                            <div class="edit-button-container">
+                                <img src="/assets/images/edit-doctor-inactive.svg" class="edit-button" (click)="ToggleChangePassword()"/>
+                            </div>
+                            <div class="field-text">
+                                <span class="change-password-field">პაროლის შეცვლა</span>
+                                <app-change-password *ngIf="changePasswordOpen" [user]="doctor" (toggle)="ToggleChangePassword()"></app-change-password>
+                            </div>
+                        </div>
+                        <div class="field-body">
+                            <div class="edit-button-container">
+                                <img src="/assets/images/edit-doctor-inactive.svg" class="edit-button"/>
+                            </div>
+                            <div class="field-text">
+                                <span class="field-name">დაჯავშნილია:</span>
+                                <span class="field-value">({{20}})</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <div class="add-doctor-button-container">
+                        <div class="add-doctor-button">+ დამატება</div>
+                    </div>
+                    <div class="edit-doctor-button-container">
+                        <img src="/assets/images/edit-doctor-admin.svg">
+                        <div class="edit-doctor-button">რედაქტირება</div>
+                    </div>
+                    <div class="delete-doctor-button-container">
+                        <img src="/assets/images/delete-doctor-admin.svg">
+                        <div class="delete-doctor-button">წაშლა</div>
+                    </div>
+                </div>
             </div>
             <div class="calendar-container">
                 <!-- TODO initialize calendar component and functionality -->

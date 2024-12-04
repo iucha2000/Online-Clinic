@@ -1,4 +1,4 @@
-import { Component, Input} from '@angular/core';
+import { Component, EventEmitter, Input, Output} from '@angular/core';
 import { Doctor } from '../../models/doctor';
 import { DoctorService } from '../../services/doctor/doctor.service';
 import { SafeUrl } from '@angular/platform-browser';
@@ -13,6 +13,7 @@ export class CategoryDoctorViewComponent {
   category: string | undefined
   rating: Array<number> | undefined
   imageUrl: SafeUrl | null = null;
+  @Output() doctorDeleted: EventEmitter<number> = new EventEmitter();
 
   constructor(private doctorService: DoctorService){}
 
@@ -20,5 +21,9 @@ export class CategoryDoctorViewComponent {
     this.category = this.doctorService.getDoctorCategory(this.doctor!)
     this.rating = this.doctorService.getDoctorRating(this.doctor!)
     this.doctorService.getDoctorImage(this.doctor!).subscribe(safeUrl => this.imageUrl = safeUrl)
+  }
+
+  DeleteDoctor(){
+    this.doctorDeleted.emit(this.doctor!.id)
   }
 }

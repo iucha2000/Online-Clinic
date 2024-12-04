@@ -9,16 +9,21 @@ import { DoctorService } from '../../services/doctor/doctor.service';
 })
 export class CategoryComponent {
 
-  //TODO fix header authorize/register/username spacing
-  //TODO implement delete doctor functionality
-
   doctors: Doctor[] | null = null;
 
   constructor(private doctorService: DoctorService){}
 
   ngOnInit(){
+    this.InitializeComponent()
+  }
+
+  InitializeComponent(){
     this.doctorService.getAllDoctorsData().subscribe(data => {
       this.doctors = data
     })
+  }
+
+  DeleteDoctor(id: number){
+    this.doctorService.deleteDoctor(id).subscribe(() => this.InitializeComponent())
   }
 }

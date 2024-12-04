@@ -31,6 +31,8 @@ export class HomeComponent implements OnInit, OnDestroy{
 
   constructor(private doctorService: DoctorService, private authService: AuthenticationService, private componentCommunicator: ComponentCommunicatorService, private router: Router){}
 
+  //TODO IMPORTANT init doctors list new state after every update 
+
   ngOnInit(){
     this.InitializeComponent();
 

@@ -28,6 +28,10 @@ const routes: Routes = [
     component: ProfileComponent
   },
   {
+    path: 'profile/:id',
+    component: ProfileComponent
+  },
+  {
     path: 'category',
     component: CategoryComponent
   }

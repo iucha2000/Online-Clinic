@@ -35,6 +35,8 @@ export class HeaderComponent {
 
   constructor(private cookieService: CookieService, private patientService: PatientService, private doctorService: DoctorService, private tokenService: TokenService, private fileService: FileService, private sanitizer: DomSanitizer, private componentCommunicator: ComponentCommunicatorService, private router: Router){}
 
+  //TODO fix header authorize/register/username spacing
+
   InitLoginAccount(){
     if(this.tokenService.getRole() == UserRole.Patient)
     {

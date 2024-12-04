@@ -20,7 +20,7 @@
       </div>
       <div class="category-container-entries">
         <div *ngFor="let doctor of doctors" class="category-container-entry">
-          <app-category-doctor-view [doctor]="doctor"></app-category-doctor-view>
+          <app-category-doctor-view [doctor]="doctor" (doctorDeleted)="DeleteDoctor($event)"></app-category-doctor-view>
         </div>
       </div>
     </div>
