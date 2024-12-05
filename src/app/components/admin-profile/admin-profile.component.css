@@ -96,10 +96,27 @@
     background: #F0FAFF;
 }
 
+.admin-start-page{
+    height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .admin-body-container{
     width: 100%;
     height: auto;
     display: flex;
+}
+
+.admin-welcome-text{
+    font-family: 'FiraGO';
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 21.6px;
+    text-align: center;
+    text-underline-position: from-font;
+    color: #053354;
 }
 
 .calendar-container{

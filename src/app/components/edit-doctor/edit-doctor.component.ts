@@ -3,6 +3,7 @@ import { Doctor } from '../../models/doctor';
 import { SafeUrl } from '@angular/platform-browser';
 import { DoctorService } from '../../services/doctor/doctor.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-doctor',
@@ -23,7 +24,7 @@ export class EditDoctorComponent {
   category: string | undefined
   rating: Array<number> | undefined
 
-  constructor(private doctorService: DoctorService){}
+  constructor(private doctorService: DoctorService, private router: Router){}
 
   ngOnInit(){
     this.category = this.doctorService.getDoctorCategory(this.doctor!)
@@ -84,5 +85,9 @@ export class EditDoctorComponent {
         }
       })      
     }
+  }
+
+  DeleteDoctor(){
+    this.doctorService.deleteDoctor(this.doctor!.id).subscribe(() => this.router.navigate(['/category']))
   }
 }

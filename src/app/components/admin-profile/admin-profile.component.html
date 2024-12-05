@@ -29,6 +29,11 @@
                 </div>
             </div>
         </div>
+        <div *ngIf="!doctorSelected" class="admin-start-page">
+            <div class="admin-welcome-text">
+                <!-- TODO add something here -->
+            </div>
+        </div>
         <div *ngIf="doctorSelected" class="admin-body-container">
             <div class="doctor-container">
                 <app-edit-doctor [doctor]="doctor"></app-edit-doctor>

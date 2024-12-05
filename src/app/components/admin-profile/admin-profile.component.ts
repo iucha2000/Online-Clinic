@@ -16,8 +16,8 @@ export class AdminProfileComponent {
 
   constructor(private route: ActivatedRoute, private doctorService: DoctorService){}
 
-  //TODO init empty admin page correctly
-  //TODO implement add/delete doctor with updates
+  //TODO implement add doctor with updates
+  //TODO fix pins not changing after admin logout bug
 
   ngOnInit(){
     this.doctorId = this.route.snapshot.paramMap.get('id')

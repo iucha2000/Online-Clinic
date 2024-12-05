@@ -63,11 +63,11 @@
         <div class="add-doctor-button-container">
             <div class="add-doctor-button">+ დამატება</div>
         </div>
-        <div class="edit-doctor-button-container">
+        <div class="edit-doctor-button-container" (click)="ToggleEditMode()">
             <img src="/assets/images/edit-doctor-admin.svg">
-            <div class="edit-doctor-button" (click)="ToggleEditMode()">რედაქტირება</div>
+            <div class="edit-doctor-button">რედაქტირება</div>
         </div>
-        <div class="delete-doctor-button-container">
+        <div class="delete-doctor-button-container" (click)="DeleteDoctor()">
             <img src="/assets/images/delete-doctor-admin.svg">
             <div class="delete-doctor-button">წაშლა</div>
         </div>
