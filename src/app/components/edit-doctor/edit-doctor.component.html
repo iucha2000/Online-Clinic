@@ -1,0 +1,101 @@
+<div class="doctor-panel-container">
+    <div class="doctor-info-container">
+        <div class="doctor-basic-info">
+            <div class="profile-info-photo">
+                <img *ngIf="imageUrl" [src]="imageUrl" class="profile-info-image"/>
+                <img *ngIf="!imageUrl" src="/assets/images/default-profile-image.png" class="profile-info-image"/>
+            </div>
+            <div class="profile-info-text">
+                <div class="profile-info-name">
+                    {{doctor!.firstName}} {{doctor!.lastName}}
+                </div>
+                <div class="doctor-info-profession">
+                    ექიმი
+                </div>
+                <div class="doctor-info-category">
+                    {{category}}
+                </div>
+                <div class="doctor-info-rating">
+                    <img *ngFor="let _ of rating" src="/assets/images/star-icon.png">
+                </div>
+            </div>
+        </div>
+        <div class="doctor-detailed-info">
+            <div class="field-body">
+                <div *ngIf="editModeActive" class="edit-button-container" (click)="TogglePersonalNumberChange()">
+                    <img src="/assets/images/edit-doctor-inactive.svg" class="edit-button"/>
+                </div>
+                <div class="field-text">
+                    <span class="field-name">პირადი ნომერი:</span>
+                    <span class="field-value">{{doctor?.personal_Id}}</span>
+                </div>
+            </div>
+            <div class="field-body">
+                <div *ngIf="editModeActive" class="edit-button-container" (click)="ToggleEmailChange()">
+                    <img src="/assets/images/edit-doctor-inactive.svg" class="edit-button"/>
+                </div>
+                <div class="field-text">
+                    <span class="field-name">Email:</span>
+                    <span class="field-value">{{doctor?.email}}</span>
+                </div>
+            </div>
+            <div class="field-body">
+                <div *ngIf="editModeActive" class="edit-button-container">
+                    <img src="/assets/images/edit-doctor-inactive.svg" class="edit-button" (click)="ToggleChangePassword()"/>
+                </div>
+                <div class="field-text">
+                    <span class="change-password-field">პაროლის შეცვლა</span>
+                    <app-change-password *ngIf="changePasswordOpen" [user]="doctor" (toggle)="ToggleChangePassword()"></app-change-password>
+                </div>
+            </div>
+            <div class="field-body">
+                <div *ngIf="editModeActive" class="edit-button-container">
+                    <img src="/assets/images/edit-doctor-inactive.svg" class="edit-button"/>
+                </div>
+                <div class="field-text">
+                    <span class="field-name">დაჯავშნილია:</span>
+                    <span class="field-value">({{20}})</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="button-container">
+        <div class="add-doctor-button-container">
+            <div class="add-doctor-button">+ დამატება</div>
+        </div>
+        <div class="edit-doctor-button-container">
+            <img src="/assets/images/edit-doctor-admin.svg">
+            <div class="edit-doctor-button" (click)="ToggleEditMode()">რედაქტირება</div>
+        </div>
+        <div class="delete-doctor-button-container">
+            <img src="/assets/images/delete-doctor-admin.svg">
+            <div class="delete-doctor-button">წაშლა</div>
+        </div>
+    </div>
+</div>
+<div *ngIf="emailChange"  class="change-field-container">
+    <div class="overlay" (click)="ToggleEmailChange()"></div>
+    <div class="change-field-form">
+        <h1>ელ-ფოსტის შეცვლა</h1>
+        <h2>შეიყვანეთ ახალი ელ-ფოსტა</h2>
+        <div class="field-container">
+            <input class="field-input" type="email" [(ngModel)]="inputValue" placeholder="user@example.com">
+        </div>
+        <button class="login-submit-button" type="submit" (click)="SubmitFieldChange(emailChange)">
+            დადასტურება
+        </button>
+    </div>
+</div>
+<div *ngIf="personalNumberChange"  class="change-field-container">
+    <div class="overlay" (click)="TogglePersonalNumberChange()"></div>
+    <div class="change-field-form">
+        <h1>პირადი ნომრის შეცვლა</h1>
+        <h2>შეიყვანეთ ახალი პირადი ნომერი</h2>
+        <div class="field-container">
+            <input class="field-input" type="text" [(ngModel)]="inputValue" placeholder="12345678910">
+        </div>
+        <button class="login-submit-button" type="submit" (click)="SubmitFieldChange(personalNumberChange)">
+            დადასტურება
+        </button>
+    </div>
+</div>

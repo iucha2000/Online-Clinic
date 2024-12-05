@@ -18,6 +18,10 @@ export class DoctorService {
     return this.httpClient.post<any>(`http://localhost:5161/api/Doctors/Add-Doctor`, doctor);
   }
 
+  updateDoctor(id: number, doctor: Partial<Doctor>){
+    return this.httpClient.put<any>(`http://localhost:5161/api/Doctors/Update-Doctor/${id}`, doctor)
+  }
+
   deleteDoctor(id: number){
     return this.httpClient.delete<any>(`http://localhost:5161/api/Doctors/Delete-Doctor/${id}`)
   }

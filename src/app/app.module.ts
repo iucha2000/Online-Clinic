@@ -19,6 +19,7 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
 import { CategoryComponent } from './components/category/category.component';
 import { CategoryDoctorViewComponent } from './components/category-doctor-view/category-doctor-view.component';
+import { EditDoctorComponent } from './components/edit-doctor/edit-doctor.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { CategoryDoctorViewComponent } from './components/category-doctor-view/c
     ChangePasswordComponent,
     AdminProfileComponent,
     CategoryComponent,
-    CategoryDoctorViewComponent
+    CategoryDoctorViewComponent,
+    EditDoctorComponent
   ],
   imports: [
     BrowserModule,
