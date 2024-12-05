@@ -20,6 +20,7 @@ import { AdminProfileComponent } from './components/admin-profile/admin-profile.
 import { CategoryComponent } from './components/category/category.component';
 import { CategoryDoctorViewComponent } from './components/category-doctor-view/category-doctor-view.component';
 import { EditDoctorComponent } from './components/edit-doctor/edit-doctor.component';
+import { AddDoctorComponent } from './components/add-doctor/add-doctor.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { EditDoctorComponent } from './components/edit-doctor/edit-doctor.compon
     AdminProfileComponent,
     CategoryComponent,
     CategoryDoctorViewComponent,
-    EditDoctorComponent
+    EditDoctorComponent,
+    AddDoctorComponent
   ],
   imports: [
     BrowserModule,

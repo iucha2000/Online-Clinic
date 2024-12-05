@@ -87,6 +87,10 @@ export class EditDoctorComponent {
     }
   }
 
+  RegisterDoctor(){
+    this.router.navigate(['/register-doctor'])
+  }
+
   DeleteDoctor(){
     this.doctorService.deleteDoctor(this.doctor!.id).subscribe(() => this.router.navigate(['/category']))
   }

@@ -5,6 +5,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { ReservationComponent } from './components/reservation/reservation.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CategoryComponent } from './components/category/category.component';
+import { AddDoctorComponent } from './components/add-doctor/add-doctor.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,10 @@ const routes: Routes = [
   {
     path: 'category',
     component: CategoryComponent
+  },
+  {
+    path: 'register-doctor',
+    component: AddDoctorComponent
   }
 ];
 
