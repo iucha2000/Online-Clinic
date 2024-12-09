@@ -18,7 +18,7 @@ export class MainInterceptor implements HttpInterceptor{
         if(token != null){
             request = req.clone({
                 headers: new HttpHeaders({
-                    'Content-Type': 'application/json',
+                    // 'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 })
             });
@@ -26,7 +26,7 @@ export class MainInterceptor implements HttpInterceptor{
         else{
             request = req.clone({
                 headers: new HttpHeaders({
-                    'Content-Type': 'application/json'
+                    // 'Content-Type': 'application/json'
                 })
             });
         }

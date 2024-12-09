@@ -1,0 +1,151 @@
+.register-doctor-container{
+    height: 500px;
+    width: 100%;
+}
+
+.register-form-container{
+    margin-left: 150px;
+    margin-right: 150px;
+    margin-top: 30px;
+    height: 330px;
+    width: 1526px;
+    display: block;
+}
+
+.register-form-heading{
+    font-family: 'FiraGO';
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 31.2px;
+    color: #18A4E1;
+}
+
+.register-form{
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.field-container{
+    width: 480px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+}
+
+.field-label{
+    width: 200px;
+    height: 19px;
+    margin-left: 20px;
+    font-family: 'FiraGO';
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    color: #053354;
+}
+
+.field-secondary-label{
+    width: 87px;
+    height: 19px;
+    margin-right: -12px;
+    font-family: 'FiraGO';
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    color: #0533544D;
+}
+
+.field-input{
+    width: 480px;
+    height: 50px;
+    margin-top: 5px;
+    border-radius: 50px;
+    border: 1px solid #ECF2F8;
+    padding-left: 20px;
+    font-family: 'FiraGO';
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    color: #053354;
+}
+
+.field-dropdown{
+    width: 504px;
+    height: 54px;
+    margin-top: 5px;
+    border-radius: 50px;
+    border: 1px solid #ECF2F8;
+    padding-left: 20px;
+    font-family: 'FiraGO';
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    color: #053354;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.field-input::placeholder{
+    width: 250px;
+    height: 17px;
+    padding-top: 16px;
+    padding-bottom: 17px;
+    font-family: 'FiraGO';
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.8px;
+    color: #0533544D;
+}
+
+.field-input:focus{
+    outline: none;
+    border: 1px solid #18A4E1;
+}
+
+.register-submit-button{
+    margin-top: 30px;
+    margin-right: -18px;
+    margin-left: auto;
+    width: 180px;
+    height: 50px;
+    border-radius: 50px;
+    border: none;
+    font-family: 'FiraGO';
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19.2px;
+    color: #FFFFFF;
+    background: #053354;
+}
+
+.show-password-container{
+    position: absolute;
+    margin-top: 40px;
+    margin-left: 460px;
+}
+
+.show-password-icon:hover{
+    cursor: pointer;
+}
+
+.upload-image-container{
+    margin-top: 42px;
+    margin-left: 460px;
+    position: absolute;
+}
+
+.upload-image-icon:hover{
+    cursor: pointer;
+}
+
+.upload-cv-container{
+    margin-top: 40px;
+    margin-left: 460px;
+    position: absolute;
+}
+
+.upload-cv-icon:hover{
+    cursor: pointer;
+}

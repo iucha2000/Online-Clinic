@@ -1,1 +1,59 @@
-<p>add-doctor works!</p>
+<div class="register-doctor-container">
+    <div class="register-form-container">
+        <div class="register-form-heading">
+            რეგისტრაცია
+        </div>
+        <form class="register-form" [formGroup]="registerDoctorForm" (ngSubmit)="onSubmit()">
+            <div class="field-container">
+                <label class="field-label" for="firstName">სახელი</label>
+                <input id="firstName" class="field-input" type="text" formControlName="firstNameField" />
+            </div>
+            <div class="field-container">
+                <label class="field-label" for="lastName">გვარი</label>
+                <input id="lastName" class="field-input" type="text" formControlName="lastNameField" />
+            </div>
+            <div class="field-container">
+                <label class="field-label" for="personalNumber">პირადი ნომერი</label>
+                <input id="personalNumber" class="field-input" type="text" formControlName="personalNumberField" placeholder="(ზუსტად 11 სიმბოლო)"/>
+            </div>
+            <div class="field-container">
+                <label class="field-label" for="email">Email</label>
+                <input id="email" class="field-input" type="text" formControlName="emailField" />
+            </div>
+            <div class="field-container">
+                <label class="field-label" for="password">პაროლი</label>
+                <input id="password" class="field-input" [type]="showPassword ? 'text' : 'password'" formControlName="passwordField" placeholder="(მინიმუმ 8 სიმბოლო: A, a, 5, @, ;)"/>
+                <div class="show-password-container" (click)="showPassword = !showPassword">
+                    <img src="/assets/images/show-password-icon.svg" class ="show-password-icon">
+                </div>
+            </div>
+            <div class="field-container">
+                <label class="field-label" for="category">კატეგორია</label>
+                <select class="field-dropdown" id="category" formControlName="categoryField">
+                    <option *ngFor="let category of doctorCategories" [value]="category">
+                      {{ category }}
+                    </option>
+                </select>
+            </div>
+            <div class="field-container">
+                <label class="field-label" for="image">ფოტოსურათი</label>
+                <input class="field-input" type="text" readonly [value]="imageFile?.name"/>
+                <input type="file" #imageInput (change)="onImageSelected($event)" formControlName="imageField" style="display: none" accept="image/jpg, image/jpeg, image/png, image/gif" />
+                <div class="upload-image-container" (click)="imageInput.click()">
+                    <img src="/assets/images/upload-image.svg" class="upload-image-icon">
+                </div>
+            </div>
+            <div class="field-container">
+                <label class="field-label" for="cv">CV</label>
+                <input class="field-input" type="text" readonly [value]="cvFile?.name"/>
+                <input type="file" #cvInput (change)="onCvSelected($event)" formControlName="cvField" style="display: none" accept="application/pdf" />
+                <div class="upload-cv-container" (click)="cvInput.click()">
+                    <img src="/assets/images/upload-cv.svg" class="upload-cv-icon">
+                </div>
+            </div>
+            <button class="register-submit-button" type="submit">
+                რეგისტრაცია
+            </button>
+        </form>
+    </div>
+</div>
