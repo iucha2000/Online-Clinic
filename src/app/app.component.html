@@ -1,6 +1,11 @@
 <main>
   <section class="content">
     <app-header></app-header>
+    <app-display-message 
+      *ngIf="(errorMessage$ | async) as message" 
+      [message]="message ?? ''" 
+      [severity]="getSeverity(errorSeverity$ | async)">
+    </app-display-message>
     <router-outlet></router-outlet>
     <app-footer></app-footer>
   </section>

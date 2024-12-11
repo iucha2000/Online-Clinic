@@ -22,6 +22,7 @@ import { CategoryDoctorViewComponent } from './components/category-doctor-view/c
 import { EditDoctorComponent } from './components/edit-doctor/edit-doctor.component';
 import { AddDoctorComponent } from './components/add-doctor/add-doctor.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
+import { DisplayMessageComponent } from './components/display-message/display-message.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { CalendarComponent } from './components/calendar/calendar.component';
     CategoryDoctorViewComponent,
     EditDoctorComponent,
     AddDoctorComponent,
-    CalendarComponent
+    CalendarComponent,
+    DisplayMessageComponent
   ],
   imports: [
     BrowserModule,

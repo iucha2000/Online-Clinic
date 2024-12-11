@@ -5,6 +5,8 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 import { CookieService } from 'ngx-cookie-service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HeaderComponent } from '../header/header.component';
+import { DisplayMessageService } from '../../services/display-message.service';
+import { MessageConstants } from '../../data/MessageConstants';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +28,7 @@ export class LoginComponent {
     passwordField: new FormControl('', Validators.required)
   })
 
-  constructor(private authenticationService: AuthenticationService, private cookieService: CookieService, private headerComponent: HeaderComponent){}
+  constructor(private authenticationService: AuthenticationService, private cookieService: CookieService, private headerComponent: HeaderComponent, private displayService: DisplayMessageService){}
 
   onSubmit(){
     if(this.loginForm.valid)
@@ -36,7 +38,7 @@ export class LoginComponent {
       this.LogIn();
     }
     else{
-      alert("ელ-ფოსტის და პაროლის შევსება სავალდებულოა")
+      this.displayService.showError(MessageConstants.EMAIL_AND_PASSWORD_REQUIRED)
     }
   }
 
@@ -53,10 +55,10 @@ export class LoginComponent {
       },
       error: (error: HttpErrorResponse) => {
         if(error.status === 404){
-          alert("მონაცემები არასწორია")
+          this.displayService.showError(MessageConstants.INVALID_CREDENTIALS)
         }
         else{
-          alert("დაფიქსირდა გაუთვალისწინებელი შეცდომა")
+          this.displayService.showError(MessageConstants.UNEXPECTED_ERROR)
         }
       }
     });
@@ -75,10 +77,13 @@ export class LoginComponent {
       next: () => this.isEmailSent = true,
       error: (error: HttpErrorResponse) => {
         if(error.status === 404){
-          alert("მითითებული მეილი რეგისტრირებული არ არის")
+          this.displayService.showError(MessageConstants.INVALID_EMAIL)
+        }
+        else if(error.status === 400){
+          this.displayService.showError(MessageConstants.VALID_EMAIL_IS_REQUIRED)
         }
         else{
-          alert("დაფიქსირდა გაუთვალისწინებელი შეცდომა")
+          this.displayService.showError(MessageConstants.UNEXPECTED_ERROR)
         }
       }
     })

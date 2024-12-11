@@ -5,6 +5,8 @@ import { EmailService } from '../../services/email/email.service';
 import { PatientService } from '../../services/patient/patient.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DisplayMessageService } from '../../services/display-message.service';
+import { MessageConstants } from '../../data/MessageConstants';
 
 @Component({
   selector: 'app-register',
@@ -25,10 +27,13 @@ export class RegisterComponent {
     passwordField: new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+={}|:";\'<>,.?/`~ -]).*$')])
   })
 
-  constructor(private emailService: EmailService, private patientService: PatientService, private router: Router){}
+  constructor(private emailService: EmailService, private patientService: PatientService, private router: Router, private displayMessage: DisplayMessageService){}
 
   sendEmail(){
-    this.emailService.sendCodeByEmail(this.registerForm.value.emailField ?? '').subscribe(() => alert(`აქტივაციის კოდი გაგზავნილია მეილზე: ${this.registerForm.value.emailField}`))
+    this.emailService.sendCodeByEmail(this.registerForm.value.emailField ?? '').subscribe({
+      next: () => this.displayMessage.showError(MessageConstants.ACTIVATION_CODE_SENT),
+      error: () => this.displayMessage.showError(MessageConstants.VALID_EMAIL_IS_REQUIRED)
+    })
   }
 
   onSubmit(){
@@ -46,44 +51,44 @@ export class RegisterComponent {
           if(data == true){
             this.patientService.addPatient(this.user).subscribe({
               next: () => {
-                alert("რეგისტრაცია წარმატებით დასრულდა")
+                this.displayMessage.showError(MessageConstants.REGISTRATION_SUCCESS)
                 this.router.navigate(['/home']);
               },
               error: (error: HttpErrorResponse) => {
                 if(error.status === 409){
-                  alert("მომხმარებელი მითითებული პირადი ნომრით/ელ-ფოსტით უკვე არსებობს! გთხოვთ, სცადოთ თავიდან")
+                  this.displayMessage.showError(MessageConstants.USER_ALREADY_EXISTS)
                 }
                 else{
-                  alert("დაფიქსირდა გაუთვალისწინებელი შეცდომა")
+                  this.displayMessage.showError(MessageConstants.UNEXPECTED_ERROR)
                 }
               }
             })
           }
           else{
-            alert("აქტივაციის კოდი არასწორია, ან ვადაგასულია")
+            this.displayMessage.showError(MessageConstants.INVALID_ACTIVATION_CODE)
           }
         },
-        error: () => alert("აქტივაციის კოდი არასწორია, ან ვადაგასულია")
+        error: () => this.displayMessage.showError(MessageConstants.INVALID_ACTIVATION_CODE)
       })
     }
     else {
       if(this.registerForm.get("firstNameField")?.hasError('required')){
-        alert("სახელის შევსება სავალდებულოა!")
+        this.displayMessage.showError(MessageConstants.FIRSTNAME_IS_REQUIRED)
       }
       else if(this.registerForm.get("lastNameField")?.hasError('required')){
-        alert("გვარის შევსება სავალდებულოა!")
+        this.displayMessage.showError(MessageConstants.LASTNAME_IS_REQUIRED)
       }
       else if(this.registerForm.get("personalNumberField")?.invalid){
-        alert("გთხოვთ, მიუთითოთ ვალიდური პირადი ნომერი")
+        this.displayMessage.showError(MessageConstants.VALID_PERSONALNUMBER_IS_REQUIRED)
       }
       else if(this.registerForm.get("emailField")?.invalid){
-        alert("გთხოვთ, მიუთითოთ ვალიდური ელ-ფოსტა")
+        this.displayMessage.showError(MessageConstants.VALID_EMAIL_IS_REQUIRED)
       }
       else if(this.registerForm.get("activationCodeField")?.invalid){
-        alert("აქტივაციის კოდის შევსება სავალდებულოა!")
+        this.displayMessage.showError(MessageConstants.ACTIVATION_CODE_REQUIRED)
       }
       else if(this.registerForm.get("passwordField")?.invalid){
-        alert("გთხოვთ, მიუთითოთ ვალიდური პაროლი, ის უნდა შეიცავდეს მინიმუმ: \nერთ დიდ ასოს \nერთ პატარა ასოს \nერთ ციფრს \nერთ სიმბოლოს")
+        this.displayMessage.showError(MessageConstants.VALID_PASSWORD_IS_REQUIRED)
       }
     }
   }

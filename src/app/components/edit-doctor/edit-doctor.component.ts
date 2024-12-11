@@ -4,6 +4,8 @@ import { SafeUrl } from '@angular/platform-browser';
 import { DoctorService } from '../../services/doctor/doctor.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { DisplayMessageService } from '../../services/display-message.service';
+import { MessageConstants } from '../../data/MessageConstants';
 
 @Component({
   selector: 'app-edit-doctor',
@@ -24,7 +26,7 @@ export class EditDoctorComponent {
   category: string | undefined
   rating: Array<number> | undefined
 
-  constructor(private doctorService: DoctorService, private router: Router){}
+  constructor(private doctorService: DoctorService, private router: Router, private displayMessage: DisplayMessageService){}
 
   ngOnInit(){
     this.category = this.doctorService.getDoctorCategory(this.doctor!)
@@ -55,15 +57,15 @@ export class EditDoctorComponent {
       this.doctorService.updateDoctor(this.doctor!.id, { personal_Id: this.inputValue }).subscribe({
         next: () => {
           this.doctor!.personal_Id = this.inputValue
-          alert("პირადი ნომერი წარმატებით შეიცვალა")
+          this.displayMessage.showError(MessageConstants.CHANGE_PERSONALNUMBER_SUCCESS)
           this.TogglePersonalNumberChange()
         },
         error: (error: HttpErrorResponse) => {
           if(error.status === 409){
-            alert("პირადი ნომერი უკვე არსებობს! გთხოვთ, სცადოთ თავიდან")
+            this.displayMessage.showError(MessageConstants.PERSONALNUMBER_ALREADY_EXISTS)
           }
           else{
-            alert("გთხოვთ, შეიყვანოთ ვალიდური პირადი ნომერი")
+            this.displayMessage.showError(MessageConstants.VALID_PERSONALNUMBER_IS_REQUIRED)
           }
         }
       })
@@ -72,15 +74,15 @@ export class EditDoctorComponent {
       this.doctorService.updateDoctor(this.doctor!.id, { email: this.inputValue }).subscribe({
         next: () => {
           this.doctor!.email = this.inputValue
-          alert("ელ-ფოსტა წარმატებით შეიცვალა")
+          this.displayMessage.showError(MessageConstants.CHANGE_EMAIL_SUCCESS)
           this.ToggleEmailChange()
         },
         error: (error: HttpErrorResponse) => {
           if(error.status === 409){
-            alert("ელ-ფოსტა უკვე არსებობს! გთხოვთ, სცადოთ თავიდან")
+            this.displayMessage.showError(MessageConstants.EMAIL_ALREADY_EXISTS)
           }
           else{
-            alert("გთხოვთ, შეიყვანოთ ვალიდური ელ-ფოსტა")
+            this.displayMessage.showError(MessageConstants.VALID_EMAIL_IS_REQUIRED)
           }
         }
       })      

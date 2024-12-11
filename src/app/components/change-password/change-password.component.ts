@@ -4,6 +4,8 @@ import { Doctor } from '../../models/doctor';
 import { Patient } from '../../models/patient';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { ChangePasswordModel } from '../../models/changePassword';
+import { DisplayMessageService } from '../../services/display-message.service';
+import { MessageConstants } from '../../data/MessageConstants';
 
 @Component({
   selector: 'app-change-password',
@@ -25,7 +27,7 @@ export class ChangePasswordComponent {
     repeatedNewPasswordField: new FormControl('', Validators.required)
   })
 
-  constructor(private authenticationService: AuthenticationService){}
+  constructor(private authenticationService: AuthenticationService, private displayMessage: DisplayMessageService){}
 
   onSubmit(){
     if(this.changePasswordForm.valid){
@@ -34,27 +36,27 @@ export class ChangePasswordComponent {
       this.changePasswordModel.password =  this.changePasswordForm.value.newPasswordField!
 
       if(this.changePasswordForm.value.oldPasswordField != this.user?.password){
-        alert("ძველი პაროლი არასწორია, გთხოვთ სცადოთ თავიდან")
+        this.displayMessage.showError(MessageConstants.INVALID_OLD_PASSWORD)
       }
       else if(this.changePasswordModel.password != this.changePasswordForm.value.repeatedNewPasswordField){
-        alert("პაროლები ერთმანეთს არ ემთხვევა, გთხოვთ სცადოთ თავიდან")
+        this.displayMessage.showError(MessageConstants.DIFFERENT_PASSWORDS)
       }
       else{
         this.authenticationService.changeUserPassword(this.changePasswordModel).subscribe({
           next: () => {
-            alert("პაროლი წარმატებით შეიცვალა")
+            this.displayMessage.showError(MessageConstants.CHANGE_PASSWORD_SUCCESS)
             this.user!.password = this.changePasswordModel.password
             this.ToggleForm()
           },
-          error: () => alert("დაფიქსირდა გაუთვალისწინებელი შეცდომა")
+          error: () => this.displayMessage.showError(MessageConstants.UNEXPECTED_ERROR)
         });
       }
     }
     else if(this.changePasswordForm.get("newPasswordField")?.invalid){
-      alert("გთხოვთ, მიუთითოთ ვალიდური პაროლი, ის უნდა შეიცავდეს მინიმუმ: \nერთ დიდ ასოს \nერთ პატარა ასოს \nერთ ციფრს \nერთ სიმბოლოს")
+      this.displayMessage.showError(MessageConstants.VALID_PASSWORD_IS_REQUIRED)
     }
     else{
-      alert("გთხოვთ, შეავსოთ ყველა ველი")
+      this.displayMessage.showError(MessageConstants.ALL_FIELDS_REQUIRED)
     }
   }
 

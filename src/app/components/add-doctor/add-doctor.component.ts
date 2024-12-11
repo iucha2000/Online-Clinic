@@ -6,6 +6,8 @@ import { FileService } from '../../services/doctor/file.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DoctorService } from '../../services/doctor/doctor.service';
 import { Router } from '@angular/router';
+import { DisplayMessageService } from '../../services/display-message.service';
+import { MessageConstants } from '../../data/MessageConstants';
 
 @Component({
   selector: 'app-add-doctor',
@@ -32,7 +34,7 @@ export class AddDoctorComponent {
     cvField: new FormControl('', Validators.required),
   })
 
-  constructor(private fileService: FileService, private doctorService: DoctorService, private router: Router){}
+  constructor(private fileService: FileService, private doctorService: DoctorService, private router: Router, private displayMessage: DisplayMessageService){}
 
   onSubmit(){
     if(this.registerDoctorForm.valid){
@@ -48,43 +50,43 @@ export class AddDoctorComponent {
         next: (doctorId) => {
           this.UploadImage(doctorId)
           this.UploadCv(doctorId)
-          alert("რეგისტრაცია წარმატებით დასრულდა")
+          this.displayMessage.showError(MessageConstants.REGISTRATION_SUCCESS)
           this.router.navigate(['/profile', doctorId])
         },
         error: (error: HttpErrorResponse) => {
           if(error.status === 409){
-            alert("მომხმარებელი მითითებული პირადი ნომრით/ელ-ფოსტით უკვე არსებობს! გთხოვთ, სცადოთ თავიდან")
+            this.displayMessage.showError(MessageConstants.USER_ALREADY_EXISTS)
           }
           else{
-            alert("დაფიქსირდა გაუთვალისწინებელი შეცდომა")
+            this.displayMessage.showError(MessageConstants.UNEXPECTED_ERROR)
           }
         }
       })
     }
     else {
       if(this.registerDoctorForm.get("firstNameField")?.hasError('required')){
-        alert("სახელის შევსება სავალდებულოა!")
+        this.displayMessage.showError(MessageConstants.FIRSTNAME_IS_REQUIRED)
       }
       else if(this.registerDoctorForm.get("lastNameField")?.hasError('required')){
-        alert("გვარის შევსება სავალდებულოა!")
+        this.displayMessage.showError(MessageConstants.LASTNAME_IS_REQUIRED)
       }
       else if(this.registerDoctorForm.get("personalNumberField")?.invalid){
-        alert("გთხოვთ, მიუთითოთ ვალიდური პირადი ნომერი")
+        this.displayMessage.showError(MessageConstants.VALID_PERSONALNUMBER_IS_REQUIRED)
       }
       else if(this.registerDoctorForm.get("emailField")?.invalid){
-        alert("გთხოვთ, მიუთითოთ ვალიდური ელ-ფოსტა")
+        this.displayMessage.showError(MessageConstants.VALID_EMAIL_IS_REQUIRED)
       }
       else if(this.registerDoctorForm.get("passwordField")?.invalid){
-        alert("გთხოვთ, მიუთითოთ ვალიდური პაროლი, ის უნდა შეიცავდეს მინიმუმ: \nერთ დიდ ასოს \nერთ პატარა ასოს \nერთ ციფრს \nერთ სიმბოლოს")
+        this.displayMessage.showError(MessageConstants.VALID_PASSWORD_IS_REQUIRED)
       }
       else if(this.registerDoctorForm.get("categoryField")?.hasError('required')){
-        alert("კატეგორიის შევსება სავალდებულოა!")
+        this.displayMessage.showError(MessageConstants.CATEGORY_IS_REQUIRED)
       }
       else if(this.registerDoctorForm.get("imageField")?.hasError('required')){
-        alert("ფოტოსურათის ატვირთვა სავალდებულოა!")
+        this.displayMessage.showError(MessageConstants.IMAGE_IS_REQUIRED)
       }
       else if(this.registerDoctorForm.get("cvField")?.hasError('required')){
-        alert("CVის ატვირთვა სავალდებულოა!")
+        this.displayMessage.showError(MessageConstants.CV_IS_REQUIRED)
       }
     }
   }
@@ -105,18 +107,13 @@ export class AddDoctorComponent {
 
   UploadImage(doctorId: number){
     this.fileService.uploadDoctorImage(doctorId, this.imageFile!).subscribe({
-      error: (error: HttpErrorResponse) => {
-        //TODO improve error handling UI
-        alert("ფოტოსურათი ვერ აიტვირთა. გთხოვთ, სცადოთ თავიდან")
-      }
+      error: () => this.displayMessage.showError(MessageConstants.IMAGE_NOT_UPLOADED)
     })
   }
 
   UploadCv(doctorId: number){
     this.fileService.uploadDoctorCv(doctorId, this.cvFile!).subscribe({
-      error: (error: HttpErrorResponse) => {
-        alert("CV ვერ აიტვირთა. გთხოვთ, სცადოთ თავიდან")
-      }
+      error: () => this.displayMessage.showError(MessageConstants.CV_NOT_UPLOADED)
     })
   }
 }
