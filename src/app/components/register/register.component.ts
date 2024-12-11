@@ -4,6 +4,7 @@ import { Patient } from '../../models/patient';
 import { EmailService } from '../../services/email/email.service';
 import { PatientService } from '../../services/patient/patient.service';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -27,7 +28,6 @@ export class RegisterComponent {
   constructor(private emailService: EmailService, private patientService: PatientService, private router: Router){}
 
   sendEmail(){
-    //TODO think of a possible validation if email is real or not (or if its null)
     this.emailService.sendCodeByEmail(this.registerForm.value.emailField ?? '').subscribe(() => alert(`აქტივაციის კოდი გაგზავნილია მეილზე: ${this.registerForm.value.emailField}`))
   }
 
@@ -41,15 +41,29 @@ export class RegisterComponent {
       this.user.password = this.registerForm.value.passwordField ?? '';
 
       this.emailService.verifyCode(this.registerForm.value.emailField ?? '', parseInt(this.registerForm.value.activationCodeField ?? '', 10))
-      .subscribe(data => {
-        if(data == true){
-          //TODO show alert if user already exists (has existing email or personal_Id)
-          this.patientService.addPatient(this.user).subscribe(() => alert("რეგისტრაცია წარმატებით დასრულდა"))
-          this.router.navigate(['/home']);
-        }
-        else{
-          alert("აქტივაციის კოდი არასწორია, ან ვადაგასულია")
-        }
+      .subscribe({
+        next: (data) => {
+          if(data == true){
+            this.patientService.addPatient(this.user).subscribe({
+              next: () => {
+                alert("რეგისტრაცია წარმატებით დასრულდა")
+                this.router.navigate(['/home']);
+              },
+              error: (error: HttpErrorResponse) => {
+                if(error.status === 409){
+                  alert("მომხმარებელი მითითებული პირადი ნომრით/ელ-ფოსტით უკვე არსებობს! გთხოვთ, სცადოთ თავიდან")
+                }
+                else{
+                  alert("დაფიქსირდა გაუთვალისწინებელი შეცდომა")
+                }
+              }
+            })
+          }
+          else{
+            alert("აქტივაციის კოდი არასწორია, ან ვადაგასულია")
+          }
+        },
+        error: () => alert("აქტივაციის კოდი არასწორია, ან ვადაგასულია")
       })
     }
     else {

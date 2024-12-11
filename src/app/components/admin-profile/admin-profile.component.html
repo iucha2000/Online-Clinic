@@ -31,7 +31,17 @@
         </div>
         <div *ngIf="!doctorSelected" class="admin-start-page">
             <div class="admin-welcome-text">
-                <!-- TODO add something here -->
+                <div class="admin-welcome-header">
+                    მოგესალმებით ადმინის გვერდზე
+                </div>
+                <div class="admin-welcome-body">
+                    აქედან შესაძლებელია:
+                    <ul>
+                        <li>ახალი ექიმის დამატება</li>
+                        <li>ექიმის ინფორმაციის ნახვა</li>
+                        <li>ექიმის ინფორმაციის რედაქტირება</li>
+                    </ul>
+                </div>
             </div>
         </div>
         <div *ngIf="doctorSelected" class="admin-body-container">
@@ -39,7 +49,7 @@
                 <app-edit-doctor [doctor]="doctor"></app-edit-doctor>
             </div>
             <div class="calendar-container">
-                <!-- TODO initialize calendar component and functionality -->
+                <app-calendar></app-calendar>
             </div>
         </div>
     </div>

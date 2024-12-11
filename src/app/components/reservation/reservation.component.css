@@ -65,6 +65,7 @@
     width: 170px;
     height: 26px;
     margin-bottom: 17px;
+    white-space: nowrap;
     font-family: 'FiraGO';
     font-size: 22px;
     font-weight: 400;

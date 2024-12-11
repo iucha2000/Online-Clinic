@@ -44,17 +44,16 @@ export class AddDoctorComponent {
       this.user.category = Category[this.registerDoctorForm.value.categoryField as keyof typeof Category];
       this.user.rating = Math.floor(Math.random() * 5) + 1;
 
-      //TODO show alert if user already exists (has existing email or personal_Id)
       this.doctorService.addDoctor(this.user).subscribe({
         next: (doctorId) => {
           this.UploadImage(doctorId)
           this.UploadCv(doctorId)
           alert("რეგისტრაცია წარმატებით დასრულდა")
-          this.router.navigate(['/profile'])
+          this.router.navigate(['/profile', doctorId])
         },
         error: (error: HttpErrorResponse) => {
           if(error.status === 409){
-            alert("მომხმარებლის მონაცემები უკვე არსებობს! გთხოვთ, სცადოთ თავიდან")
+            alert("მომხმარებელი მითითებული პირადი ნომრით/ელ-ფოსტით უკვე არსებობს! გთხოვთ, სცადოთ თავიდან")
           }
           else{
             alert("დაფიქსირდა გაუთვალისწინებელი შეცდომა")

@@ -41,14 +41,12 @@ export class ChangePasswordComponent {
       }
       else{
         this.authenticationService.changeUserPassword(this.changePasswordModel).subscribe({
-          next: (res) => {
+          next: () => {
             alert("პაროლი წარმატებით შეიცვალა")
             this.user!.password = this.changePasswordModel.password
             this.ToggleForm()
           },
-          error: (error) => {
-            alert("დაფიქსირდა გაუთვალისწინებელი შეცდომა")
-          }
+          error: () => alert("დაფიქსირდა გაუთვალისწინებელი შეცდომა")
         });
       }
     }

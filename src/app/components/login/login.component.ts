@@ -72,9 +72,7 @@ export class LoginComponent {
 
   CheckEmail(){
     this.authenticationService.resetUserPassword(this.userEmail).subscribe({
-      next: (res) => {
-        this.isEmailSent = true
-      },
+      next: () => this.isEmailSent = true,
       error: (error: HttpErrorResponse) => {
         if(error.status === 404){
           alert("მითითებული მეილი რეგისტრირებული არ არის")

@@ -6,8 +6,6 @@ import { Subject } from 'rxjs';
 })
 export class ComponentCommunicatorService {
 
-  //TODO init other communication logic when needed
-
   private userLoggedInSource = new Subject<void>();
   userLoggedIn$ = this.userLoggedInSource.asObservable();
 

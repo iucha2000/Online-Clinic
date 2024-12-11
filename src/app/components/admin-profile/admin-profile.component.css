@@ -119,6 +119,26 @@
     color: #053354;
 }
 
+.admin-welcome-header{
+    margin-top: -40px;
+    font-family: 'FiraGO';
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 21.6px;
+    text-align: center;
+    text-underline-position: from-font;
+    color: #053354;
+}
+
+.admin-welcome-body{
+    margin-top: 30px;
+    font-family: 'FiraGO';
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 21.6px;
+    text-align: left;
+}
+
 .calendar-container{
     width: 830.5px;
     height: 655px;

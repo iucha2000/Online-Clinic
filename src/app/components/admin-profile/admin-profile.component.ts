@@ -16,7 +16,6 @@ export class AdminProfileComponent {
 
   constructor(private route: ActivatedRoute, private doctorService: DoctorService){}
 
-  //TODO implement add doctor with updates
   //TODO fix pins not changing after admin logout bug
 
   ngOnInit(){
