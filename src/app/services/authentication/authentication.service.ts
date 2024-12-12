@@ -39,11 +39,32 @@ export class AuthenticationService {
     }
   }
 
-  loadUserPreferences() : Doctor[] | null {
+  loadUserPreferences(currentDoctors: Doctor[]) : Doctor[] | null {
     const userId = this.tokenService.getUserId()
     const key = userId === 0 ? "guest" : userId.toString();
 
-    const pinPreferences = localStorage.getItem(key);
-    return pinPreferences ? JSON.parse(pinPreferences) as Doctor[] : null;
+    const storagePinPreferences = localStorage.getItem(key);
+    const pinPreferences =  storagePinPreferences ? JSON.parse(storagePinPreferences) as Doctor[] : null;
+    
+    if (!pinPreferences) {
+      return currentDoctors.map(doctor => ({ ...doctor, isPinned: false }));
+    }
+
+    const currentDoctorIds = new Set(currentDoctors.map(doctor => doctor.id));
+    const pinPreferenceIds = new Set(pinPreferences.map(doctor => doctor.id));
+
+    const idsMatch = currentDoctorIds.size === pinPreferenceIds.size &&
+    Array.from(currentDoctorIds).every(id => pinPreferenceIds.has(id));
+
+    if (idsMatch) {
+      return pinPreferences;
+    }
+
+    const updatedDoctors = currentDoctors.map(doctor => {
+      const matchingPinPreference = pinPreferences.find(pref => pref.id === doctor.id);
+      return { ...doctor, isPinned: matchingPinPreference ? matchingPinPreference.isPinned : false };
+    });
+  
+    return updatedDoctors;
   }
 }

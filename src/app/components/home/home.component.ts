@@ -5,8 +5,6 @@ import { CategoryInfo } from '../../models/categoryInfo';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { Subscription } from 'rxjs';
 import { ComponentCommunicatorService } from '../../services/component-communicator.service';
-import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-home',
@@ -20,8 +18,8 @@ export class HomeComponent implements OnInit, OnDestroy{
   categoryInfos: CategoryInfo[] | null = null;
   currentCategory: CategoryInfo | null = null;
   doctors: Doctor[] | null = null;
-  filteredDoctors: Doctor[] | null = null;
   userPreferences: Doctor[] | null = null;
+  filteredDoctors: Doctor[] | null = null;
 
   @ViewChild('categoryContainer') categoryContainer!: ElementRef;
   @ViewChild('doctorsContainer') doctotsContainer!: ElementRef;
@@ -29,15 +27,15 @@ export class HomeComponent implements OnInit, OnDestroy{
   doctorsListIsExpanded = false;
   filterActive = false;
 
-  constructor(private doctorService: DoctorService, private authService: AuthenticationService, private componentCommunicator: ComponentCommunicatorService, private router: Router){}
-
-  //TODO IMPORTANT init doctors list new state after every update 
+  constructor(private doctorService: DoctorService, private authService: AuthenticationService, private componentCommunicator: ComponentCommunicatorService){}
 
   ngOnInit(){
     this.InitializeComponent();
 
     this.loginSubscription = this.componentCommunicator.userLoggedIn$.subscribe(() => {
       this.InitializeComponent();
+      this.categoryIsExpanded = false;
+      this.doctorsListIsExpanded = false;
     });
   }
 
@@ -51,8 +49,8 @@ export class HomeComponent implements OnInit, OnDestroy{
     this.doctorService.getAllDoctorsData().subscribe(data => {
       this.doctors = data
 
-      this.userPreferences = this.authService.loadUserPreferences();
-      this.filteredDoctors = this.userPreferences ? [...this.userPreferences] : [...this.doctors];
+      this.userPreferences = this.authService.loadUserPreferences(this.doctors);
+      this.filteredDoctors = [...this.userPreferences!];
 
       this.SortByPinned();
     })
@@ -77,29 +75,34 @@ export class HomeComponent implements OnInit, OnDestroy{
   }
 
   FilterByCategory(category: CategoryInfo){
-    this.filteredDoctors = this.userPreferences ? [...this.userPreferences] : [...this.doctors!];
-
     if(this.currentCategory == category){
       this.currentCategory = null;
       this.filterActive = false;
+      this.filteredDoctors = [...this.userPreferences!];
     }
     else{
       this.currentCategory = category;
       this.filterActive = true;
-      this.filteredDoctors = this.filteredDoctors.filter(doctor => doctor.category === category.id)
+      this.filteredDoctors = this.userPreferences!.filter(doctor => doctor.category === category.id);
     }
-    this.SortByPinned()
   }
 
   SortByPinned() {
-    const pinnedDoctors = this.filteredDoctors!.filter(doctor => doctor.isPinned);
-    const unpinnedDoctors = this.filteredDoctors!.filter(doctor => !doctor.isPinned);
+    const pinnedDoctors = this.userPreferences!.filter(doctor => doctor.isPinned);
+    const unpinnedDoctors = this.userPreferences!.filter(doctor => !doctor.isPinned);
 
     const unpinnedDoctorsInOriginalOrder = unpinnedDoctors.sort((a, b) => {
       return this.doctors!.findIndex(doctor => doctor.id === a.id) - this.doctors!.findIndex(doctor => doctor.id === b.id);
     });
 
-    this.filteredDoctors = [...pinnedDoctors, ...unpinnedDoctorsInOriginalOrder];
-    this.authService.saveUserPreferences(this.filteredDoctors);
+    this.userPreferences = [...pinnedDoctors, ...unpinnedDoctorsInOriginalOrder];
+
+    if (this.filterActive && this.currentCategory) {
+      this.filteredDoctors = this.userPreferences.filter(doctor => doctor.category === this.currentCategory!.id);
+    } else {
+      this.filteredDoctors = [...this.userPreferences];
+    }
+
+    this.authService.saveUserPreferences(this.userPreferences);
   }
 }

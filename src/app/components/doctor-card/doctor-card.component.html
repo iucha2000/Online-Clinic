@@ -1,4 +1,4 @@
-<div class="doctor-card-container">
+<div [ngClass]="{'pinned-doctor-card-container': doctor?.isPinned === true, 'unpinned-doctor-card-container': doctor?.isPinned === false}">
     <div class="doctor-card-head">
         <div class="doctor-views-container">
             <img src="/assets/images/views-icon-doctor.png" id="views-icon-doctor">

@@ -36,8 +36,8 @@
             <div class = "doctors-list-body" #doctorsContainer [ngClass]="{'doctorsExpanded': doctorsListIsExpanded}">
                 <app-doctor-card *ngFor="let doctor of filteredDoctors" [doctor]="doctor" (pinToggled)="SortByPinned()"></app-doctor-card>
             </div>
-            <div class = "doctors-list-footer" (click)="ViewFullDoctors()">
-                <div class="doctors-list-footer-text">{{ doctorsListIsExpanded ? 'დამალვა' : 'სრულად ნახვა' }}</div>
+            <div class = "doctors-list-footer">
+                <div class="doctors-list-footer-text" (click)="ViewFullDoctors()">{{ doctorsListIsExpanded ? 'დამალვა' : 'სრულად ნახვა' }} </div>
             </div>
         </div>
     </div> 

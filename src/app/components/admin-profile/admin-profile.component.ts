@@ -16,8 +16,6 @@ export class AdminProfileComponent {
 
   constructor(private route: ActivatedRoute, private doctorService: DoctorService){}
 
-  //TODO fix pins not changing after admin logout bug
-
   ngOnInit(){
     this.doctorId = this.route.snapshot.paramMap.get('id')
 
