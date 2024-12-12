@@ -1,5 +1,17 @@
-<div class="message-modal" [ngClass]="getThemeClass()">
-    <div class="message-modal-content">
-      <p>{{ message }}</p>
+<div class="message-modal">
+  <div class="message-modal-content">
+    <div class="message-modal-head">
+      <div class="icon-container">
+        <img *ngIf="severity == severityValue.Error" src="/assets/images/fail-message-icon.png" class="message-icon">
+        <img *ngIf="severity == severityValue.Information" src="/assets/images/warning-message-icon.png" class="message-icon">
+        <img *ngIf="severity == severityValue.Success" src="/assets/images/success-message-icon.png" class="message-icon">
+      </div>
+      <div class="severity-container">
+        {{ severity }}
+      </div>
+    </div>
+    <div class="message-modal-body">
+      {{ message }}
     </div>
   </div>
+</div>

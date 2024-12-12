@@ -10,15 +10,6 @@ export class DisplayMessageComponent {
   
   @Input() message: string = '';
   @Input() severity: Message = Message.Information;
+  severityValue = Message
 
-  getThemeClass(): string {
-    switch (this.severity) {
-      case Message.Error:
-        return 'error';
-      case Message.Success:
-        return 'success';
-      default:
-        return 'information';
-    }
-  }
 }

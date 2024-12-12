@@ -63,7 +63,7 @@ export class MessageConstants{
     };
 
     static readonly VALID_PASSWORD_IS_REQUIRED = {
-        message: 'გთხოვთ, მიუთითოთ ვალიდური პაროლი, ის უნდა შეიცავდეს მინიმუმ: \nერთ დიდ ასოს \nერთ პატარა ასოს \nერთ ციფრს \nერთ სიმბოლოს',
+        message: 'გთხოვთ, მიუთითოთ ვალიდური პაროლი, ის უნდა შეიცავდეს მინიმუმ: ერთ დიდ ასოს, ერთ პატარა ასოს, ერთ ციფრს და ერთ სიმბოლოს',
         severity: Message.Information
     };
 

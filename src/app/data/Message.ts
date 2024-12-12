@@ -1,5 +1,5 @@
 export enum Message{
-    Error,
-    Information,
-    Success
+    Error = "შეცდომა",
+    Information = "ინფორმაცია",
+    Success = "წარმატებით შესრულდა"
 }
