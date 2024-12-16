@@ -6,6 +6,7 @@ import { Token } from '../../models/token';
 import { Doctor } from '../../models/doctor';
 import { TokenService } from './token.service';
 import { ChangePasswordModel } from '../../models/changePassword';
+import { UserRole } from '../../data/UserRole';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,14 @@ import { ChangePasswordModel } from '../../models/changePassword';
 export class AuthenticationService {
 
   constructor(private httpClient: HttpClient, private tokenService: TokenService) { }
+
+  IsAuthenticated(): boolean {
+    return this.tokenService.getUserId() != 0;
+  }
+
+  IsAdminAuthenticated(): boolean {
+    return this.tokenService.getRole() == UserRole.Admin;
+  }
 
   authenticateUser(login: Login) : Observable<any>{
     return this.httpClient.post<Token>("http://localhost:5161/api/Authentication/Login",login);

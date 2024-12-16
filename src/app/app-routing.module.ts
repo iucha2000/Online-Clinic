@@ -6,6 +6,8 @@ import { ReservationComponent } from './components/reservation/reservation.compo
 import { ProfileComponent } from './components/profile/profile.component';
 import { CategoryComponent } from './components/category/category.component';
 import { AddDoctorComponent } from './components/add-doctor/add-doctor.component';
+import { AuthGuard } from './guards/auth-guard';
+import { AdminGuard } from './guards/admin-guard';
 
 const routes: Routes = [
   {
@@ -26,19 +28,24 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    component: ProfileComponent
+    component: ProfileComponent,
+    canActivate: [AuthGuard]
+
   },
   {
     path: 'profile/:id',
-    component: ProfileComponent
+    component: ProfileComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'category',
-    component: CategoryComponent
+    component: CategoryComponent,
+    canActivate: [AdminGuard]
   },
   {
     path: 'register-doctor',
-    component: AddDoctorComponent
+    component: AddDoctorComponent,
+    canActivate: [AdminGuard]
   }
 ];
 
