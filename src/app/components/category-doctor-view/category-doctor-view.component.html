@@ -17,8 +17,7 @@
         </div>
     </div>
     <div class="buttons-container">
-        <!-- TODO fix flickering when navigating -->
-        <div class="edit-doctor-button-container" [routerLink]="['/profile', doctor?.id]">
+        <div class="edit-doctor-button-container" [routerLink]="['/profile', doctor!.id]">
             <img src="/assets/images/edit-doctor.svg" class="edit-doctor-image"/>
         </div>
         <div class="delete-doctor-button-container" (click)="DeleteDoctor()">

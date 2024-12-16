@@ -1,13 +1,14 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
 import { catchError, throwError } from "rxjs";
+import { DisplayMessageService } from "../services/display-message.service";
+import { MessageConstants } from "../data/MessageConstants";
 
 @Injectable()
 export class MainInterceptor implements HttpInterceptor{
 
-    constructor(private router: Router, private cookieService: CookieService){}
+    constructor(private cookieService: CookieService, private displayMessage: DisplayMessageService){}
 
 
     intercept(req: HttpRequest<any>, next: HttpHandler){
@@ -18,7 +19,6 @@ export class MainInterceptor implements HttpInterceptor{
         if(token != null){
             request = req.clone({
                 headers: new HttpHeaders({
-                    // 'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 })
             });
@@ -26,24 +26,18 @@ export class MainInterceptor implements HttpInterceptor{
         else{
             request = req.clone({
                 headers: new HttpHeaders({
-                    // 'Content-Type': 'application/json'
                 })
             });
         }
 
         return next.handle(request).pipe(
             catchError(res => {
-                // if(res.status == 401){
-                //     if(this.router.url != "/login" && this.router.url != "/"){
-                //         this.router.navigate(['/login']);
-                //     }
-                //     else{
-                //         alert("Invalid credentials");
-                //     }
-                // } 
-                // else {
-                //     alert(res.error?.message || 'An unknown error occurred');
-                // }
+                if(res.status == 401 || res.status == 403){
+                    this.displayMessage.showError(MessageConstants.UNAUTHORIZED_ACCESS)
+                }
+                else if(res.status == 500){
+                    this.displayMessage.showError(MessageConstants.UNEXPECTED_ERROR)
+                }
                 return throwError(() => new HttpErrorResponse({status: res.status, statusText: res.statusText, url: res.url}));
             })
         );

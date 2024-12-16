@@ -34,7 +34,11 @@ export class HomeComponent implements OnInit, OnDestroy{
 
     this.loginSubscription = this.componentCommunicator.userLoggedIn$.subscribe(() => {
       this.InitializeComponent();
+
+      this.categoryContainer.nativeElement.scrollTop = 0;
       this.categoryIsExpanded = false;
+
+      this.doctotsContainer.nativeElement.scrollTop = 0;
       this.doctorsListIsExpanded = false;
     });
   }

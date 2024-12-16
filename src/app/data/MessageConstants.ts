@@ -136,4 +136,9 @@ export class MessageConstants{
         message: 'აქტივაციის კოდის შევსება სავალდებულოა',
         severity: Message.Information
     };
+
+    static readonly UNAUTHORIZED_ACCESS = {
+        message: 'არაავტორიზებული მოთხოვნა',
+        severity: Message.Error
+    };
 }
