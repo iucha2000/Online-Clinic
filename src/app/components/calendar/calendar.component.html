@@ -1,1 +1,28 @@
-<p>calendar works!</p>
+<p>{{user?.firstName}} {{user?.lastName}}</p>
+<div class="calendar-container">
+    <div class="month-year-display">
+      {{ currentMonthYear }}
+    </div>
+    <div class="month-navigation">
+      <button (click)="changeWeek(-4)">&lt;&lt; Previous Month</button>
+      <button (click)="changeWeek(4)">Next Month &gt;&gt;</button>
+    </div>
+    <div class="week-navigation">
+      <button (click)="changeWeek(-1)">&lt; Previous Week</button>
+      <button (click)="changeWeek(1)">Next Week &gt;</button>
+    </div>
+    <div class="calendar-grid">
+      <div class="header-row">
+        <div class="header-cell empty-cell"></div>
+        <div class="header-cell" *ngFor="let weekday of weekdays">
+          {{ weekday.label }}
+        </div>
+      </div>
+      <div class="timeslot-row" *ngFor="let timeslot of timeslots">
+        <div class="timeslot-cell">{{ timeslot }}</div>
+        <div class="grid-cell" *ngFor="let weekday of weekdays" (click)="logSlot(weekday, timeslot)">
+          <!-- TODO add reservation functionality -->
+        </div>
+      </div>
+    </div>
+</div>

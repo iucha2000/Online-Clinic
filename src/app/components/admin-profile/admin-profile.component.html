@@ -47,10 +47,10 @@
         </div>
         <div *ngIf="doctorSelected" class="admin-body-container">
             <div class="doctor-container">
-                <app-edit-doctor [doctor]="doctor"></app-edit-doctor>
+                <app-edit-doctor [doctor]="doctor!"></app-edit-doctor>
             </div>
             <div class="calendar-container">
-                <app-calendar></app-calendar>
+                <app-calendar [user]="doctor"></app-calendar>
             </div>
         </div>
     </div>
