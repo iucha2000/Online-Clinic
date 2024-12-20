@@ -1,21 +1,35 @@
 <p>{{user?.firstName}} {{user?.lastName}}</p>
 <div class="calendar-container">
     <div class="month-year-display">
-      {{ currentMonthYear }}
-    </div>
-    <div class="month-navigation">
-      <button (click)="changeWeek(-4)">&lt;&lt; Previous Month</button>
-      <button (click)="changeWeek(4)">Next Month &gt;&gt;</button>
-    </div>
-    <div class="week-navigation">
-      <button (click)="changeWeek(-1)">&lt; Previous Week</button>
-      <button (click)="changeWeek(1)">Next Week &gt;</button>
+      <div class="current-year-display">
+        {{ currentYear }}
+      </div>
+      <div class="current-month-display">
+        <button class="change-month-button" (click)="changeWeek(-4)">
+          <img src="/assets/images/arrow-icon-small.svg">
+        </button>
+        <div class="current-month-text">
+          {{ currentMonth }} 
+        </div>
+        <button class="change-month-button" (click)="changeWeek(4)">
+          <img src="/assets/images/arrow-icon-small.svg"  id="next-month-icon">
+        </button>
+      </div>
     </div>
     <div class="calendar-grid">
       <div class="header-row">
-        <div class="header-cell empty-cell"></div>
+        <div class="week-navigation">
+          <button class="prev-week-button" (click)="changeWeek(-1)">
+            <img src="/assets/images/arrow-icon-small.svg">
+          </button>
+          <button class="next-week-button" (click)="changeWeek(1)">
+            <img src="/assets/images/arrow-icon-small.svg">
+          </button>
+        </div>
         <div class="header-cell" *ngFor="let weekday of weekdays">
-          {{ weekday.label }}
+          <span class="date">{{ weekday.dateLabel }}</span>
+          &nbsp;
+          <span class="day">{{ weekday.dayLabel }}</span>
         </div>
       </div>
       <div class="timeslot-row" *ngFor="let timeslot of timeslots">

@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Patient } from '../../models/patient';
 import { Doctor } from '../../models/doctor';
 import { addDays, startOfWeek, addWeeks, format } from 'date-fns';
+import { ka } from 'date-fns/locale';
 
 
 @Component({
@@ -12,19 +13,20 @@ import { addDays, startOfWeek, addWeeks, format } from 'date-fns';
 export class CalendarComponent {
   @Input() user: Doctor | Patient | null = null;
 
-  currentMonthYear: string = '';
+  currentYear: string = '';
+  currentMonth: string = '';
   currentWeekStart: Date = new Date();
   timeslots: string[] = [
-    '9:00-10:00',
-    '10:00-11:00',
-    '11:00-12:00',
-    '12:00-13:00',
-    '13:00-14:00',
-    '14:00-15:00',
-    '15:00-16:00',
-    '16:00-17:00'
+    '9:00 - 10:00',
+    '10:00 - 11:00',
+    '11:00 - 12:00',
+    '12:00 - 13:00',
+    '13:00 - 14:00',
+    '14:00 - 15:00',
+    '15:00 - 16:00',
+    '16:00 - 17:00'
   ];
-  weekdays: { date: Date; label: string }[] = [];
+  weekdays: { date: Date; dateLabel: string, dayLabel: string }[] = [];
 
   ngOnInit(): void {
     this.updateWeekdays();
@@ -32,14 +34,19 @@ export class CalendarComponent {
   }
 
   updateMonthYear(): void {
-    this.currentMonthYear = format(this.currentWeekStart, 'MMMM yyyy');
+    this.currentMonth = format(this.currentWeekStart, 'MMMM', { locale: ka });
+    this.currentYear = format(this.currentWeekStart, 'yyyy');
   }
 
   updateWeekdays(): void {
     const start = startOfWeek(this.currentWeekStart, { weekStartsOn: 1 });
     this.weekdays = Array.from({ length: 7 }, (_, i) => {
       const date = addDays(start, i);
-      return { date, label: format(date, 'dd/MM (EEEE)') };
+      return {
+        date,
+        dateLabel: format(date, 'dd', { locale: ka }),
+        dayLabel: format(date, '( EEE )', { locale: ka })
+      };
     });
   }
 
@@ -49,7 +56,7 @@ export class CalendarComponent {
     this.updateMonthYear();
   }
 
-  logSlot(weekday: { date: Date; label: string }, timeslot: string): void {
-    console.log(`Selected: ${weekday.label}, ${timeslot}`);
+  logSlot(weekday: { date: Date; dateLabel: string, dayLabel: string}, timeslot: string): void {
+    console.log(`Selected: ${weekday.dateLabel} ${weekday.dayLabel}, ${timeslot}`);
   }
 }
