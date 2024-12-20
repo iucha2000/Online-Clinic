@@ -1,4 +1,3 @@
-<p>{{user?.firstName}} {{user?.lastName}}</p>
 <div class="calendar-container">
     <div class="month-year-display">
       <div class="current-year-display">
@@ -34,8 +33,11 @@
       </div>
       <div class="timeslot-row" *ngFor="let timeslot of timeslots">
         <div class="timeslot-cell">{{ timeslot }}</div>
-        <div class="grid-cell" *ngFor="let weekday of weekdays" (click)="logSlot(weekday, timeslot)">
-          <!-- TODO add reservation functionality -->
+        <div class="grid-cell" *ngFor="let weekday of weekdays" (click)="addReservation(weekday.date, timeslot)">
+          <div *ngIf="isReserved(weekday.date, timeslot)" class="reserved-cell">
+            <!-- TODO think about a calendar cell as separate component -->
+             content
+          </div>
         </div>
       </div>
     </div>

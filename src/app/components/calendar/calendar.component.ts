@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { Patient } from '../../models/patient';
 import { Doctor } from '../../models/doctor';
 import { addDays, startOfWeek, addWeeks, format } from 'date-fns';
 import { ka } from 'date-fns/locale';
-
+import { Reservation } from '../../models/reservation';
+import { ReservationService } from '../../services/reservation/reservation.service';
 
 @Component({
   selector: 'app-calendar',
@@ -12,6 +13,7 @@ import { ka } from 'date-fns/locale';
 })
 export class CalendarComponent {
   @Input() user: Doctor | Patient | null = null;
+  reservations: Reservation[] | null = null;
 
   currentYear: string = '';
   currentMonth: string = '';
@@ -28,9 +30,17 @@ export class CalendarComponent {
   ];
   weekdays: { date: Date; dateLabel: string, dayLabel: string }[] = [];
 
+  constructor(private reservationService: ReservationService){}
+
   ngOnInit(): void {
     this.updateWeekdays();
     this.updateMonthYear();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['user']) {
+      this.getAllReservations();
+    }
   }
 
   updateMonthYear(): void {
@@ -56,7 +66,46 @@ export class CalendarComponent {
     this.updateMonthYear();
   }
 
-  logSlot(weekday: { date: Date; dateLabel: string, dayLabel: string}, timeslot: string): void {
-    console.log(`Selected: ${weekday.dateLabel} ${weekday.dayLabel}, ${timeslot}`);
+  getAllReservations(){
+    if(this.user && this.user.role == 1){
+      this.reservationService.getReservationsByPatient(this.user!.id).subscribe(data => {
+        this.reservations = data
+      })
+    }
+    else if(this.user && this.user.role == 2){
+      this.reservationService.getReservationsByDoctor(this.user!.id).subscribe(data => {
+        this.reservations = data
+      })
+    }
+  }
+
+  addReservation(date: Date, timeslot: string): void {
+    console.log(`${date}, ${timeslot}`);
+  }
+
+  isReserved(currentDate: Date, currentTimeslot: string){
+    const formattedDate = this.formatDate(currentDate, currentTimeslot);
+
+    return this.reservations?.some(date => 
+      this.compareTimeSlots(formattedDate, new Date(date.reservationDate))
+    ) ?? false;
+  }
+
+  formatDate(date: Date, timeslot: string){
+    const startTime = timeslot.split(' - ')[0];
+    const [hours, minutes] = startTime.split(':').map(num => parseInt(num, 10));
+    
+    const newDate = new Date(date);
+    newDate.setHours(hours, minutes, 0, 0);
+    return newDate;
+  }
+
+  compareTimeSlots(date1: Date, date2: Date){
+    const date1WithoutTime = new Date(date1);
+    const date2WithoutTime = new Date(date2);
+  
+    date1WithoutTime.setMinutes(0, 0, 0);
+    date2WithoutTime.setMinutes(0, 0, 0);
+    return date1WithoutTime.getTime() === date2WithoutTime.getTime();
   }
 }

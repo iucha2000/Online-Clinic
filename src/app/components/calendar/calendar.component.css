@@ -186,3 +186,7 @@ button:hover {
 .grid-cell:hover{
     background-color: #e0e0e0;
 }
+
+.reserved-cell{
+    background-color: black;
+}
