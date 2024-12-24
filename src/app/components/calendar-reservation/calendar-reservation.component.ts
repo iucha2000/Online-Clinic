@@ -15,13 +15,18 @@ export class CalendarReservationComponent {
   constructor(private tokenService: TokenService, private reservationService: ReservationService){}
 
   ngOnInit(){
-    this.reservationService.getReservationsByPatient(this.tokenService.getUserId()).subscribe(data => {
-      this.reservations = data
-    })
+    if(this.tokenService.getUserId() != 0){
+      this.reservationService.getReservationsByPatient(this.tokenService.getUserId()).subscribe(data => {
+        this.reservations = data
+      })
+    }
   }
 
   isOwnReservation(){
-    //TODO implement this check
+    //TODO fix this check
+    if (this.reservations) {
+      return this.reservations.some(reservation => reservation === this.currentReservation);
+    }
     return false;
   }
 }

@@ -83,14 +83,12 @@ export class CalendarComponent {
   }
 
   getReservationByTimeSlot(date: Date) : Reservation {
-    //TODO fix finding the reservation by date
     const currRes = this.reservations?.find(reservation => {
       const reservationDate = new Date(reservation.reservationDate);
-      reservationDate.getDate = date.getDate
-      reservationDate.getHours = date.getHours
-    }) ?? new Reservation()
-
-    return currRes
+      return reservationDate.getDate() === date.getDate() &&
+             reservationDate.getHours() === date.getHours();
+    });
+    return currRes ?? new Reservation();
   }
 
   addReservation(date: Date, timeslot: string): void {
