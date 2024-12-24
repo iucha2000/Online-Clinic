@@ -23,6 +23,7 @@ import { EditDoctorComponent } from './components/edit-doctor/edit-doctor.compon
 import { AddDoctorComponent } from './components/add-doctor/add-doctor.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { DisplayMessageComponent } from './components/display-message/display-message.component';
+import { CalendarReservationComponent } from './components/calendar-reservation/calendar-reservation.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { DisplayMessageComponent } from './components/display-message/display-me
     EditDoctorComponent,
     AddDoctorComponent,
     CalendarComponent,
-    DisplayMessageComponent
+    DisplayMessageComponent,
+    CalendarReservationComponent
   ],
   imports: [
     BrowserModule,

@@ -35,8 +35,7 @@
         <div class="timeslot-cell">{{ timeslot }}</div>
         <div class="grid-cell" *ngFor="let weekday of weekdays" (click)="addReservation(weekday.date, timeslot)">
           <div *ngIf="isReserved(weekday.date, timeslot)" class="reserved-cell">
-            <!-- TODO think about a calendar cell as separate component -->
-             content
+            <app-calendar-reservation [currentReservation]="getReservationByTimeSlot(formatDate(weekday.date, timeslot))"></app-calendar-reservation>
           </div>
         </div>
       </div>

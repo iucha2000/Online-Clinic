@@ -141,4 +141,9 @@ export class MessageConstants{
         message: 'არაავტორიზებული მოთხოვნა',
         severity: Message.Error
     };
+
+    static readonly PLEASE_AUTHORIZE = {
+        message: 'ამ ოპერაციის შესასრულებლად გთხოვთ გაიაროთ ავტორიზაცია',
+        severity: Message.Information
+    };
 }

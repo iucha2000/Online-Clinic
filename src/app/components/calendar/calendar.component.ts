@@ -2,9 +2,12 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 import { Patient } from '../../models/patient';
 import { Doctor } from '../../models/doctor';
 import { addDays, startOfWeek, addWeeks, format } from 'date-fns';
-import { ka } from 'date-fns/locale';
+import { da, ka } from 'date-fns/locale';
 import { Reservation } from '../../models/reservation';
 import { ReservationService } from '../../services/reservation/reservation.service';
+import { TokenService } from '../../services/authentication/token.service';
+import { DisplayMessageService } from '../../services/display-message.service';
+import { MessageConstants } from '../../data/MessageConstants';
 
 @Component({
   selector: 'app-calendar',
@@ -30,7 +33,7 @@ export class CalendarComponent {
   ];
   weekdays: { date: Date; dateLabel: string, dayLabel: string }[] = [];
 
-  constructor(private reservationService: ReservationService){}
+  constructor(private reservationService: ReservationService, private tokenService: TokenService, private displayMessage: DisplayMessageService){}
 
   ngOnInit(): void {
     this.updateWeekdays();
@@ -79,8 +82,28 @@ export class CalendarComponent {
     }
   }
 
+  getReservationByTimeSlot(date: Date) : Reservation {
+    //TODO fix finding the reservation by date
+    const currRes = this.reservations?.find(reservation => {
+      const reservationDate = new Date(reservation.reservationDate);
+      reservationDate.getDate = date.getDate
+      reservationDate.getHours = date.getHours
+    }) ?? new Reservation()
+
+    return currRes
+  }
+
   addReservation(date: Date, timeslot: string): void {
-    console.log(`${date}, ${timeslot}`);
+    if(this.tokenService.getUserId() == 0){
+      this.displayMessage.showError(MessageConstants.PLEASE_AUTHORIZE)
+    }
+    else{
+      //TODO add modal for description
+      const reservation = {id: 0, patientId: this.tokenService.getUserId(), doctorId: this.user!.id, description: "problem description", reservationDate: this.formatDate(date, timeslot)}
+      this.reservationService.addReservation(reservation).subscribe(() => {
+        this.getAllReservations();
+      })
+    }
   }
 
   isReserved(currentDate: Date, currentTimeslot: string){

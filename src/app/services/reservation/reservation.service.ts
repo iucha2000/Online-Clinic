@@ -17,4 +17,8 @@ export class ReservationService {
   getReservationsByPatient(patiendId: number) : Observable<Reservation[]>{
     return this.httpClient.get<Reservation[]>(`http://localhost:5161/api/Reservations/Get-Reservations-By-Patient/${patiendId}`)
   }
+
+  addReservation(reservation: Reservation){
+    return this.httpClient.post<any>(`http://localhost:5161/api/Reservations/Add-Reservation`,reservation)
+  }
 }
