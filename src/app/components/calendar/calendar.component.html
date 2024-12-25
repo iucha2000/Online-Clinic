@@ -33,7 +33,15 @@
       </div>
       <div class="timeslot-row" *ngFor="let timeslot of timeslots">
         <div class="timeslot-cell">{{ timeslot }}</div>
-        <div class="grid-cell" *ngFor="let weekday of weekdays" (click)="addReservation(weekday.date, timeslot)">
+        <div class="grid-cell" *ngFor="let weekday of weekdays">
+          <div *ngIf="!isReserved(weekday.date, timeslot)" class="not-reserved-cell">
+            <div *ngIf="weekday.dayLabel === '( შაბ )' || weekday.dayLabel === '( კვი )'" class="weekend-cell">
+
+            </div>
+            <div *ngIf="weekday.dayLabel !== '( შაბ )' && weekday.dayLabel !== '( კვი )' && router.url.includes('/reservation')" class="weekday-cell" (click)="addReservation(weekday.date, timeslot)">
+              <span>+</span>&nbsp;დაჯავშნა
+            </div>
+          </div>
           <div *ngIf="isReserved(weekday.date, timeslot)" class="reserved-cell">
             <app-calendar-reservation [currentReservation]="getReservationByTimeSlot(formatDate(weekday.date, timeslot))"></app-calendar-reservation>
           </div>
@@ -41,3 +49,4 @@
       </div>
     </div>
 </div>
+<!-- TODO add buttons and functionality -->

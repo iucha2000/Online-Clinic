@@ -1,6 +1,11 @@
-<div *ngIf="isOwnReservation()" class="own-reservation">
-    ჩემი ჯავშანი
-</div>
-<div *ngIf="!isOwnReservation()" class="other-reservation">
-    სხვისი ჯავშანი
+<div class="reservation-container">
+    <div *ngIf="isPatientReservation()" class="patient-own-reservation">
+        ჩემი ჯავშანი
+    </div>
+    <div *ngIf="isDoctorReservation()" class="doctor-own-reservation">
+        დაჯავშნილია
+    </div>
+    <div *ngIf="!isPatientReservation() && !isDoctorReservation()" class="other-reservation">
+        
+    </div>   
 </div>

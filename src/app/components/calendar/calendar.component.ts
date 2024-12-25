@@ -8,6 +8,7 @@ import { ReservationService } from '../../services/reservation/reservation.servi
 import { TokenService } from '../../services/authentication/token.service';
 import { DisplayMessageService } from '../../services/display-message.service';
 import { MessageConstants } from '../../data/MessageConstants';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-calendar',
@@ -33,7 +34,7 @@ export class CalendarComponent {
   ];
   weekdays: { date: Date; dateLabel: string, dayLabel: string }[] = [];
 
-  constructor(private reservationService: ReservationService, private tokenService: TokenService, private displayMessage: DisplayMessageService){}
+  constructor(private reservationService: ReservationService, private tokenService: TokenService, private displayMessage: DisplayMessageService, public router: Router){}
 
   ngOnInit(): void {
     this.updateWeekdays();
@@ -92,6 +93,7 @@ export class CalendarComponent {
   }
 
   addReservation(date: Date, timeslot: string): void {
+    //TODO add check if given timeslot is reserved for user
     if(this.tokenService.getUserId() == 0){
       this.displayMessage.showError(MessageConstants.PLEASE_AUTHORIZE)
     }
@@ -106,7 +108,6 @@ export class CalendarComponent {
 
   isReserved(currentDate: Date, currentTimeslot: string){
     const formattedDate = this.formatDate(currentDate, currentTimeslot);
-
     return this.reservations?.some(date => 
       this.compareTimeSlots(formattedDate, new Date(date.reservationDate))
     ) ?? false;
