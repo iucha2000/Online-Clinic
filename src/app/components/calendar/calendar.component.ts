@@ -130,4 +130,12 @@ export class CalendarComponent {
     date2WithoutTime.setMinutes(0, 0, 0);
     return date1WithoutTime.getTime() === date2WithoutTime.getTime();
   }
+
+  ToggleEditMode(){
+
+  }
+
+  ToggleDeleteMode(){
+    
+  }
 }

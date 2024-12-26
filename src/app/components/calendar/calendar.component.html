@@ -1,4 +1,5 @@
-<div class="calendar-container">
+<div [ngClass]="router.url.includes('/reservation') ? 'calendar-and-buttons-reservation' : 'calendar-and-buttons-profile'">
+  <div class="calendar-container">
     <div class="month-year-display">
       <div class="current-year-display">
         {{ currentYear }}
@@ -36,7 +37,6 @@
         <div class="grid-cell" *ngFor="let weekday of weekdays">
           <div *ngIf="!isReserved(weekday.date, timeslot)" class="not-reserved-cell">
             <div *ngIf="weekday.dayLabel === '( შაბ )' || weekday.dayLabel === '( კვი )'" class="weekend-cell">
-
             </div>
             <div *ngIf="weekday.dayLabel !== '( შაბ )' && weekday.dayLabel !== '( კვი )' && router.url.includes('/reservation')" class="weekday-cell" (click)="addReservation(weekday.date, timeslot)">
               <span>+</span>&nbsp;დაჯავშნა
@@ -48,5 +48,15 @@
         </div>
       </div>
     </div>
+  </div>
+  <div *ngIf="!this.router.url.includes('/profile/')" [ngClass]="router.url.includes('/reservation') ? 'calendar-buttons-reservation' : 'calendar-buttons-profile'">
+    <div class="edit-doctor-button-container" (click)="ToggleEditMode()">
+        <img src="/assets/images/edit-doctor-admin.svg">
+        <div class="edit-doctor-button">რედაქტირება</div>
+    </div>
+    <div class="delete-doctor-button-container" (click)="ToggleDeleteMode()">
+        <img src="/assets/images/delete-doctor-admin.svg">
+        <div class="delete-doctor-button">წაშლა</div>
+    </div>
+  </div>
 </div>
-<!-- TODO add buttons and functionality -->
