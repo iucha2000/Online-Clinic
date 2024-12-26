@@ -113,7 +113,8 @@ export class HeaderComponent {
   }
 
   LogOut(){
-    this.cookieService.delete("accessToken");
+    this.cookieService.delete("accessToken", "/");
+    this.cookieService.delete("accessToken", "/reservation");
     this.isLoggedIn = false;
     localStorage.removeItem("loginStatus");
     this.imageUrl = null;

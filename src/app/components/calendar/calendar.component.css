@@ -224,7 +224,7 @@ button:hover {
 }
 
 .weekday-cell:hover{
-    background-color: #e0e0e0;
+    color: #3ACF99;
 }
 
 .weekday-cell span{
@@ -294,3 +294,108 @@ button:hover {
 .delete-doctor-button{
     margin-left: 12px;
 }
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vw;
+    z-index: 10;
+}
+
+.description-form-container{
+    width: 420px;
+    height: 263px;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border: 1px solid #05335433;
+    /* box-shadow: 0px 4px 30px 0px #05335433; */
+    border-radius: 10px;
+    z-index: 100;
+}
+
+.description-form-header{
+    display: flex;
+    flex-direction: column;
+    margin-top: 25px;
+    margin-left: 26px;
+    gap: 8px;
+    font-family: 'FiraGO';
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+
+.green-text{
+    color: #3ACF99;
+}
+
+.blue-text{
+    color: #053354;
+}
+
+.description-content{
+    margin-top: 15px;
+}
+
+.description-input{
+    padding-top: 10px;
+    padding-left: 10px;
+    width: 357px;
+    height: 90px;
+    border-radius: 10px;
+    font-family: 'FiraGO';
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.8px;
+    text-align: left;
+    border: 1px solid #ECF2F8;
+    outline: none;
+    resize: none;
+}
+
+.description-input::placeholder{
+    position: absolute;
+    top: 0;
+    left: 0; 
+    padding-top: 10px;
+    padding-left: 10px;
+    font-family: 'FiraGO';
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.8px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #0533544D;
+}
+
+.reserve-button{
+    width: 170px;
+    height: 50px;
+    margin-top: 8px;
+    margin-left: auto;
+    margin-right: 24px;
+    border-radius: 50px;
+    background: #3ACF99;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'FiraGO';
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 21.6px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+

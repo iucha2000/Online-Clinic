@@ -9,6 +9,7 @@ import { TokenService } from '../../services/authentication/token.service';
 import { DisplayMessageService } from '../../services/display-message.service';
 import { MessageConstants } from '../../data/MessageConstants';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-calendar',
@@ -17,6 +18,11 @@ import { Router } from '@angular/router';
 })
 export class CalendarComponent {
   @Input() user: Doctor | Patient | null = null;
+  descriptionFormOpen = false;
+  descriptionStyle: any = {};
+  selectedDate: any;
+  selectedTimeslot: any;
+
   reservations: Reservation[] | null = null;
 
   currentYear: string = '';
@@ -92,18 +98,42 @@ export class CalendarComponent {
     return currRes ?? new Reservation();
   }
 
-  addReservation(date: Date, timeslot: string): void {
-    //TODO add check if given timeslot is reserved for user
+  openDescriptionForm(date: any, timeslot: any, event: MouseEvent){
     if(this.tokenService.getUserId() == 0){
       this.displayMessage.showError(MessageConstants.PLEASE_AUTHORIZE)
     }
     else{
-      //TODO add modal for description
-      const reservation = {id: 0, patientId: this.tokenService.getUserId(), doctorId: this.user!.id, description: "problem description", reservationDate: this.formatDate(date, timeslot)}
-      this.reservationService.addReservation(reservation).subscribe(() => {
-        this.getAllReservations();
-      })
+      this.selectedDate = date;
+      this.selectedTimeslot = timeslot;
+
+      const clickX = event.clientX;
+      const clickY = event.clientY;
+      this.descriptionStyle = {top: `${clickY}px`,left: `${clickX}px`};
+      this.descriptionFormOpen = true;
     }
+  }
+
+  addReservation(date: Date, timeslot: string, description: string): void {
+    const reservation = {id: 0, patientId: this.tokenService.getUserId(), doctorId: this.user!.id, description: description, reservationDate: this.formatDate(date, timeslot)}
+    this.reservationService.addReservation(reservation).subscribe({
+      //TODO fix error handling
+      next: () => {
+        this.descriptionFormOpen = false
+        this.displayMessage.showError(MessageConstants.RESERVATION_ADD_SUCCESS)
+        this.getAllReservations()
+      },
+      error: (error: HttpErrorResponse) => {
+        if(error.status === 409){
+          this.displayMessage.showError(MessageConstants.RESERVATION_ALREADY_EXISTS)
+        }
+        if(error.status === 401){
+          this.displayMessage.showError(MessageConstants.SESSION_EXPIRED)
+        }
+        else{
+          this.displayMessage.showError(MessageConstants.UNEXPECTED_ERROR)
+        }
+      }
+    })
   }
 
   isReserved(currentDate: Date, currentTimeslot: string){
@@ -136,6 +166,6 @@ export class CalendarComponent {
   }
 
   ToggleDeleteMode(){
-    
+
   }
 }

@@ -146,4 +146,24 @@ export class MessageConstants{
         message: 'ამ ოპერაციის შესასრულებლად გთხოვთ გაიაროთ ავტორიზაცია',
         severity: Message.Information
     };
+
+    static readonly RESERVATION_ALREADY_EXISTS = {
+        message: 'მითითებულ დროს ფიქსირდება აქტიური ჯავშანი',
+        severity: Message.Information
+    };
+
+    static readonly PLEASE_ENTER_DESCRIPTION = {
+        message: 'გთხოვთ, მიუთითოთ პრობლემის აღწერა',
+        severity: Message.Information
+    };
+
+    static readonly RESERVATION_ADD_SUCCESS = {
+        message: 'ვიზიტი წარმატებით დაიჯავშნა',
+        severity: Message.Success
+    };
+
+    static readonly SESSION_EXPIRED = {
+        message: 'სესიის ვადა ამოიწურა, გთხოვთ თავიდან გაიაროთ ავტორიზაცია',
+        severity: Message.Error
+    };
 }
