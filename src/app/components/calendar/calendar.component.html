@@ -45,18 +45,18 @@
               <div class="overlay" (click)="descriptionFormOpen = false"></div>
               <div class="description-form-container" [ngStyle]="descriptionStyle">
                 <div class="description-form-header">
-                  <span class="green-text">გსურთ ვიზიტის დაჯავშნა?</span>
-                  <span class="blue-text">შეგიძლიათ მიუთითოთ თქვენი პრობლემა</span>
+                  <span class="green-text">{{ showEditButton ? 'გსურთ აღწერის ცვლილება?' : 'გსურთ ვიზიტის დაჯავშნა?' }}</span>
+                  <span class="blue-text">{{ showEditButton ? 'შეგიძლიათ მიუთითოთ ახალი აღწერა' : 'შეგიძლიათ მიუთითოთ თქვენი პრობლემა'}}</span>
                 </div>
                 <div class="description-content">
                   <textarea #description class="description-input" type="text" placeholder="აღწერა..."></textarea>
                 </div>
-                <div class="reserve-button" (click)="addReservation(selectedDate, selectedTimeslot, description.value)">დაჯავშნა</div>
+                <div class="reserve-button" (click)="handleReservationSubmit(selectedDate, selectedTimeslot, description.value)">{{ showEditButton ? 'შეცვლა' : 'დაჯავშნა'}}</div>
               </div>
             </div>
           </div>
           <div *ngIf="isReserved(weekday.date, timeslot)" class="reserved-cell">
-            <app-calendar-reservation [currentReservation]="getReservationByTimeSlot(formatDate(weekday.date, timeslot))"></app-calendar-reservation>
+            <app-calendar-reservation [currentReservation]="getReservationByTimeSlot(formatDate(weekday.date, timeslot))" [showEditButton]="showEditButton" [showDeleteButton]="showDeleteButton" (edit)="editReservation(weekday.date, timeslot, $event)" (delete)="deleteReservation($event)"></app-calendar-reservation>
           </div>
         </div>
       </div>

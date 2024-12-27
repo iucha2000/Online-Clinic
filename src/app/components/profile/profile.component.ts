@@ -6,6 +6,8 @@ import { SafeUrl } from '@angular/platform-browser';
 import { PatientService } from '../../services/patient/patient.service';
 import { DoctorService } from '../../services/doctor/doctor.service';
 import { UserRole } from '../../data/UserRole';
+import { Reservation } from '../../models/reservation';
+import { ReservationService } from '../../services/reservation/reservation.service';
 
 @Component({
   selector: 'app-profile',
@@ -24,8 +26,9 @@ export class ProfileComponent {
   imageUrl: SafeUrl | null = null;
   category: string | undefined
   rating: Array<number> | undefined
+  reservations: Reservation[] | null = null;
 
-  constructor(private tokenService: TokenService, private patientService: PatientService, private doctorService: DoctorService){}
+  constructor(private tokenService: TokenService, private patientService: PatientService, private doctorService: DoctorService, private reservationService: ReservationService){}
 
   ngOnInit(){
     this.userId = this.tokenService.getUserId()
@@ -35,6 +38,9 @@ export class ProfileComponent {
       this.patientService.getPatientData(this.userId).subscribe(data => {
         this.patient = data
       })
+      this.reservationService.getReservationsByPatient(this.userId).subscribe(data => {
+        this.reservations = data
+      })
     }
     else if(this.userRole == UserRole.Doctor){
       this.doctorService.getDoctorData(this.userId).subscribe(data => {
@@ -42,6 +48,9 @@ export class ProfileComponent {
         this.category = this.doctorService.getDoctorCategory(this.doctor!)
         this.rating = this.doctorService.getDoctorRating(this.doctor!)
         this.doctorService.getDoctorImage(this.doctor!).subscribe(safeUrl => this.imageUrl = safeUrl)
+      })
+      this.reservationService.getReservationsByDoctor(this.userId).subscribe(data => {
+        this.reservations = data
       })
     }
     else{

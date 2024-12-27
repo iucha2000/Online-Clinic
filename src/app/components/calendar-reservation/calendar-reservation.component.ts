@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TokenService } from '../../services/authentication/token.service';
 import { ReservationService } from '../../services/reservation/reservation.service';
 import { Reservation } from '../../models/reservation';
@@ -17,6 +17,12 @@ export class CalendarReservationComponent {
   private loginSubscription!: Subscription;
 
   @Input() currentReservation: Reservation | null = null;
+  @Input() showDeleteButton: boolean = false;
+  @Input() showEditButton: boolean = false;
+
+  @Output() delete = new EventEmitter<Reservation>();
+  @Output() edit = new EventEmitter<{ reservation: Reservation, event: MouseEvent }>();
+
   userReservations: Reservation[] | null = null;
   userRole = UserRole
 
@@ -75,5 +81,13 @@ export class CalendarReservationComponent {
     }
   
     return this.userReservations.some(reservation => reservation.id === this.currentReservation!.id && reservation.doctorId == userId);
+  }
+
+  editReservation(event: MouseEvent){
+    this.edit.emit({ reservation: this.currentReservation!, event })
+  }
+
+  deleteReservation(){
+    this.delete.emit(this.currentReservation!)
   }
 }

@@ -1,9 +1,17 @@
 <div class="reservation-container">
-    <div *ngIf="isPatientReservation()" class="patient-own-reservation">
-        ჩემი ჯავშანი
-    </div>
-    <div *ngIf="isDoctorReservation()" class="doctor-own-reservation">
-        დაჯავშნილია
+    <div *ngIf="isPatientReservation() || isDoctorReservation()"  class="active-reservation">
+        <div *ngIf="isPatientReservation()" class="patient-own-reservation">
+            ჩემი ჯავშანი
+        </div>
+        <div *ngIf="isDoctorReservation()" class="doctor-own-reservation">
+            დაჯავშნილია
+        </div>
+        <div *ngIf="showEditButton" class="edit-reservation-button" (click)="editReservation($event)">
+            <img src="/assets/images/edit-reservation.svg" class="edit-button"/>
+        </div>
+        <div *ngIf="showDeleteButton" class="delete-reservation-button" (click)="deleteReservation()">
+            <img src="/assets/images/delete-reservation.svg" class="delete-button">
+        </div>
     </div>
     <div *ngIf="!isPatientReservation() && !isDoctorReservation()" class="other-reservation">
         

@@ -162,6 +162,11 @@ export class MessageConstants{
         severity: Message.Success
     };
 
+    static readonly RESERVATION_UPDATE_SUCCESS = {
+        message: 'აღწერა წარმატებით შეიცვალა',
+        severity: Message.Success
+    };
+
     static readonly SESSION_EXPIRED = {
         message: 'სესიის ვადა ამოიწურა, გთხოვთ თავიდან გაიაროთ ავტორიზაცია',
         severity: Message.Error

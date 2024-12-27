@@ -23,6 +23,9 @@ export class CalendarComponent {
   selectedDate: any;
   selectedTimeslot: any;
 
+  showDeleteButton = false;
+  showEditButton = false;
+
   reservations: Reservation[] | null = null;
 
   currentYear: string = '';
@@ -113,10 +116,20 @@ export class CalendarComponent {
     }
   }
 
+  handleReservationSubmit(date: Date, timeslot: string, description: string){
+    if(this.showEditButton){
+      const reservation = this.getReservationByTimeSlot(this.formatDate(date, timeslot))
+      reservation.description = description
+      this.updateReservation(reservation!.id, reservation)
+    }
+    else{
+      this.addReservation(date, timeslot, description)
+    }
+  }
+
   addReservation(date: Date, timeslot: string, description: string): void {
     const reservation = {id: 0, patientId: this.tokenService.getUserId(), doctorId: this.user!.id, description: description, reservationDate: this.formatDate(date, timeslot)}
     this.reservationService.addReservation(reservation).subscribe({
-      //TODO fix error handling
       next: () => {
         this.descriptionFormOpen = false
         this.displayMessage.showError(MessageConstants.RESERVATION_ADD_SUCCESS)
@@ -126,6 +139,24 @@ export class CalendarComponent {
         if(error.status === 409){
           this.displayMessage.showError(MessageConstants.RESERVATION_ALREADY_EXISTS)
         }
+        else if(error.status === 401){
+          this.displayMessage.showError(MessageConstants.SESSION_EXPIRED)
+        }
+        else{
+          this.displayMessage.showError(MessageConstants.UNEXPECTED_ERROR)
+        }
+      }
+    })
+  }
+
+  updateReservation(reservationId: number, reservation: Reservation){
+    this.reservationService.updateReservation(reservationId, reservation).subscribe({
+      next: () => {
+        this.descriptionFormOpen = false
+        this.displayMessage.showError(MessageConstants.RESERVATION_UPDATE_SUCCESS)
+        this.getAllReservations()
+      },
+      error: (error: HttpErrorResponse) =>{
         if(error.status === 401){
           this.displayMessage.showError(MessageConstants.SESSION_EXPIRED)
         }
@@ -162,10 +193,31 @@ export class CalendarComponent {
   }
 
   ToggleEditMode(){
-
+    if(this.tokenService.getUserId() == 0){
+      this.displayMessage.showError(MessageConstants.PLEASE_AUTHORIZE)
+    }
+    else{
+      this.showEditButton = !this.showEditButton;
+      this.showDeleteButton = false;
+    }
   }
 
   ToggleDeleteMode(){
+    if(this.tokenService.getUserId() == 0){
+      this.displayMessage.showError(MessageConstants.PLEASE_AUTHORIZE)
+    }
+    else{
+      this.showDeleteButton = !this.showDeleteButton;
+      this.showEditButton = false;
+    }
+  }
 
+  editReservation(date: any, timeslot: any, data: { reservation: Reservation, event: MouseEvent }){
+    this.openDescriptionForm(date, timeslot, data.event)
+
+  }
+
+  deleteReservation(currentReservation: Reservation){
+    this.reservationService.deleteReservation(currentReservation.id).subscribe(() => this.getAllReservations())
   }
 }
