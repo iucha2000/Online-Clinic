@@ -10,6 +10,8 @@ import { DisplayMessageService } from '../../services/display-message.service';
 import { MessageConstants } from '../../data/MessageConstants';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { PatientService } from '../../services/patient/patient.service';
+import { UserRole } from '../../data/UserRole';
 
 @Component({
   selector: 'app-calendar',
@@ -43,7 +45,7 @@ export class CalendarComponent {
   ];
   weekdays: { date: Date; dateLabel: string, dayLabel: string }[] = [];
 
-  constructor(private reservationService: ReservationService, private tokenService: TokenService, private displayMessage: DisplayMessageService, public router: Router){}
+  constructor(private reservationService: ReservationService, private patientService: PatientService, private tokenService: TokenService, private displayMessage: DisplayMessageService, public router: Router){}
 
   ngOnInit(): void {
     this.updateWeekdays();
@@ -104,6 +106,9 @@ export class CalendarComponent {
   openDescriptionForm(date: any, timeslot: any, event: MouseEvent){
     if(this.tokenService.getUserId() == 0){
       this.displayMessage.showError(MessageConstants.PLEASE_AUTHORIZE)
+    }
+    else if(this.tokenService.getRole() != UserRole.Patient){
+      this.displayMessage.showError(MessageConstants.PATIENT_REQUIRED)
     }
     else{
       this.selectedDate = date;

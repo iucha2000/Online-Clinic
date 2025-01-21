@@ -6,6 +6,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { DisplayMessageService } from '../../services/display-message.service';
 import { MessageConstants } from '../../data/MessageConstants';
+import { Reservation } from '../../models/reservation';
+import { ReservationService } from '../../services/reservation/reservation.service';
+import { da } from 'date-fns/locale';
 
 @Component({
   selector: 'app-edit-doctor',
@@ -22,16 +25,18 @@ export class EditDoctorComponent {
   emailChange = false
   inputValue: string = ''
 
+  reservations: Reservation[] | null = null;
   imageUrl: SafeUrl | null = null;
   category: string | undefined
   rating: Array<number> | undefined
 
-  constructor(private doctorService: DoctorService, private router: Router, private displayMessage: DisplayMessageService){}
+  constructor(private doctorService: DoctorService, private reservationService: ReservationService, private router: Router, private displayMessage: DisplayMessageService){}
 
   ngOnInit(){
     this.category = this.doctorService.getDoctorCategory(this.doctor!)
     this.rating = this.doctorService.getDoctorRating(this.doctor!)
     this.doctorService.getDoctorImage(this.doctor!).subscribe(safeUrl => this.imageUrl = safeUrl)
+    this.reservationService.getReservationsByDoctor(this.doctor!.id).subscribe(data => this.reservations = data)
   }
 
   ToggleChangePassword(){

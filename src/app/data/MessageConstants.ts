@@ -171,4 +171,9 @@ export class MessageConstants{
         message: 'სესიის ვადა ამოიწურა, გთხოვთ თავიდან გაიაროთ ავტორიზაცია',
         severity: Message.Error
     };
+
+    static readonly PATIENT_REQUIRED = {
+        message: 'ვიზიტის დასაჯავშნად აუცილებელია პაციენტის ანგარიშით ავტორიზაცია',
+        severity: Message.Information
+    };
 }
